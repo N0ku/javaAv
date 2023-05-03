@@ -14,6 +14,8 @@ public class Customers extends Person{
         this.groupId = groupId;
     }
 
+    public int getGroupId(){ return  groupId;}
+
     public Tables getTable() {
         return table;
     }
