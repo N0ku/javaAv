@@ -73,11 +73,43 @@ public class RestaurantStatusViewController implements Initializable {
                     .collect(Collectors.toCollection(ArrayList::new));
 
             // find the first free table and where all the customers can sit
-            Tables table = tables.stream().filter(t -> !t.isFree() && t.getSize() > customersToAdd.size()).findFirst().orElse(null);
+            Tables table = tables.stream().filter(t -> t.isFree() && t.getSize() > customersToAdd.size()).findFirst().orElse(null);
 
+            if (table != null) {
+                table.setCustomers(customersToAdd);
 
+                customersToAdd.forEach(c -> {
+                    customersList.getItems().remove(c);
+                });
+
+                int indexToUpdate = tablesList.getItems().indexOf(table);
+
+                table.setCustomers(customersToAdd);
+                table.setFree(false);
+                tablesList.getItems().set(indexToUpdate, table);
+            } else {
+                System.out.println("Aucune table de dispo !!");
+            }
         });
 
+        tablesList.setOnMouseClicked(event -> {
+            Tables table = tablesList.getSelectionModel().getSelectedItem();
+
+            ArrayList<Customers> customersTable = new ArrayList<>(table.getCustomers());
+
+            System.out.println(customersTable.size());
+
+            if (customersTable.size() >= 1) {
+                customersTable.forEach(c -> {
+                    customersList.getItems().add(c);
+                });
+                customersTable.clear();
+                int indexToUpdate = tablesList.getItems().indexOf(table);
+                table.setCustomers(customersTable);
+                table.setFree(true);
+                tablesList.getItems().set(indexToUpdate, table);
+            }
+        });
 
     }
 }

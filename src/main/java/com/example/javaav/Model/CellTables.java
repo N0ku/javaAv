@@ -10,12 +10,12 @@ public class CellTables extends ListCell<Tables> {
         super.updateItem(item, empty);
         setText(null);
         if (!empty && item != null) {
-            ArrayList<Customers> customers = item.getCustomers();
+            String customers = item.getCustomersToString();
             String text;
             if (customers.isEmpty()) {
-                text = String.format("Table: %s%n%s", item.getTableNumber(), "Table disponible");
+                text = String.format("Table: %s%n%s%n%s %d", item.getTableNumber(), "Table disponible", "Nombre de place dispo:", item.getSize());
             } else {
-                text = String.format("Table: %s%n%s", item.getTableNumber(), customers);
+                text = String.format("Table: %s%n%s%n%s %d", item.getTableNumber(), customers, "Nombre de place dispo:", item.getSize());
             }
             setText(text);
         }

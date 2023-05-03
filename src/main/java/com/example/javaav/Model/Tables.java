@@ -1,6 +1,7 @@
 package com.example.javaav.Model;
 
 import java.util.ArrayList;
+import java.util.StringJoiner;
 
 public class Tables {
     int tableNumber;
@@ -51,6 +52,12 @@ public class Tables {
 
     public ArrayList<Customers> getCustomers() {
         return customers;
+    }
+
+    public String getCustomersToString(){
+        StringJoiner joiner = new StringJoiner(", ");
+        this.customers.forEach(c -> joiner.add(c.getName()));
+        return joiner.toString();
     }
 
     public void setCustomers(ArrayList<Customers> customers) {
