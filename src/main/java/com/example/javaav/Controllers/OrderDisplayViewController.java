@@ -23,19 +23,21 @@ public class OrderDisplayViewController implements Initializable {
     @FXML
     private ListView<Orders> orderListView;
 
+    @FXML
+    private Button buttonReturn;
+
     private ObservableList<Orders> orderList;
 
-    public OrderDisplayViewController() {
-    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         orderList = FXCollections.observableArrayList();
 
-        // Remplir la liste des commandes en attente
+        // Fill the list of pending orders
         refreshOrderList();
 
-        // Personnaliser l'affichage de chaque élément de la liste
+        // Customize the display of each element in the list
         orderListView.setCellFactory(lv -> new ListCell<>() {
             private final Button cancelBtn = new Button("Canceled");
             private final Button deliverBtn = new Button("Delivered");
@@ -45,7 +47,7 @@ public class OrderDisplayViewController implements Initializable {
                 super.updateItem(order, empty);
 
                 if (empty || order == null) {
-                    setText(null);
+                    setText("");
                     setGraphic(null);
                 } else {
                     setText("Commande" + order.getId());
@@ -68,17 +70,18 @@ public class OrderDisplayViewController implements Initializable {
         });
 
         orderListView.setItems(orderList);
+        //Add the return
+        buttonReturn.setOnAction(e->{});
     }
 
     /**
-     * Rafraîchir la liste des commandes en attente à partir de la liste des clients stockée dans HelloApplication.
+     * Refresh the list of pending orders from the list of customers stored in HelloApplication.
      */
     private void refreshOrderList() {
         List<Customers> customers = HelloApplication.restaurant.getCustomersList();
         List<Orders> pendingOrders = customers.stream()
                 .flatMap(customer -> customer.getOrders().stream())
-                .filter(order -> order.getStatus().equals("pending"))
-                .collect(Collectors.toList());
+                .filter(order -> order.getStatus().equals("pending")).toList();
         orderList.setAll(pendingOrders);
     }
 }
