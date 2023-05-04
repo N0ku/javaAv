@@ -2,14 +2,19 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.Employees;
+import com.example.javaav.Utils.PdfUtils;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.FileWriter;
@@ -18,8 +23,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.IntStream;
 
 import org.json.*;
@@ -96,13 +100,67 @@ public class DisplayEmployeeViewController implements Initializable {
         });
 
         buttonDelete.setOnAction(e -> {
-            int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
+           /* int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
             if (selectedIndex >= 0) {
                personData.remove(selectedIndex);
 
             } else {
                 System.out.println("No row selected");
+            }*/
+
+
+            List<String> r = List.of("id","name","tel","mail");
+            List<HashMap<String,String>> er = new ArrayList<>();
+            personData.stream().forEach(person ->{
+                HashMap<String, String> map = new HashMap<>();
+                map.put("id", String.valueOf(person.getId()));
+                map.put("name", person.getName());
+                map.put("tel", person.getTel());
+                map.put("mail", person.getMail());
+                er.add(map);
+            });
+
+            PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                loader.setController(controllerEmplo);
+                Scene newScene = new Scene(loader.load());
+
+                Stage currentStage = (Stage) this.buttonDelete.getScene().getWindow();
+                currentStage.setScene(newScene);
+            } catch (IOException error) {
+                error.printStackTrace();
             }
+
+
+
+
+
+            /*FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            PdfGenerateController controller = loader.getController();
+            controller.setNameAttribut(r);
+            Scene scene = new Scene(root);
+
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setTitle("Generate PDf Employé " );
+            dialog.setScene(scene);*/
+
+// Récupérer le contrôleur de la vue FXML
+
+
+
+// Afficher la boîte de dialogue
+
+
+
         });
     }
 
