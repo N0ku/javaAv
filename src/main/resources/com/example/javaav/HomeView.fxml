@@ -8,27 +8,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.HomeViewController">
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.HomeViewController">
    <children>
-      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #cf2623;">
+      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #07034d;">
          <children>
             <Label fx:id="chronoLabel" text="Label" textFill="WHITE">
                <font>
-                  <Font size="20.0" />
+                  <Font name="Sinhala MN" size="20.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="46.0" prefHeight="357.0" prefWidth="600.0">
+      <HBox alignment="CENTER" layoutY="46.0" prefHeight="357.0" prefWidth="600.0" style="-fx-background-color: white;">
          <children>
-            <VBox alignment="CENTER" prefHeight="357.0" prefWidth="175.0">
+            <VBox alignment="TOP_CENTER" prefHeight="357.0" prefWidth="600.0">
                <children>
                   <Label text="Bienvenue !">
                      <font>
-                        <Font size="23.0" />
+                        <Font name="Sinhala MN" size="53.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" text="Start">
+                  <Button fx:id="startButton" mnemonicParsing="false" text="Accéder à l'application">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
