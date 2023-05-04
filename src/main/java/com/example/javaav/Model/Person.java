@@ -1,16 +1,18 @@
 package com.example.javaav.Model;
 
+import java.util.UUID;
+
 abstract class Person {
 
-    private int id;
+    private final UUID id;
     private String name;
     private String mail;
     private String tel;
     private int age;
     private String adress;
 
-    public Person(int id, String name, String mail, String tel, int age, String adress) {
-        this.id = id;
+    public Person(String name, String mail, String tel, int age, String adress) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.mail = mail;
         this.tel = tel;
@@ -19,11 +21,8 @@ abstract class Person {
     }
 
 
-    public int getId() {
+    public UUID getId() {
         return id;
-    }
-    public void setId(int id) {
-        this.id = id;
     }
     public String getName() {
         return name;
