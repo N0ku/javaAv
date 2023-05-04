@@ -30,6 +30,10 @@ public class Customers extends Person{
         return orders;
     }
 
+    public void setOrders(ArrayList<Orders> orders){
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Customers [" + "name=" + getName() + "table=" + table + ", orders=" + orders + "]";
