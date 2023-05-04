@@ -41,17 +41,21 @@ public class HelloApplication extends Application {
 
         ArrayList<Employees> employees = new ArrayList<>(Arrays.asList(employe1, employe2, employe3, employe4, employe5));
 
-        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, null,0);
-        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, null,2);
-        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, null,2);
-        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, null,0);
-        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, null,1);
+        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, 0);
+        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, 2);
+        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, 2);
+        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, 0);
+        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, 1);
 
         ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5));
 
         ArrayList<Customers> customers = new ArrayList<>();
+        ArrayList<Customers> customersTest = new ArrayList<>();
+        customersTest.add(customers1);
+        customersTest.add(customers2);
 
-        Tables table1 = new Tables(0, 5, "Terrasse", true, customers);
+
+        Tables table1 = new Tables(0, 5, "Terrasse", false, customersTest);
         Tables table2 = new Tables(1, 8, "Terrasse", true, customers);
         Tables table3 = new Tables(2, 2, "Terrasse", true, customers);
         Tables table4 = new Tables(3, 1, "Terrasse", true, customers);
