@@ -36,9 +36,12 @@ public class Orders {
 
     @Override
     public String toString() {
-        return "Orders [mealList=" + mealList + ", totalPrice=" + totalPrice + ", hour="
-                + hour + "]";
+        return "Orders{" +
+                "id=" + id +
+                ", mealList=" + mealList +
+                ", totalPrice=" + totalPrice +
+                ", hour=" + hour +
+                ", status='" + status + '\'' +
+                '}';
     }
-
-
 }
