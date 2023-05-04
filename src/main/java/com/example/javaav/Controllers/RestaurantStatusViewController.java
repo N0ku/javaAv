@@ -9,10 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -41,6 +38,9 @@ public class RestaurantStatusViewController implements Initializable {
     @FXML
     private Label chronoLabel;
 
+    @FXML
+    private Button createOrderButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,7 +55,21 @@ public class RestaurantStatusViewController implements Initializable {
             }
         });
 
+        createOrderButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/CreateOrderView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         Restaurant restaurant = HelloApplication.restaurant;
+
+        ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);
+        chrono.start();
 
         ArrayList<Customers> customers = restaurant.getCustomersList();
         ArrayList<Tables> tables = restaurant.getTablesList();
@@ -83,7 +97,7 @@ public class RestaurantStatusViewController implements Initializable {
                     .collect(Collectors.toCollection(ArrayList::new));
 
             // find the first free table and where all the customers can sit
-            Tables table = tables.stream().filter(t -> t.isFree() && t.getSize() > customersToAdd.size()).findFirst().orElse(null);
+            Tables table = tables.stream().filter(t -> t.isFree() && t.getSize() >= customersToAdd.size()).findFirst().orElse(null);
 
             if (table != null) {
                 table.setCustomers(customersToAdd);
@@ -98,7 +112,11 @@ public class RestaurantStatusViewController implements Initializable {
                 table.setFree(false);
                 tablesList.getItems().set(indexToUpdate, table);
             } else {
-                System.out.println("Aucune table de dispo !!");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Complet !");
+                alert.setHeaderText("Aucune table n'est disponible actuellement");
+                alert.setContentText("Il n'y a pas asser de place sur toutes les tables et/ou toutes les tables sont déjà prises");
+                alert.show();
             }
         });
 

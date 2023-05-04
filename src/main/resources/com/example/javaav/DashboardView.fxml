@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.DashboardViewController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #cf2623;">
+      <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #07034d;">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" text="Back">
                <HBox.margin>
@@ -22,9 +22,14 @@
                <children>
                   <Label fx:id="chronoLabel" text="00:00" textFill="WHITE">
                      <font>
-                        <Font name="System Bold Italic" size="26.0" />
+                        <Font name="Sinhala MN" size="20.0" />
                      </font>
                   </Label>
+                  <Button fx:id="gestionButton" mnemonicParsing="false" text="Gestion">
+                     <HBox.margin>
+                        <Insets left="100.0" />
+                     </HBox.margin>
+                  </Button>
                </children>
             </HBox>
          </children>
@@ -42,7 +47,7 @@
          </font>
       </TextField>
       <ListView fx:id="MealList" layoutX="41.0" layoutY="252.0" prefHeight="79.0" prefWidth="170.0" />
-      <Button fx:id="searchButton" layoutX="164.0" layoutY="236.0" mnemonicParsing="false" prefHeight="14.0" prefWidth="47.0" text="Search">
+      <Button fx:id="searchButton" layoutX="162.0" layoutY="234.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="51.0" text="Search">
          <font>
             <Font size="8.0" />
          </font>

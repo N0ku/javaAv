@@ -1,0 +1,35 @@
+.button-style {
+    -fx-font-size: 14pt;
+    -fx-background-color: #504ab5;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
+    -fx-transition-property: all;
+    -fx-transition-duration: 1s;
+    -fx-transition-timing-function: ease-in-out;
+    -fx-font-family: "Sinhala MN";
+}
+
+.button-style.nav {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: black;
+}
+.button-style.nav:hover {
+    -fx-background-color: #d3d2d2;
+}
+
+
+.button-style:hover {
+    -fx-background-color: #6b67b4;
+}
+
+.search-style{
+    -fx-background-color: #33146b;
+    -fx-text-fill: white;
+    -fx-font-family: "Sinhala MN";
+    -fx-font-size: 8pt;
+}
+
+.search-style:hover{
+    -fx-font-size: 8pt;
+    -fx-background-color: #482c7a;
+}

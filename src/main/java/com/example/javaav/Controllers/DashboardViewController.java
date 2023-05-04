@@ -59,6 +59,9 @@ public class DashboardViewController implements Initializable {
     @FXML
     private Label totalPrice;
 
+    @FXML
+    private Button gestionButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = HelloApplication.restaurant;
@@ -73,6 +76,21 @@ public class DashboardViewController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+       gestionButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        gestionButton.getStyleClass().add("button-style nav");
+        backButton.getStyleClass().add("button-style nav");
+        searchButton.getStyleClass().add("search-style");
 
         ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);
         chrono.start();

@@ -13,7 +13,7 @@ public class CellTables extends ListCell<Tables> {
             String customers = item.getCustomersToString();
             String text;
             if (customers.isEmpty()) {
-                text = String.format("Table: %s%n%s%n%s %d", item.getTableNumber(), "Table disponible", "Nombre de place dispo:", item.getSize());
+                text = String.format("Table: %s%n%s%n%s %d", item.getTableNumber(), "Table disponible", "Nombre de place dispo:", item.getSize(), "Place:" , item.getPlace());
             } else {
                 text = String.format("Table: %s%n%s%n%s %d", item.getTableNumber(), customers, "Nombre de place dispo:", item.getSize());
             }
