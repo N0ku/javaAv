@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,6 +60,9 @@ public class DashboardViewController implements Initializable {
 
     @FXML
     private Button gestionButton;
+
+    @FXML
+    private Button employeeButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -121,6 +125,17 @@ public class DashboardViewController implements Initializable {
 
         //TODO ArrayList<Customers> customersWaiting =  restaurant.getCustomersList().stream().filter(customer -> customer.getOrders().getStatus() = "pending");
 
+        employeeButton.setOnAction(e->{
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DisplayEmployeeView.fxml"));
+                Scene newScene = new Scene(fxmlLoader.load());
+                Stage currentStage = (Stage) employeeButton.getScene().getWindow();
+                currentStage.setScene(newScene);
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+                }
+        );
 
     }
 }

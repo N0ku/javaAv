@@ -2,6 +2,7 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.Employees;
+import com.example.javaav.Model.Restaurant;
 import com.example.javaav.Utils.PdfUtils;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -57,7 +58,6 @@ public class DisplayEmployeeViewController implements Initializable {
     @FXML
     private TextField textSearch;
 
-    Employees empoTest = new Employees(8,"eee","ffef","0987654",12,"dzdfzf","ffefef",12,2000);
 
     ObservableList<Employees> personData = FXCollections.observableArrayList();
 
@@ -68,19 +68,17 @@ public class DisplayEmployeeViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            this.dataJson= new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/employee.json")));
-            System.out.println(dataJson);
-            handleEmployeeFromJson(dataJson);
-        } catch (IOException e) {
+            Restaurant restaurant = HelloApplication.restaurant;
+            personData.addAll(restaurant.getEmployeesList());
+        } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText("Error");
             alert.setContentText("Data not Found");
             alert.show();
-
         }
-        personData.add(empoTest);
+
         columnIdEmploye.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
         columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String >("jobName"));
         columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
@@ -135,32 +133,6 @@ public class DisplayEmployeeViewController implements Initializable {
 
 
 
-
-
-            /*FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            PdfGenerateController controller = loader.getController();
-            controller.setNameAttribut(r);
-            Scene scene = new Scene(root);
-
-            Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setTitle("Generate PDf Employé " );
-            dialog.setScene(scene);*/
-
-// Récupérer le contrôleur de la vue FXML
-
-
-
-// Afficher la boîte de dialogue
-
-
-
         });
     }
 
@@ -199,7 +171,8 @@ public class DisplayEmployeeViewController implements Initializable {
 
     private void handleEmployeeFromJson(String json){
         JSONArray arrayEmployee = new JSONArray(json);
-          IntStream
+        List<Employees> employees = new ArrayList<>();
+         IntStream
                 .range(0,arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e ->{
                     personData.add(new Employees(e.getInt("id"),e.getString("name"),e.getString("mail"),
                     e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),

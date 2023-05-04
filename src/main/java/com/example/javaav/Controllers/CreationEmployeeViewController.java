@@ -2,6 +2,7 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.Employees;
+import com.example.javaav.Model.Restaurant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,6 +49,7 @@ public class CreationEmployeeViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Restaurant restaurant = HelloApplication.restaurant;
         List<TextField> inputs = Arrays.asList(textLastName,textName,textPhone,textSalary,textYears,textMail);
         buttonCreate.setOnAction(e -> {
             AtomicBoolean valid = new AtomicBoolean(true);
@@ -65,7 +67,8 @@ public class CreationEmployeeViewController implements Initializable {
                     textPhone.getText(),Integer.parseInt(textYears.getText()),"dezzf",
                     boxJobName.getValue(),34, Float.parseFloat(textSalary.getText()));
 
-            nextScene(newEmployee);
+            restaurant.getEmployeesList().add(newEmployee);
+            nextScene();
         });
 
         textPhone.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
@@ -81,13 +84,12 @@ public class CreationEmployeeViewController implements Initializable {
         }
     }
 
-    public void nextScene(Employees r){
+    public void nextScene(){
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DisplayEmployeeView.fxml"));
             Scene newScene = new Scene(fxmlLoader.load());
-            ((DisplayEmployeeViewController)fxmlLoader.getController()).personData.add(r
-            );
+
 
             Stage currentStage = (Stage) this.buttonCreate.getScene().getWindow();
             currentStage.setScene(newScene);

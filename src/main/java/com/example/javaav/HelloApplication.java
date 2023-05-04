@@ -7,20 +7,23 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
 import java.text.DateFormat;
-import java.util.Objects;
+import java.util.stream.IntStream;
 
 
 public class HelloApplication extends Application {
     public static Restaurant restaurant;
+
 
     @Override
     public void start(Stage stage) throws IOException, ParseException {
@@ -36,14 +39,22 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+
     static void InitRestaurant() throws ParseException {
         Employees employe1 = new Employees(0, "Emma", "emma@mail.com", "06 72 34 56 78", 20, "Rue des Lilas", "Cuisinier", 20, 1245.67f);
         Employees employe2 = new Employees(1, "Oscar", "oscar@mail.com", "06 72 34 56 78", 23, "Rue des Lilas", "Chef", 30, 1405.11f);
         Employees employe3 = new Employees(2, "Sophie", "sophie@mail.com", "06 72 34 56 78", 40, "Rue des Lilas", "Serveur", 22, 1100.02f);
         Employees employe4 = new Employees(3, "Leo", "leo@mail.com", "06 72 34 56 78", 19, "Rue des Lilas", "Serveur", 23, 1381.93f);
         Employees employe5 = new Employees(4, "Hugo", "hugo@mail.com", "06 72 34 56 78", 30, "Rue des Lilas", "Commis", 10, 400.23f);
+        String dataJson = "[]";
+        try {
+            dataJson= new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/data.json")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        ArrayList<Employees> employees = new ArrayList<>(Arrays.asList(employe1, employe2, employe3, employe4, employe5));
+        JSONObject jsonData = new JSONObject(dataJson);
+       ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
 
         Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null,  0);
         Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null,  2);
@@ -146,6 +157,21 @@ public class HelloApplication extends Application {
         restaurant = new Restaurant("Le Beyrouth", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
     }
 
+
+
+    private static ArrayList<Employees> handleEmployeeFromJson(JSONArray json){
+        ArrayList<Employees> employees = new ArrayList<>();
+        IntStream
+                .range(0,json.length()).mapToObj(json::getJSONObject).forEach(e ->{
+                    employees.add(new Employees(e.getInt("id"),e.getString("name"),e.getString("mail"),
+                            e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
+                            e.getInt("workHours"),e.getFloat("salary")));
+                });
+        return employees;
+
+    }
+
+
     static void InitChrono() {
 
         Date serviceEnd = restaurant.getService().getServiceEnd();
@@ -190,4 +216,6 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
 }
