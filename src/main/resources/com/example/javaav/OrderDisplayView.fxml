@@ -11,4 +11,6 @@
             fx:controller="com.example.javaav.Controllers.OrderDisplayViewController"
             prefHeight="400.0" prefWidth="600.0">
 
+    <ListView fx:id="orderListView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
 </AnchorPane>

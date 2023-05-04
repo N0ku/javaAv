@@ -5,8 +5,8 @@ public class Employees extends Person {
     int workHours;
     float salary;
 
-    public Employees(int id,String name, String mail, String tel, int age, String adress,String jobName,int workHours,float salary) {
-        super(id,name, mail, tel, age, adress);
+    public Employees(String name, String mail, String tel, int age, String adress,String jobName,int workHours,float salary) {
+        super(name, mail, tel, age, adress);
         this.jobName = jobName;
         this.workHours = workHours;
         this.salary = salary;

@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
         InitRestaurant();
         InitChrono();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("OrderDisplayView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Restaurant");
@@ -37,24 +37,25 @@ public class HelloApplication extends Application {
     }
 
     static void InitRestaurant() throws ParseException {
-        Employees employe1 = new Employees(0, "Emma", "emma@mail.com", "06 72 34 56 78", 20, "Rue des Lilas", "Cuisinier", 20, 1245.67f);
-        Employees employe2 = new Employees(1, "Oscar", "oscar@mail.com", "06 72 34 56 78", 23, "Rue des Lilas", "Chef", 30, 1405.11f);
-        Employees employe3 = new Employees(2, "Sophie", "sophie@mail.com", "06 72 34 56 78", 40, "Rue des Lilas", "Serveur", 22, 1100.02f);
-        Employees employe4 = new Employees(3, "Leo", "leo@mail.com", "06 72 34 56 78", 19, "Rue des Lilas", "Serveur", 23, 1381.93f);
-        Employees employe5 = new Employees(4, "Hugo", "hugo@mail.com", "06 72 34 56 78", 30, "Rue des Lilas", "Commis", 10, 400.23f);
+        Employees employe1 = new Employees( "Emma", "emma@mail.com", "06 72 34 56 78", 20, "Rue des Lilas", "Cuisinier", 20, 1245.67f);
+        Employees employe2 = new Employees( "Oscar", "oscar@mail.com", "06 72 34 56 78", 23, "Rue des Lilas", "Chef", 30, 1405.11f);
+        Employees employe3 = new Employees( "Sophie", "sophie@mail.com", "06 72 34 56 78", 40, "Rue des Lilas", "Serveur", 22, 1100.02f);
+        Employees employe4 = new Employees( "Leo", "leo@mail.com", "06 72 34 56 78", 19, "Rue des Lilas", "Serveur", 23, 1381.93f);
+        Employees employe5 = new Employees( "Hugo", "hugo@mail.com", "06 72 34 56 78", 30, "Rue des Lilas", "Commis", 10, 400.23f);
 
         ArrayList<Employees> employees = new ArrayList<>(Arrays.asList(employe1, employe2, employe3, employe4, employe5));
 
-        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, null, 0);
-        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, null, 2);
-        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, null, 2);
-        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, null, 0);
-        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, null, 1);
-        Customers customers6 = new Customers(5, "Frank", "frank@example.com", "06 23 45 67 89", 31, "14 avenue de la Gare", null, null, 3);
-        Customers customers7 = new Customers(6, "Grace", "grace@example.com", "06 77 88 99 00", 27, "8 rue de la Paix", null, null, 1);
-        Customers customers8 = new Customers(7, "Henry", "henry@example.com", "06 12 34 56 78", 45, "19 avenue du Soleil", null, null, 2);
-        Customers customers9 = new Customers(8, "Isabella", "isabella@example.com", "06 66 66 66 66", 23, "11 rue de la Victoire", null, null, 0);
-        Customers customers10 = new Customers(9, "Jack", "jack@example.com", "06 44 55 66 77", 39, "6 rue de la Fontaine", null, null, 3);
+        Customers customers1 = new Customers( "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null,  0);
+        Customers customers2 = new Customers( "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null,  2);
+        Customers customers3 = new Customers( "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null,  2);
+        Customers customers4 = new Customers( "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null,  0);
+        Customers customers5 = new Customers( "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null,  1);
+        Customers customers6 = new Customers( "Frank", "frank@example.com", "06 23 45 67 89", 31, "14 avenue de la Gare", null,  3);
+        Customers customers7 = new Customers( "Grace", "grace@example.com", "06 77 88 99 00", 27, "8 rue de la Paix", null,  1);
+        Customers customers8 = new Customers( "Henry", "henry@example.com", "06 12 34 56 78", 45, "19 avenue du Soleil", null,  2);
+        Customers customers9 = new Customers( "Isabella", "isabella@example.com", "06 66 66 66 66", 23, "11 rue de la Victoire", null,  0);
+        Customers customers10 = new Customers( "Jack", "jack@example.com", "06 44 55 66 77", 39, "6 rue de la Fontaine", null,  3);
+
 
         ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5, customers6, customers7, customers8, customers9, customers10));
 
@@ -138,7 +139,7 @@ public class HelloApplication extends Application {
 
 
         ArrayList<Meals> meals = new ArrayList<>(Arrays.asList(meal1, meal2, meal3, meal4, meal5, meal6, meal7, meal8, meal9));
-
+        customers10.getOrders().add(new Orders( meals,12));
         restaurant = new Restaurant("Le Beyrouth", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
     }
 
