@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.javaav.Controllers.CreateOrderViewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.CreateOrderViewController">
+   <children>
+      <VBox prefHeight="268.0" prefWidth="253.0">
+         <children>
+            <Label text="Liste des plats">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ListView fx:id="mealListView" maxHeight="380.0" prefHeight="253.0" prefWidth="253.0" />
+         </children>
+      </VBox>
+      <HBox layoutY="281.0" prefHeight="120.0" prefWidth="524.0">
+         <children>
+            <ImageView fx:id="mealImageView" fitHeight="101.0" fitWidth="107.0" />
+            <VBox prefHeight="110.0" prefWidth="247.0">
+               <children>
+                  <Label fx:id="nameLabel" />
+                  <Label fx:id="priceLabel" />
+                  <Label fx:id="descLabel" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Spinner fx:id="quantitySpinner" prefHeight="25.0" prefWidth="91.0" />
+                        <ComboBox prefWidth="150.0" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="addButton" text="Ajouter" />
+                        <Button fx:id="finalizeButton" text="Finaliser" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox fx:id="containerResult" layoutX="300.0" layoutY="21.0" prefHeight="239.0" prefWidth="259.0" />
+   </children>
 </AnchorPane>

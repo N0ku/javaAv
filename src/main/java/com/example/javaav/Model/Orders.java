@@ -2,22 +2,30 @@ package com.example.javaav.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 
 public class Orders {
-    int id;
+    private final UUID id;
     ArrayList<Meals> mealList;
-    boolean delivred;
+    boolean delivered;
     int totalPrice;
     Date hour;
+    boolean isFavorite;
+    String status ;
 
-    public Orders(int id, ArrayList<Meals> mealList, boolean delivred, int totalPrice, Date hour) {
-        this.id = id;
+    public Orders(ArrayList<Meals> mealList,int totalPrice) {
+        this.id = UUID.randomUUID();
         this.mealList = mealList;
-        this.delivred = delivred;
+        this.delivered = false;
         this.totalPrice = totalPrice;
-        this.hour = hour;
+        this.hour = new Date();
+        this.isFavorite=false;
+        this.status= "";
     }
 
+    public UUID getId() {
+        return id;
+    }
     public ArrayList<Meals> getMealList() {
         return mealList;
     }
@@ -27,11 +35,11 @@ public class Orders {
     }
 
     public boolean isDelivred() {
-        return delivred;
+        return delivered;
     }
 
     public void setDelivred(boolean delivred) {
-        this.delivred = delivred;
+        this.delivered = delivred;
     }
 
     public int getTotalPrice() {
@@ -52,18 +60,9 @@ public class Orders {
 
     @Override
     public String toString() {
-        return "Orders [mealList=" + mealList + ", delivred=" + delivred + ", totalPrice=" + totalPrice + ", hour="
+        return "Orders [mealList=" + mealList + ", delivred=" + delivered + ", totalPrice=" + totalPrice + ", hour="
                 + hour + "]";
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    
-    
 }

@@ -1,0 +1,22 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.( ªâîşÿÿÿÿ
+N
+java:S16026",Remove useless curly braces around statement(ÈçŒ½şÿÿÿÿ8¹ÃÅş0
+H
+java:S1602=",Remove useless curly braces around statement(üöš<8ºÃÅş0
+N
+java:S1602Q",Remove useless curly braces around statement(èÅÄƒÿÿÿÿÿ8¾ÃÅş0
+Z	java:S106["9Replace this use of System.out or System.err by a logger.(½Úó€üÿÿÿÿ8ÀÃÅş0
+Z	java:S106d"9Replace this use of System.out or System.err by a logger.(Â•‰ùÿÿÿÿ8ÁÃÅş0
+`
+java:S1155f">Use isEmpty() to check whether the collection is empty or not.(ƒÁÒùÿÿÿÿ8ÁÃÅş0
+N
+java:S1602g",Remove useless curly braces around statement(š÷àüÿÿÿÿ8ÂÃÅş0
+W
+java:S1128":Remove this unused import 'javafx.scene.control.ListCell'.(éÇÇò8ÃÃÅş0
+Q
+java:S1128"/Remove this unused import 'javafx.stage.Stage'.(æÄ¸²úÿÿÿÿ8ÃÃÅş0
+S
+java:S1128"1Remove this unused import 'javafx.util.Callback'.(¢œ»²ıÿÿÿÿ8ÃÃÅş0
+Q
+java:S1128"4Remove this unused import 'java.util.stream.Stream'.(ó÷”8ÃÃÅş0

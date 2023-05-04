@@ -1,0 +1,28 @@
+
+ƒ
+java:S1319"mThe type of "employeesList" should be an interface such as "List" rather than the implementation "ArrayList".(…áš›
+‚
+java:S1319"mThe type of "customersList" should be an interface such as "List" rather than the implementation "ArrayList".(¬®ñE
+~
+java:S1319"iThe type of "mealsList" should be an interface such as "List" rather than the implementation "ArrayList".(¬®ñE
+
+java:S1319"jThe type of "tablesList" should be an interface such as "List" rather than the implementation "ArrayList".(¬®ñE
+†
+java:S13196"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Îøî÷
+ƒ
+java:S1319:"mThe type of "employeesList" should be an interface such as "List" rather than the implementation "ArrayList".(ô¦¿ÿ
+†
+java:S1319>"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(óØ”
+ˆ
+java:S1319B"mThe type of "customersList" should be an interface such as "List" rather than the implementation "ArrayList".(È×Òüÿÿÿÿ
+†
+java:S1319F"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(»·î¦
+
+java:S1319J"iThe type of "mealsList" should be an interface such as "List" rather than the implementation "ArrayList".(˜ëÇì
+…
+java:S1319N"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Û»™
+
+€
+java:S1319R"jThe type of "tablesList" should be an interface such as "List" rather than the implementation "ArrayList".( Ïì¨
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Œ›÷
+V	java:S107"AConstructor has 9 parameters, which is greater than 7 authorized.(…áš›
