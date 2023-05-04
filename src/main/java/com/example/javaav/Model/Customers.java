@@ -5,11 +5,16 @@ public class Customers extends Person{
     Tables table;
     Orders orders;
 
-    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table, Orders orders) {
+    int groupId;
+
+    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table, Orders orders,int groupId) {
         super(id,name, mail, tel, age, adress);
         this.table = table;
         this.orders = orders;
+        this.groupId = groupId;
     }
+
+    public int getGroupId(){ return  groupId;}
 
     public Tables getTable() {
         return table;
