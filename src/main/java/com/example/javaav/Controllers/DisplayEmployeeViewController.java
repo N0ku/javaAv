@@ -57,7 +57,7 @@ public class DisplayEmployeeViewController implements Initializable {
     @FXML
     private TextField textSearch;
 
-    Employees empoTest = new Employees(8,"eee","ffef","0987654",12,"dzdfzf","ffefef",12,2000);
+    Employees empoTest = new Employees("eee","ffef","0987654",12,"dzdfzf","ffefef",12,2000);
 
     ObservableList<Employees> personData = FXCollections.observableArrayList();
 
@@ -170,7 +170,7 @@ public class DisplayEmployeeViewController implements Initializable {
         personData.stream().forEach(person ->{
             Optional<JSONObject> matchingObject = IntStream.range(0,jsonArray.length()).mapToObj(jsonArray::getJSONObject)
                     .filter(e ->
-                         e.getInt("id") == person.getId()
+                            e.getInt("id") == person.getId().hashCode()
                     )
                     .findFirst();
             if (matchingObject.isEmpty()) {
@@ -201,7 +201,7 @@ public class DisplayEmployeeViewController implements Initializable {
         JSONArray arrayEmployee = new JSONArray(json);
           IntStream
                 .range(0,arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e ->{
-                    personData.add(new Employees(e.getInt("id"),e.getString("name"),e.getString("mail"),
+                    personData.add(new Employees(e.getString("name"),e.getString("mail"),
                     e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
                     e.getInt("workHours"),e.getFloat("salary")));
                 });

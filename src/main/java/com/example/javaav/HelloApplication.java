@@ -28,7 +28,7 @@ public class HelloApplication extends Application {
         InitRestaurant();
         InitChrono();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("OrderDisplayView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Restaurant");
@@ -60,12 +60,8 @@ public class HelloApplication extends Application {
         ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5, customers6, customers7, customers8, customers9, customers10));
 
         ArrayList<Customers> customers = new ArrayList<>();
-        ArrayList<Customers> customersTest = new ArrayList<>();
-        customersTest.add(customers1);
-        customersTest.add(customers2);
 
-
-        Tables table1 = new Tables(0, 5, "Terrasse", false, customersTest);
+        Tables table1 = new Tables(0, 5, "Terrasse", false, customers);
         Tables table2 = new Tables(1, 8, "Terrasse", true, customers);
         Tables table3 = new Tables(2, 2, "Terrasse", true, customers);
         Tables table4 = new Tables(3, 1, "Terrasse", true, customers);
@@ -143,7 +139,6 @@ public class HelloApplication extends Application {
 
 
         ArrayList<Meals> meals = new ArrayList<>(Arrays.asList(meal1, meal2, meal3, meal4, meal5, meal6, meal7, meal8, meal9));
-        customers10.getOrders().add(new Orders( meals,12));
         restaurant = new Restaurant("Le Beyrouth", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
     }
 
