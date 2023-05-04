@@ -58,7 +58,7 @@ public class HelloApplication extends Application {
 
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
-        Date serviceEnd = format.parse("14:00");
+        Date serviceEnd = format.parse("12:25");
 
         Service service = new Service(serviceStart, serviceEnd, true);
 
