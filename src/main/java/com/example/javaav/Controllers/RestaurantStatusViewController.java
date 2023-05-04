@@ -74,45 +74,6 @@ public class RestaurantStatusViewController implements Initializable {
 
         tablesList.setCellFactory(table -> new CellTables());
 
-        Date serviceStartHour = restaurant.getService().getServiceStart();
-        Date serviceEndHour = restaurant.getService().getServiceEnd();
-
-        long diffMillis = Math.abs(serviceEndHour.getTime() - serviceStartHour.getTime());
-        Duration duration = Duration.ofMillis(diffMillis);
-        final int[] seconds = {(int) duration.toSeconds()};
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                while (seconds[0] > 0) {
-                    String value = computeChronoValue();
-                    Platform.runLater(() -> chronoLabel.setText(value));
-                    Thread.sleep(1000);
-                }
-                return null;
-            }
-
-            private String computeChronoValue() {
-                int remainingSeconds = seconds[0];
-                seconds[0] = remainingSeconds - 1;
-
-                // 15mins into seconds
-                if (seconds[0] < 900){
-                    restaurant.getService().setRunning(false);
-                }
-                int minutes = remainingSeconds / 60;
-                int seconds = remainingSeconds % 60;
-                String value = String.format("%02d:%02d", minutes, seconds);
-                if (remainingSeconds <= 0) {
-                    value = "00:00";
-                    cancel();
-                }
-                return value;
-            }
-        };
-
-
-        new Thread(task).start();
-
         customersList.setOnMouseClicked(event -> {
             if(!restaurant.getService().isRunning()){return;}
             Customers customer = customersList.getSelectionModel().getSelectedItem();

@@ -58,7 +58,7 @@ public class DashboardViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        backButton.setOnMouseClicked(event -> {
+      /*  backButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/HomeView.fxml"))));
                 Scene currentScene = backButton.getScene();
@@ -67,6 +67,6 @@ public class DashboardViewController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        });
+        }); */
     }
 }
