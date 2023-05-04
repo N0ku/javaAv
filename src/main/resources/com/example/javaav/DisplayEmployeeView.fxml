@@ -29,7 +29,7 @@
             </HBox>
             <HBox>
                <children>
-                  <TextField alignment="CENTER" prefHeight="26.0" prefWidth="160.0">
+                  <TextField fx:id="textSearch" alignment="CENTER" prefHeight="26.0" prefWidth="160.0" promptText="Search ...">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
@@ -39,12 +39,12 @@
                         <Insets left="160.0" />
                      </HBox.margin>
                      <children>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Ajout">
+                        <Button fx:id="buttonAdd" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Ajout">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Delete">
+                        <Button fx:id="buttonDelete" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Delete">
                            <HBox.margin>
                               <Insets left="40.0" />
                            </HBox.margin>
@@ -58,13 +58,13 @@
             </HBox>
             <HBox>
                <children>
-                  <TableView prefHeight="368.0" prefWidth="669.0">
+                  <TableView fx:id="globalTab" prefHeight="368.0" prefWidth="669.0">
                     <columns>
-                      <TableColumn prefWidth="46.22807002067566" text="Id" />
-                      <TableColumn prefWidth="130.44862365722656" text="Prénom" />
-                        <TableColumn prefWidth="128.0513916015625" text="Nom" />
-                        <TableColumn prefWidth="134.05133056640625" text="Emploi" />
-                        <TableColumn prefWidth="170.90643310546875" text="email" />
+                      <TableColumn fx:id="columnIdEmploye" prefWidth="46.22807002067566" text="Id" />
+                      <TableColumn fx:id="columnName" prefWidth="130.44862365722656" text="Prénom" />
+                        <TableColumn fx:id="columnLastName" prefWidth="128.0513916015625" text="Nom" />
+                        <TableColumn fx:id="columnJob" prefWidth="134.05133056640625" text="Emploi" />
+                        <TableColumn fx:id="columnMail" prefWidth="227.17367553710938" text="email" />
                     </columns>
                   </TableView>
                </children>

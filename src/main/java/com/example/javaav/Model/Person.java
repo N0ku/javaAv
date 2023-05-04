@@ -1,5 +1,7 @@
 package com.example.javaav.Model;
 
+import javafx.beans.property.IntegerProperty;
+
 abstract class Person {
 
     private int id;
@@ -17,6 +19,8 @@ abstract class Person {
         this.age = age;
         this.adress = adress;
     }
+
+
 
 
     public int getId() {
