@@ -34,20 +34,20 @@
             </HBox>
          </children>
       </HBox>
-      <ListView fx:id="lastOrdersList" layoutX="41.0" layoutY="101.0" prefHeight="79.0" prefWidth="158.0" />
+      <ListView fx:id="lastOrdersList" layoutX="41.0" layoutY="111.0" prefHeight="79.0" prefWidth="158.0" />
       <Label layoutX="41.0" layoutY="76.0" text="Dernières commandes" />
-      <ListView fx:id="ordersWaitingList" layoutX="221.0" layoutY="101.0" prefHeight="79.0" prefWidth="158.0" />
+      <ListView fx:id="ordersWaitingList" layoutX="221.0" layoutY="111.0" prefHeight="79.0" prefWidth="158.0" />
       <Label layoutX="221.0" layoutY="76.0" prefHeight="17.0" prefWidth="137.0" text="Commandes en attente" />
       <Label layoutX="399.0" layoutY="76.0" prefHeight="17.0" prefWidth="137.0" text="Employés" />
-      <ListView fx:id="EmployeesList" layoutX="399.0" layoutY="101.0" prefHeight="79.0" prefWidth="158.0" />
+      <ListView fx:id="EmployeesList" layoutX="399.0" layoutY="111.0" prefHeight="79.0" prefWidth="158.0" />
       <Label layoutX="41.0" layoutY="212.0" text="Plats disponibles" />
-      <TextField fx:id="searchField" layoutX="40.0" layoutY="235.0" prefHeight="17.0" prefWidth="123.0" promptText="Rechercher par ingrédients...">
+      <TextField fx:id="searchField" layoutX="40.0" layoutY="235.0" prefHeight="17.0" prefWidth="123.0" promptText="Rechercher par ingrédients..." styleClass="search-bar">
          <font>
             <Font size="8.0" />
          </font>
       </TextField>
-      <ListView fx:id="MealList" layoutX="41.0" layoutY="252.0" prefHeight="79.0" prefWidth="170.0" />
-      <Button fx:id="searchButton" layoutX="162.0" layoutY="234.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="51.0" text="Search">
+      <ListView fx:id="MealList" layoutX="41.0" layoutY="262.0" prefHeight="79.0" prefWidth="170.0" />
+      <Button fx:id="searchButton" layoutX="162.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="51.0" text="Search">
          <font>
             <Font size="8.0" />
          </font>
@@ -59,8 +59,8 @@
       <Label fx:id="topPrice" layoutX="290.0" layoutY="357.0" text="Label" />
       <Label fx:id="totalPrice" layoutX="453.0" layoutY="357.0" text="Label" />
       <Label layoutX="232.0" layoutY="212.0" prefHeight="17.0" prefWidth="139.0" text="Montant des factures (p)" />
-      <ListView fx:id="priceCustomersPresent" layoutX="226.0" layoutY="252.0" prefHeight="79.0" prefWidth="158.0" />
+      <ListView fx:id="priceCustomersPresent" layoutX="226.0" layoutY="262.0" prefHeight="79.0" prefWidth="158.0" />
       <Label layoutX="402.0" layoutY="212.0" prefHeight="17.0" prefWidth="139.0" text="Montant des factures (q)" />
-      <ListView fx:id="priceCustomersLeave" layoutX="399.0" layoutY="252.0" prefHeight="79.0" prefWidth="158.0" />
+      <ListView fx:id="priceCustomersLeave" layoutX="399.0" layoutY="262.0" prefHeight="79.0" prefWidth="158.0" />
    </children>
 </AnchorPane>

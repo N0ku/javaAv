@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -40,6 +41,12 @@ public class RestaurantStatusViewController implements Initializable {
 
     @FXML
     private Button createOrderButton;
+
+    @FXML
+    private Button dashboardButton;
+
+    @FXML
+    private AnchorPane root;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -111,6 +118,7 @@ public class RestaurantStatusViewController implements Initializable {
                 table.setCustomers(customersToAdd);
                 table.setFree(false);
                 tablesList.getItems().set(indexToUpdate, table);
+
             } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Complet !");
@@ -136,6 +144,27 @@ public class RestaurantStatusViewController implements Initializable {
                 table.setCustomers(customersTable);
                 table.setFree(true);
                 tablesList.getItems().set(indexToUpdate, table);
+            }
+        });
+
+        dashboardButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // clear listview selection
+        root.setOnMouseClicked(event -> {
+            if (!customersList.getBoundsInParent().contains(event.getX(), event.getY())) {
+                customersList.getSelectionModel().clearSelection();
+            }
+            if (!tablesList.getBoundsInParent().contains(event.getX(), event.getY())) {
+               tablesList.getSelectionModel().clearSelection();
             }
         });
 
