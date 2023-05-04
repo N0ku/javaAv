@@ -1,8 +1,7 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.Model.Employees;
-import com.example.javaav.Model.Meals;
-import com.example.javaav.Model.Orders;
+import com.example.javaav.HelloApplication;
+import com.example.javaav.Model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -36,6 +35,9 @@ public class DashboardViewController implements Initializable {
     private Label lowPrice;
 
     @FXML
+    private Label chronoLabel;
+
+    @FXML
     private ListView<Orders> ordersWaitingList;
 
     @FXML
@@ -58,7 +60,9 @@ public class DashboardViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-      /*  backButton.setOnMouseClicked(event -> {
+        Restaurant restaurant = HelloApplication.restaurant;
+
+        backButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/HomeView.fxml"))));
                 Scene currentScene = backButton.getScene();
@@ -67,6 +71,9 @@ public class DashboardViewController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }); */
+        });
+
+        ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);
+        chrono.start();
     }
 }
