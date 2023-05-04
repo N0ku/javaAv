@@ -63,3 +63,9 @@
     -fx-font-family: "Sinhala MN";
     -fx-padding: 4pt;
 }
+
+.list-cell .meal-icon {
+    -fx-fit-width: 10px;
+    -fx-fit-height: 10px;
+    -fx-padding: 0 10px 0 0;
+}

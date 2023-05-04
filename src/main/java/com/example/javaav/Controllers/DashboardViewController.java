@@ -109,6 +109,9 @@ public class DashboardViewController implements Initializable {
             }
         });
 
+        MealList.getItems().addAll(restaurant.getMealsList());
+        MealList.setCellFactory(customer -> new CellMeals());
+
         ChronoThread chrono = new ChronoThread(chronoLabel, restaurant);
         chrono.start();
 
