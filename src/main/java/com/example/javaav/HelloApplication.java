@@ -2,6 +2,8 @@ package com.example.javaav;
 
 import com.example.javaav.Model.*;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -58,9 +61,9 @@ public class HelloApplication extends Application {
 
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
-        Date serviceEnd = format.parse("14:00");
+        Date serviceEnd = format.parse("12:25");
 
-        Service service = new Service(serviceStart, serviceEnd, true);
+        Service service = new Service(serviceStart, serviceEnd, true,"00:00");
 
         ArrayList<String> allergies = new ArrayList<>();
 
@@ -130,6 +133,46 @@ public class HelloApplication extends Application {
         restaurant = new Restaurant("Le Beyrouth", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
     }
 
+    static void InitChrono(){
+
+        Date serviceEnd = restaurant.getService().getServiceEnd();
+        Date serviceStart = restaurant.getService().getServiceStart();
+        long diffMillis = Math.abs(serviceEnd.getTime() - serviceStart.getTime());
+        Duration duration = Duration.ofMillis(diffMillis);
+        final int[] seconds = new int[]{(int) duration.toSeconds()};
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while (seconds[0] > 0) {
+                    String value = computeChronoValue();
+                    Platform.runLater(() -> restaurant.getService().setSeconds(value));
+                    Thread.sleep(1000);
+                }
+                return null;
+            }
+
+            private String computeChronoValue() {
+                int remainingSeconds = seconds[0];
+                seconds[0] = remainingSeconds - 1;
+
+                // 15mins into seconds
+                if (seconds[0] < 900){
+                    restaurant.getService().setRunning(false);
+                }
+                int minutes = remainingSeconds / 60;
+                int secondsA = remainingSeconds % 60;
+                String value = String.format("%02d:%02d", minutes, secondsA);
+                if (remainingSeconds <= 0) {
+                    value = "00:00";
+                    cancel();
+                }
+                return value;
+            }
+        };
+
+
+        new Thread(task).start();
+    }
     public static void main(String[] args) {
         launch();
     }
