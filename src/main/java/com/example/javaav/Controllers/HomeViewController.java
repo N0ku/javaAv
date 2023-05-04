@@ -10,11 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.Date;
 import java.util.Objects;
@@ -26,9 +29,9 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private Button startButton;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Restaurant restaurant = HelloApplication.restaurant;
 
         ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);

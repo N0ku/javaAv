@@ -142,7 +142,7 @@ public class DisplayEmployeeViewController implements Initializable {
         personData.stream().forEach(person ->{
             Optional<JSONObject> matchingObject = IntStream.range(0,jsonArray.length()).mapToObj(jsonArray::getJSONObject)
                     .filter(e ->
-                         e.getInt("id") == person.getId()
+                            e.getInt("id") == person.getId().hashCode()
                     )
                     .findFirst();
             if (matchingObject.isEmpty()) {
@@ -174,7 +174,7 @@ public class DisplayEmployeeViewController implements Initializable {
         List<Employees> employees = new ArrayList<>();
          IntStream
                 .range(0,arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e ->{
-                    personData.add(new Employees(e.getInt("id"),e.getString("name"),e.getString("mail"),
+                    personData.add(new Employees(e.getString("name"),e.getString("mail"),
                     e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
                     e.getInt("workHours"),e.getFloat("salary")));
                 });

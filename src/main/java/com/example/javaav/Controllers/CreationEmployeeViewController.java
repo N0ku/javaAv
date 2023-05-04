@@ -63,7 +63,7 @@ public class CreationEmployeeViewController implements Initializable {
             if (!valid.get() || boxJobName.getValue() == null){
                 return;
             }
-            Employees newEmployee = new Employees(10,textName.getText(),textMail.getText(),
+            Employees newEmployee = new Employees(textName.getText(),textMail.getText(),
                     textPhone.getText(),Integer.parseInt(textYears.getText()),"dezzf",
                     boxJobName.getValue(),34, Float.parseFloat(textSalary.getText()));
 

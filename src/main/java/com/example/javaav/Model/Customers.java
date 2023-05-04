@@ -9,10 +9,10 @@ public class Customers extends Person{
 
     int groupId;
 
-    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table,int groupId) {
-        super(id,name, mail, tel, age, adress);
+    public Customers(String name, String mail, String tel, int age, String adress, Tables table,int groupId) {
+        super(name, mail, tel, age, adress);
         this.table = table;
-        this.orders = new ArrayList<>();
+        this.orders =new ArrayList<>() ;
         this.groupId = groupId;
     }
 
