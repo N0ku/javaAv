@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -75,5 +76,13 @@ public class DashboardViewController implements Initializable {
 
         ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);
         chrono.start();
+
+        // Let's have some fun with streams
+
+       //TODO restaurant.getCustomersList().stream().filter(customer -> customer.getOrders().getStatus() = "delivred"); // add for each after
+
+      //TODO ArrayList<Customers> customersWaiting =  restaurant.getCustomersList().stream().filter(customer -> customer.getOrders().getStatus() = "pending");
+
+        
     }
 }
