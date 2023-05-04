@@ -13,7 +13,35 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.CreateOrderViewController">
    <children>
-      <VBox prefHeight="268.0" prefWidth="330.0">
+      <VBox fx:id="containerConfigOrder" layoutX="3.0" layoutY="8.0" prefHeight="394.0" prefWidth="590.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label contentDisplay="RIGHT" text="Table">
+                     <graphic>
+                        <ComboBox fx:id="comboBoxTable" prefHeight="25.0" prefWidth="216.0" promptText="Selectionne une table" />
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label contentDisplay="RIGHT" text="Client">
+                     <graphic>
+                        <ComboBox fx:id="comboBoxClient" prefWidth="150.0" promptText="Selectionne un client " />
+                     </graphic>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnValidConfig" mnemonicParsing="false" text="Valider" />
+                  <Button mnemonicParsing="false" text="Retour " />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox fx:id="containerListMeal" prefHeight="244.0" prefWidth="330.0" visible="false">
          <children>
             <Label text="Liste des plats">
                <font>
@@ -23,18 +51,16 @@
             <ListView fx:id="mealListView" maxHeight="380.0" prefHeight="245.0" prefWidth="317.0" />
          </children>
       </VBox>
-      <HBox layoutY="313.0" prefHeight="120.0" prefWidth="524.0">
+      <HBox fx:id="containerSelectOrder" layoutY="280.0" prefHeight="120.0" prefWidth="600.0" visible="false">
          <children>
             <ImageView fx:id="mealImageView" fitHeight="101.0" fitWidth="107.0" />
             <VBox prefHeight="110.0" prefWidth="247.0">
                <children>
                   <Label fx:id="nameLabel" />
                   <Label fx:id="priceLabel" />
-                  <Label fx:id="descLabel" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Spinner fx:id="quantitySpinner" prefHeight="25.0" prefWidth="91.0" />
-                        <ComboBox prefWidth="150.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">

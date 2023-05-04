@@ -1,16 +1,18 @@
 package com.example.javaav.Model;
 
+import java.util.ArrayList;
+
 public class Customers extends Person{
 
     Tables table;
-    Orders orders;
+    ArrayList<Orders> orders;
 
     int groupId;
 
-    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table, Orders orders,int groupId) {
+    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table,int groupId) {
         super(id,name, mail, tel, age, adress);
         this.table = table;
-        this.orders = orders;
+        this.orders = new ArrayList<>();
         this.groupId = groupId;
     }
 
@@ -24,12 +26,8 @@ public class Customers extends Person{
         this.table = table;
     }
 
-    public Orders getOrders() {
+    public ArrayList<Orders> getOrders() {
         return orders;
-    }
-
-    public void setOrders(Orders orders) {
-        this.orders = orders;
     }
 
     @Override
