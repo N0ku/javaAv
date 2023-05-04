@@ -45,5 +45,7 @@ public class HomeViewController implements Initializable {
             }
         });
 
+        startButton.getStyleClass().add("button-style");
+
     }
 }

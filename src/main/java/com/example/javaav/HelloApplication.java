@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.text.DateFormat;
+import java.util.Objects;
 
 
 public class HelloApplication extends Application {
@@ -25,13 +26,16 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException, ParseException {
 
         InitRestaurant();
+        InitChrono();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 720, 500);
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Restaurant");
         stage.setScene(scene);
         stage.show();
     }
+
     static void InitRestaurant() throws ParseException {
         Employees employe1 = new Employees(0, "Emma", "emma@mail.com", "06 72 34 56 78", 20, "Rue des Lilas", "Cuisinier", 20, 1245.67f);
         Employees employe2 = new Employees(1, "Oscar", "oscar@mail.com", "06 72 34 56 78", 23, "Rue des Lilas", "Chef", 30, 1405.11f);
@@ -41,13 +45,18 @@ public class HelloApplication extends Application {
 
         ArrayList<Employees> employees = new ArrayList<>(Arrays.asList(employe1, employe2, employe3, employe4, employe5));
 
-        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, null,0);
-        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, null,2);
-        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, null,2);
-        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, null,0);
-        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, null,1);
+        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, null, 0);
+        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, null, 2);
+        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, null, 2);
+        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, null, 0);
+        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, null, 1);
+        Customers customers6 = new Customers(5, "Frank", "frank@example.com", "06 23 45 67 89", 31, "14 avenue de la Gare", null, null, 3);
+        Customers customers7 = new Customers(6, "Grace", "grace@example.com", "06 77 88 99 00", 27, "8 rue de la Paix", null, null, 1);
+        Customers customers8 = new Customers(7, "Henry", "henry@example.com", "06 12 34 56 78", 45, "19 avenue du Soleil", null, null, 2);
+        Customers customers9 = new Customers(8, "Isabella", "isabella@example.com", "06 66 66 66 66", 23, "11 rue de la Victoire", null, null, 0);
+        Customers customers10 = new Customers(9, "Jack", "jack@example.com", "06 44 55 66 77", 39, "6 rue de la Fontaine", null, null, 3);
 
-        ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5));
+        ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5, customers6, customers7, customers8, customers9, customers10));
 
         ArrayList<Customers> customers = new ArrayList<>();
 
@@ -63,7 +72,7 @@ public class HelloApplication extends Application {
         Date serviceStart = format.parse("12:00");
         Date serviceEnd = format.parse("12:25");
 
-        Service service = new Service(serviceStart, serviceEnd, true,"00:00");
+        Service service = new Service(serviceStart, serviceEnd, true, "00:00");
 
         ArrayList<String> allergies = new ArrayList<>();
 
@@ -133,7 +142,7 @@ public class HelloApplication extends Application {
         restaurant = new Restaurant("Le Beyrouth", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
     }
 
-    static void InitChrono(){
+    static void InitChrono() {
 
         Date serviceEnd = restaurant.getService().getServiceEnd();
         Date serviceStart = restaurant.getService().getServiceStart();
@@ -156,7 +165,7 @@ public class HelloApplication extends Application {
                 seconds[0] = remainingSeconds - 1;
 
                 // 15mins into seconds
-                if (seconds[0] < 900){
+                if (seconds[0] < 900) {
                     restaurant.getService().setRunning(false);
                 }
                 int minutes = remainingSeconds / 60;
@@ -173,6 +182,7 @@ public class HelloApplication extends Application {
 
         new Thread(task).start();
     }
+
     public static void main(String[] args) {
         launch();
     }
