@@ -61,7 +61,7 @@ public class HelloApplication extends Application {
 
         ArrayList<Customers> customers = new ArrayList<>();
 
-        Tables table1 = new Tables(0, 5, "Terrasse", false, customers);
+        Tables table1 = new Tables(0, 5, "Terrasse", true, customers);
         Tables table2 = new Tables(1, 8, "Terrasse", true, customers);
         Tables table3 = new Tables(2, 2, "Terrasse", true, customers);
         Tables table4 = new Tables(3, 1, "Terrasse", true, customers);

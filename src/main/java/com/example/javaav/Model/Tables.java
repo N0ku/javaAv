@@ -55,17 +55,30 @@ public class Tables {
     }
 
     public String getCustomersToString(){
-        StringJoiner joiner = new StringJoiner(", ");
-        this.customers.forEach(c -> {
-            if(c.getOrders() != null) {
-                joiner.add(c.getName() + " " + c.getOrders().toString());
-            }
-            else{
-                joiner.add(c.getName());
-            }
-        });
-        return joiner.toString();
+        if(this.customers != null) {
+            StringJoiner joiner = new StringJoiner(" ");
+            this.customers.forEach(c -> {
+                if (!c.getOrders().isEmpty()) {
+                    joiner.add(c.getName());
+                    ArrayList<Orders> customerOrders = c.getOrders();
+                    joiner.add("  | Commande: ");
+                    customerOrders.forEach(o -> {
+                        o.getMealList().forEach(m -> {
+                            joiner.add(m.getName() + ", ");
+                        });
+                    });
+                    joiner.add("\n");
+                } else {
+                    joiner.add(c.getName() + "\n"); // add a line break after the customer's name
+                }
+            });
+            return joiner.toString();
+        }
+        else{
+            return "";
+        }
     }
+
 
     public void setCustomers(ArrayList<Customers> customers) {
         this.customers = customers;

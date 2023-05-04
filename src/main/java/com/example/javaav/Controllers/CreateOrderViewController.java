@@ -5,7 +5,10 @@ import com.example.javaav.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +20,7 @@ import javafx.scene.layout.VBox;
 
 
 import javax.security.auth.callback.Callback;
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -53,6 +57,9 @@ public class CreateOrderViewController implements Initializable {
     private HBox containerSelectOrder;
     @FXML
     private Button btnValidConfig;
+
+    @FXML
+    private Button backButton;
 
     private ArrayList<Meals> meals;
     private Customers custom;
@@ -128,7 +135,16 @@ public class CreateOrderViewController implements Initializable {
             }
         });
 
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 
         meals = HelloApplication.restaurant.getMealsList();
