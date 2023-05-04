@@ -25,6 +25,7 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException, ParseException {
 
         InitRestaurant();
+        InitChrono();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 500);
