@@ -1,14 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.javaav.RestaurantStatusView"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="root" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.RestaurantStatusViewController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #07034d;">
+         <children>
+            <Button fx:id="backButton" mnemonicParsing="false" text="Back">
+               <HBox.margin>
+                  <Insets left="30.0" />
+               </HBox.margin>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="36.0" prefWidth="525.0">
+               <children>
+                  <Label fx:id="chronoLabel" text="00:00" textFill="WHITE">
+                     <font>
+                        <Font name="Sinhala MN" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox layoutY="45.0" prefHeight="366.0" prefWidth="600.0">
+         <children>
+            <ListView fx:id="tablesList" prefHeight="365.0" prefWidth="249.0" />
+            <ListView fx:id="customersList" prefHeight="363.0" prefWidth="206.0" />
+            <VBox alignment="CENTER" prefHeight="363.0" prefWidth="151.0">
+               <children>
+                  <Button fx:id="dashboardButton" mnemonicParsing="false" text="Dashboard">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="createOrderButton" mnemonicParsing="false" text="Ajouter une commande" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
 </AnchorPane>

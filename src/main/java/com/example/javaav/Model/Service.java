@@ -6,10 +6,19 @@ public class Service {
     Date serviceStart;
     Date serviceEnd;
     boolean isRunning;
-    public Service(Date serviceStart, Date serviceEnd, boolean isRunning) {
+
+    String seconds;
+    public Service(Date serviceStart, Date serviceEnd, boolean isRunning, String seconds) {
         this.serviceStart = serviceStart;
         this.serviceEnd = serviceEnd;
         this.isRunning = isRunning;
+        this.seconds = seconds;
+    }
+
+    public String getSeconds(){ return  seconds; }
+
+    public void setSeconds(String seconds){
+        this.seconds = seconds;
     }
     public Date getServiceStart() {
         return serviceStart;

@@ -10,18 +10,20 @@ public class Meals {
     String desc;
     boolean isCancel;
     float marge;
+    int quantity;
     ArrayList<Ingredients> ingredients;
 
-    public Meals(String name, String imgUrl, float price, int nbOrder, String desc, boolean isCancel, float marge,
+    public Meals(String name, String imgUrl, float price, int nbOrder, String desc, float marge,
             ArrayList<Ingredients> ingredients) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.price = price;
         this.nbOrder = nbOrder;
         this.desc = desc;
-        this.isCancel = isCancel;
+        this.isCancel = false;
         this.marge = marge;
         this.ingredients = ingredients;
+        this.quantity=0;
     }
 
     public String getName() {
@@ -88,6 +90,11 @@ public class Meals {
         this.ingredients = ingredients;
     }
 
-    
-    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.javaav.Controllers.HomeViewController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.HomeViewController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #07034d;">
+         <children>
+            <Label fx:id="chronoLabel" text="Label" textFill="WHITE">
+               <font>
+                  <Font name="Sinhala MN" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="46.0" prefHeight="357.0" prefWidth="600.0" style="-fx-background-color: white;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="357.0" prefWidth="600.0">
+               <children>
+                  <Label text="Bienvenue !">
+                     <font>
+                        <Font name="Sinhala MN" size="53.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="startButton" mnemonicParsing="false" text="Accéder à l'application">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
