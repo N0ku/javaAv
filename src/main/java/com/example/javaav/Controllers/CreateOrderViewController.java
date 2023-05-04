@@ -1,9 +1,7 @@
 package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
-import com.example.javaav.Model.Customers;
-import com.example.javaav.Model.Ingredients;
-import com.example.javaav.Model.Meals;
+import com.example.javaav.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -25,6 +23,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -49,11 +48,13 @@ public class CreateOrderViewController implements Initializable {
     private Button finalizeButton;
     @FXML
     private VBox containerResult;
+    @FXML
+    private Label labelTotalPrice;
 
     private ArrayList<Meals> meals;
-    private ArrayList<Customers> customer;
     private Meals selectedMeal;
-
+    public Label nameLabelBill ;
+    public  Label priceLabelBill;
 
 
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
@@ -62,93 +63,19 @@ public class CreateOrderViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         meals = HelloApplication.restaurant.getMealsList();
 
-        // Configuration de la liste des plats dans le ListView
+
+        // ListView Flat List Configuration
         ObservableList<Meals> observableList = FXCollections.observableArrayList(meals);
         mealListView.setItems(observableList);
-        mealListView.setCellFactory(param -> new ListCell<Meals>() {
-            private final Label nameLabel = new Label();
-            private final Label priceLabel = new Label();
-            private final Button detailsButton = new Button("Détails");
-
-            @Override
-            protected void updateItem(Meals meal, boolean empty) {
-                super.updateItem(meal, empty);
-                if (empty || meal == null) {
-                    setText(null);
-                    setGraphic(null);
-                } else {
-                    nameLabel.setText(meal.getName());
-                    priceLabel.setText(String.format("%.2f €", meal.getPrice()));
-                    detailsButton.setOnAction(event -> showMealDetails(meal));
-                    VBox vBox = new VBox(nameLabel, priceLabel, detailsButton);
-                    HBox hBox = new HBox(vBox);
-                    setGraphic(hBox);
-                }
-            }
-
-            private void showMealDetails(Meals meal) {
-                Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.setTitle("Détails de " + meal.getName());
-
-                // Création de la grille pour afficher les détails du plat
-                GridPane grid = new GridPane();
-                grid.setHgap(10);
-                grid.setVgap(10);
-                grid.setPadding(new Insets(20, 150, 10, 10));
-
-                // Ajout de l'image du plat
-                ImageView imageView = new ImageView(new Image(meal.getImgUrl()));
-                imageView.setFitHeight(200);
-                imageView.setFitWidth(200);
-                grid.add(imageView, 0, 0, 2, 1);
-
-                // Ajout du nom et du prix du plat
-                grid.add(new Label("Nom : "), 0, 1);
-                grid.add(new Label(meal.getName()), 1, 1);
-                grid.add(new Label("Prix : "), 0, 2);
-                grid.add(new Label(meal.getPrice() + " €"), 1, 2);
-
-                // Ajout de la description du plat
-                grid.add(new Label("Description : "), 0, 3);
-                grid.add(new Label(meal.getDesc()), 1, 3);
-
-                // Ajout de la liste des ingrédients du plat
-                ListView<String> listView = new ListView<>();
-                for (Ingredients ingredient : meal.getIngredients()) {
-                    String text = ingredient.getName();
-                    listView.getItems().add(text);
-                }
-                grid.add(new Label("Ingrédients : "), 0, 4);
-                grid.add(listView, 1, 4);
-
-                // Ajout d'un bouton pour fermer la modale
-                Button closeButton = new Button("Fermer");
-                closeButton.setOnAction(e -> dialog.close());
-
-                // Création d'une boîte pour afficher la grille et le bouton
-                VBox vbox = new VBox(grid, closeButton);
-                vbox.setAlignment(Pos.CENTER);
-                vbox.setSpacing(20);
-
-                // Affichage de la boîte dans la modale
-                Scene dialogScene = new Scene(vbox, 600, 400);
-                dialog.setScene(dialogScene);
-                dialog.showAndWait();
-            }
-
-        });
-
+        mealListView.setCellFactory(param ->new MealListCell());
 
         mealListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedMeal = newValue;
             showMealSelected();
-            // Configuration des valeurs du spinner pour choisir la quantité de chaque plat à ajouter à la commande
-            SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 1);
             quantitySpinner.setValueFactory(valueFactory);
         });
 
-        // Configuration de l'action du bouton pour ajouter le plat sélectionné à la commande
+        // Setting the button action to add the selected dish to the control
         addButton.setOnAction(event -> {
             if (selectedMeal != null) {
                 int quantity = quantitySpinner.getValue();
@@ -163,13 +90,18 @@ public class CreateOrderViewController implements Initializable {
 
             }
         });
-        // Configuration de l'action du bouton pour finaliser la commande
+        // Configure the button action to finalize the command
         finalizeButton.setOnAction(event -> {
             if (!orderedMeals.isEmpty()) {
                 double totalPrice = orderedMeals.stream()
                         .mapToDouble(meal -> meal.getPrice() * meal.getQuantity())
                         .sum();
 
+                // Create the order
+                ArrayList<Meals> mealsDto = new ArrayList<>(orderedMeals);
+                Orders order = new Orders(mealsDto, totalPrice);
+
+                // Display the order confirmation
                 StringBuilder sb = new StringBuilder("Commande :\n\n");
                 Map<String, Integer> mealQuantities = orderedMeals.stream()
                         .collect(Collectors.groupingBy(Meals::getName, Collectors.summingInt(Meals::getQuantity)));
@@ -181,36 +113,37 @@ public class CreateOrderViewController implements Initializable {
                 sb.append("\nTotal : ").append(totalPrice).append(" €");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Commande finalisée");
+                alert.setTitle("Order finalized");
                 alert.setHeaderText(null);
                 alert.setContentText(sb.toString());
                 alert.showAndWait();
 
-                // Réinitialisation des plats sélectionnés
+                // Reset selected meals
                 orderedMeals.clear();
                 selectedMeal = null;
                 quantitySpinner.setValueFactory(valueFactory);
             }
             else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Commande vide");
+                alert.setTitle("Empty order");
                 alert.setHeaderText(null);
-                alert.setContentText("Veuillez ajouter des plats à la commande.");
+                alert.setContentText("Please add meals to the order.");
                 alert.showAndWait();
             }
         });
+
     }
 
     private void showMealSelected() {
         if (selectedMeal != null) {
-            // Affichage des détails du plat sélectionné
+            // View details of selected meal
             mealImageView.setImage(new Image(selectedMeal.getImgUrl()));
             nameLabel.setText(selectedMeal.getName());
             priceLabel.setText(String.format("%.2f €", selectedMeal.getPrice()));
             descLabel.setText(selectedMeal.getDesc());
 
         } else {
-            // Effacement des détails si aucun plat n'est sélectionné
+            // Delete details if no meal selected
             mealImageView.setImage(null);
             nameLabel.setText("");
             priceLabel.setText("");
@@ -219,13 +152,41 @@ public class CreateOrderViewController implements Initializable {
     }
 
     private void displayOrderedMeals() {
-        containerResult.getChildren().clear(); // vide la VBox
-        orderedMeals.stream()
-                .map(Meals::getName) // transforme chaque Meal en son nom
-                .map(Label::new) // crée un Label pour chaque nom
-                .forEach(containerResult.getChildren()::add); // ajoute chaque Label à la VBox
+        containerResult.getChildren().clear(); // Clear the VBox
+
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+
+        orderedMeals.stream().map(meal -> {
+            nameLabelBill = new Label(meal.getName());
+            priceLabelBill = new Label(meal.getPrice() + " €");
+            Label quantityLabel = new Label(meal.getQuantity()+" fois");
+
+            // Add the labels to a HBox
+            HBox hbox = new HBox(nameLabel, quantityLabel, priceLabel);
+            hbox.setSpacing(10);
+
+            return hbox;
+        }).forEach(vbox.getChildren()::add);
+
+        // Calculate the total price for all meals
+        double totalPrice = orderedMeals.stream()
+                .mapToDouble(meal -> meal.getPrice() * meal.getQuantity())
+                .sum();
+
+        labelTotalPrice.setText("Total : " + totalPrice + " €");
+
+        // Make the VBox scrollable
+        ScrollPane scrollPane = new ScrollPane(vbox);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(200);
+
+        containerResult.getChildren().add(scrollPane);
     }
-    //Méthode pour afficher un message de confirmation
+
+
+
+    //Method to display confirmation messages
     private void showConfirmationAlert(String mealName, int quantity) {
         String message = String.format("Le plat %s a été ajouté %d fois à la commande.", mealName, quantity);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
