@@ -26,7 +26,7 @@ public class HelloApplication extends Application {
 
         InitRestaurant();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreateOrderView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 500);
         stage.setTitle("Restaurant");
         stage.setScene(scene);
