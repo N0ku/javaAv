@@ -56,7 +56,14 @@ public class Tables {
 
     public String getCustomersToString(){
         StringJoiner joiner = new StringJoiner(", ");
-        this.customers.forEach(c -> joiner.add(c.getName()));
+        this.customers.forEach(c -> {
+            if(c.getOrders() != null) {
+                joiner.add(c.getName() + " " + c.getOrders().toString());
+            }
+            else{
+                joiner.add(c.getName());
+            }
+        });
         return joiner.toString();
     }
 

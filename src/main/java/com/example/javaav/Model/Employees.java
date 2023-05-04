@@ -1,5 +1,7 @@
 package com.example.javaav.Model;
 
+import javafx.beans.property.IntegerProperty;
+
 public class Employees extends Person {
     String jobName;
     int workHours;
@@ -11,6 +13,8 @@ public class Employees extends Person {
         this.workHours = workHours;
         this.salary = salary;
     }
+
+
 
     public String getJobName() {
         return jobName;

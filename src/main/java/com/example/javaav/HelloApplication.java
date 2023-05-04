@@ -60,8 +60,12 @@ public class HelloApplication extends Application {
         ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5, customers6, customers7, customers8, customers9, customers10));
 
         ArrayList<Customers> customers = new ArrayList<>();
+        ArrayList<Customers> customersTest = new ArrayList<>();
+        customersTest.add(customers1);
+        customersTest.add(customers2);
 
-        Tables table1 = new Tables(0, 5, "Terrasse", true, customers);
+
+        Tables table1 = new Tables(0, 5, "Terrasse", false, customersTest);
         Tables table2 = new Tables(1, 8, "Terrasse", true, customers);
         Tables table3 = new Tables(2, 2, "Terrasse", true, customers);
         Tables table4 = new Tables(3, 1, "Terrasse", true, customers);
