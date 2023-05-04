@@ -34,7 +34,7 @@ public class OrderDisplayViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         orderList = FXCollections.observableArrayList();
 
-        // Fill the list of pending orders
+        // Fill the list with pending orders
         refreshOrderList();
 
         // Customize the display of each element in the list
