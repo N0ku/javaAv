@@ -25,6 +25,11 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private Button quitButton;
+    
+    /** 
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = MainApplication.restaurant;

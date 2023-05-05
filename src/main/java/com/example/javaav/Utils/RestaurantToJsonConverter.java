@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class RestaurantToJsonConverter {
 
+    
+    /** 
+     * @return JSONObject
+     */
     public static JSONObject toJson() {
 Restaurant restaurant = MainApplication.restaurant;
         JSONObject jsonRestaurant = new JSONObject();

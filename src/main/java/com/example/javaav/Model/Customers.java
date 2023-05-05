@@ -16,24 +16,44 @@ public class Customers extends Person{
         this.numberTable = 0;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getNumberTable() {
         return numberTable;
     }
 
+    
+    /** 
+     * @param numberTable
+     */
     public void setNumberTable(int numberTable) {
         this.numberTable = numberTable;
     }
 
     public int getGroupId(){ return  groupId;}
 
+    
+    /** 
+     * @return ArrayList<Orders>
+     */
     public ArrayList<Orders> getOrders() {
         return orders;
     }
 
+    
+    /** 
+     * @param orders
+     */
     public void setOrders(ArrayList<Orders> orders){
         this.orders = orders;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Customers{"+"id="+getId()+", name="+ getName()+", tel="+getTel()+", age="+getAge()+ ", adress="+getAdress()+

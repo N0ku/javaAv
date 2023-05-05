@@ -18,42 +18,82 @@ public class Tables {
         this.customers = customers;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getTableNumber() {
         return tableNumber;
     }
 
+    
+    /** 
+     * @param tableNumber
+     */
     public void setTableNumber(int tableNumber) {
         this.tableNumber = tableNumber;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getSize() {
         return size;
     }
 
+    
+    /** 
+     * @param size
+     */
     public void setSize(int size) {
         this.size = size;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getPlace() {
         return place;
     }
 
+    
+    /** 
+     * @param place
+     */
     public void setPlace(String place) {
         this.place = place;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isFree() {
         return isFree;
     }
 
+    
+    /** 
+     * @param isFree
+     */
     public void setFree(boolean isFree) {
         this.isFree = isFree;
     }
 
+    
+    /** 
+     * @return ArrayList<Customers>
+     */
     public ArrayList<Customers> getCustomers() {
         return customers;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getCustomersToString(){
         if(this.customers != null) {
             StringJoiner joiner = new StringJoiner(" ");
@@ -80,6 +120,10 @@ public class Tables {
     }
 
 
+    
+    /** 
+     * @param customers
+     */
     public void setCustomers(ArrayList<Customers> customers) {
         this.customers = customers;
     }

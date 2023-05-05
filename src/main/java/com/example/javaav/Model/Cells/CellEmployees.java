@@ -4,6 +4,11 @@ import com.example.javaav.Model.Employees;
 import javafx.scene.control.ListCell;
 
 public class CellEmployees extends ListCell<Employees> {
+    
+    /** 
+     * @param item
+     * @param empty
+     */
     @Override
     protected void updateItem(Employees item, boolean empty) {
         super.updateItem(item, empty);
