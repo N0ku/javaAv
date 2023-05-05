@@ -67,7 +67,7 @@ public class MenuCreationViewController  {
         ingredientsComboBox.getSelectionModel().selectFirst();
         String selectedIngredientName = ingredientsComboBox.getValue();
         System.out.println(selectedIngredientName);
-
+        // create an event to add ingredient to the ingredientsList
         ingredientsComboBox.setOnMousePressed(mouseEvent -> {
             String selectedItem = ingredientsComboBox.getSelectionModel().getSelectedItem();
             System.out.println(selectedItem);
@@ -168,6 +168,7 @@ public class MenuCreationViewController  {
         priceSpinner.getValueFactory().setValue(0);
         foodDescriptionfield.clear();
         ingredientsComboBox.getSelectionModel().clearSelection();
+        listIngredients.getItems().clear();
     }
 
 }
