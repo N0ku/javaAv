@@ -6,23 +6,29 @@ import java.util.StringJoiner;
 import java.util.UUID;
 
 public class Orders {
-    private final UUID id;
+    private  UUID id;
     ArrayList<Meals> mealList;
     double totalPrice;
     Date hour;
     String status ;
 
-    public Orders(ArrayList<Meals> mealList,double totalPrice) {
+    public Orders(ArrayList<Meals> mealList,double totalPrice ,Date hour) {
+        System.out.println(hour);
         this.id = UUID.randomUUID();
         this.mealList = mealList;
         this.totalPrice = totalPrice;
-        this.hour = new Date();
+        this.hour = hour;
         this.status= "pending";
     }
 
     public UUID getId() {
         return id;
     }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public ArrayList<Meals> getMealList() {
         return mealList;
     }

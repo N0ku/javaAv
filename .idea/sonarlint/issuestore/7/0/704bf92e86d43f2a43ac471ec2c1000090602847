@@ -1,8 +1,0 @@
-
-„
-java:S1319"iThe type of "allergies" should be an interface such as "List" rather than the implementation "ArrayList".(ÖŠ‡şÿÿÿÿ
-‹
-java:S1319""pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Èí¾¥øÿÿÿÿ
-„
-java:S1319&"iThe type of "allergies" should be an interface such as "List" rather than the implementation "ArrayList".(Š’Ü¤ÿÿÿÿÿ
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Œ›÷

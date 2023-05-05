@@ -76,7 +76,7 @@ public class OrderDisplayViewController implements Initializable {
 
         orderListView.setItems(orderList);
         //Add the return
-        buttonReturn.setOnAction(event->{
+        buttonReturn.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
                 Scene currentScene = buttonReturn.getScene();

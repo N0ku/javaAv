@@ -47,7 +47,8 @@ public class RestaurantStatusViewController implements Initializable {
 
     @FXML
     private Button dashboardButton;
-
+    @FXML
+    private Button orderStatutButton;
     @FXML
     private Button employeeListButton;
 
@@ -93,7 +94,7 @@ public class RestaurantStatusViewController implements Initializable {
         ChronoThread chrono = new ChronoThread(chronoLabel, restaurant);
         chrono.start();
 
-        final ArrayList<Customers>[] customers = new ArrayList[]{restaurant.getCustomersList().stream().filter(c -> c.getTable() == null).collect(Collectors.toCollection(ArrayList::new))};
+        final ArrayList<Customers>[] customers = new ArrayList[]{restaurant.getCustomersList().stream().filter(c -> c.getNumberTable() == 0).collect(Collectors.toCollection(ArrayList::new))};
         final ArrayList<Tables>[] tables = new ArrayList[]{restaurant.getTablesList()};
 
         customersList.getItems().addAll(customers[0]);
@@ -131,7 +132,7 @@ public class RestaurantStatusViewController implements Initializable {
 
                 customersToAdd.forEach(c -> {
                     customersList.getItems().remove(c);
-                    c.setTable(table);
+                    c.setNumberTable(table.getTableNumber());
                     int indexCustomer = restaurant.getCustomersList().indexOf(c);
                     ArrayList<Customers> customersToUpdate = restaurant.getCustomersList();
                     customersToUpdate.set(indexCustomer, c);
@@ -161,7 +162,7 @@ public class RestaurantStatusViewController implements Initializable {
 
             if (customersTable.size() >= 1) {
                 customersTable.forEach(c -> {
-                    c.setTable(null);
+                    c.setNumberTable(0);
                     //ArrayList<Orders> o = new ArrayList<>();
                    // c.setOrders(o);
                     int indexCustomer = restaurant.getCustomersList().indexOf(c);

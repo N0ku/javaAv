@@ -1,60 +1,472 @@
 {
   "name":"Le Beyrouth",
   "recipe":10000,
-  "address":"12 rue des Pigeons, 75002 Paris",
-  "employeesList":[
+  "adress":"12 rue des Pigeons, 75002 Paris",
+  "employees":[
     {
-      "id":1,
-      "name":"Emma",
-      "mail":"emma@mail.com",
-      "tel":"0987654345678",
-      "age":25,
-      "adress":"Rue des Lilas",
-      "jobname":"Serveur",
-      "workHours":20,
-      "salary":"1245.67f"
+      "jobName": "Manager",
+      "mail": "john.doe@example.com",
+      "workHours": 40,
+      "name": "John Doe",
+      "tel": "555-1234",
+      "adress": "123 Main Street",
+      "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
+      "salary": 5000,
+      "age": 76
+    },
+    {
+      "jobName": "Manager",
+      "mail": "john.doe@example.com",
+      "workHours": 40,
+      "name": "John Doe",
+      "tel": "555-1234",
+      "adress": "123 Main Street",
+      "id": "5b5c2709-6a1a-41f8-bb03-6ea2395b0fc5",
+      "salary": 5000,
+      "age": 30
+    },
+    {
+      "jobName": "Manager",
+      "mail": "john.doe@example.com",
+      "workHours": 40,
+      "name": "John Doe",
+      "tel": "555-1234",
+      "adress": "123 Main Street",
+      "id": "c28e2b1c-5201-43fd-a0e5-d68232f29c6a",
+      "salary": 5000,
+      "age": 56
+    },
+    {
+      "jobName": "Manager",
+      "mail": "john.doe@example.com",
+      "workHours": 40,
+      "name": "John Doe",
+      "tel": "555-1234",
+      "adress": "123 Main Street",
+      "id": "43c49e62-29a3-4679-a2e1-47dc44af0a09",
+      "salary": 5000,
+      "age": 23
+    },
+    {
+      "jobName": "Serveur",
+      "mail": "eric@gmail.com",
+      "workHours": 21,
+      "name": "Eric Sturm",
+      "tel": "0987654",
+      "adress": "22 rue de la paix ",
+      "id": "e7e2d831-8f16-49e4-a4c9-4d3a8c7c58b3",
+      "salary": 2000,
+      "age": 15
+    },
+    {
+      "jobName": "Serveur",
+      "mail": "LKJH",
+      "workHours": 34,
+      "name": "KJ",
+      "tel": "987",
+      "adress": "dezzf",
+      "id": "1f72d8c7-ec23-4c89-9f70-9c8af7a2a1c1",
+      "salary": 87987,
+      "age": 34
     }
   ],
   "customersList":[
     {
-      "id":1,
-      "name":"Emma",
-      "mail":"emma@mail.com",
-      "tel":"0987654345678",
-      "age":25,
-      "adress":"Rue des Lilas",
-      "table":[
-        {
+      "id":"8e3d4f9e-2797-4d57-8c20-5615d55a5c5a",
+      "name":"Alice",
+      "mail":"alice@example.com",
+      "tel":"06 12 34 56 78",
+      "age":28,
+      "adress":"1 rue de la Liberté",
+      "orders": [{
+        "id": "a2975c45-b9f5-4986-a03b-8d1c2e1c996c",
+        "mealList": [ {
+          "name":"Manakish Zaatar",
+          "imgUrl":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
+          "price":"5.5f",
+          "nbOrder":23,
+          "desc":"Pain plat au thym et au sumac",
+          "marge":"2.5f",
+          "ingredients":[
+            {
+              "id": 1,
+              "price": 10,
+              "name": "Tomates"
 
-        }
-      ],
-      "groupId":20
+            },
+            {
+              "id": 2,
+              "price": 20,
+              "name": "Fromage"
+
+            }
+          ]
+        }],
+        "totalPrice": 123.99,
+        "hour": "12:05:00",
+        "status": "pending"
+      }],
+      "groupId":1
+    },
+    {
+      "id":"df43f9d1-13c7-4e05-a77b-98a301e5e5d6",
+      "name":"Bob",
+      "mail":"bob@example.com",
+      "tel":"06 98 76 54 32",
+      "age":35,
+      "adress":"10 avenue des Fleurs",
+      "orders": [],
+      "groupId":3
+    },
+    {
+      "id":"d1aef794-7506-4ad7-b14a-c5f2e4e4b4d5",
+      "name":"Charlie",
+      "mail":"charlie@example.com",
+      "tel":"06 44 88 12 16",
+      "age":42,
+      "adress":"22 rue du Château",
+      "orders": [],
+      "groupId":3
+    },
+    {
+      "id":"ce56d6f1-efc3-4a2e-bda2-bb1bbf406a9a",
+      "name":"David",
+      "mail":"david@example.com",
+      "tel":"06 55 33 77 99",
+      "age":20,
+      "adress":"5 boulevard du Parc",
+      "orders": [],
+      "groupId":1
+    },
+    {
+      "id":"9c5d62d5-bd2d-4b5d-9c81-7a62307f64c8",
+      "name":"Frank",
+      "mail":"frank@example.com",
+      "tel":"06 23 45 67 89",
+      "age":31,
+      "adress":"14 avenue de la Gare",
+      "orders": [],
+      "groupId":3
+    },
+    {
+      "id":"e7d279e6-c708-4a7b-9eaa-545ef1f52b94",
+      "name":"Grace",
+      "mail":"grace@example.com",
+      "tel":"06 77 88 99 00",
+      "age":27,
+      "adress":"8 rue de la Paix",
+      "orders": [],
+      "groupId":1
+    },
+    {
+      "id":"8a63466e-67c7-4872-b36d-d8a2e2341e02",
+      "name":"Henry",
+      "mail":"henry@example.com",
+      "tel":"06 12 34 56 78",
+      "age":45,
+      "adress":"19 avenue du Soleil",
+      "orders": [],
+      "groupId":2
+    },
+    {
+      "id":"51c03e23-49a8-4b14-831f-2f743d9c9f78",
+      "name":"Isabella",
+      "mail":"isabella@example.com",
+      "tel":"06 66 66 66 66",
+      "age":23,
+      "adress":"11 rue de la Victoire",
+      "orders": [],
+      "groupId":0
+    },
+    {
+      "id":"3f3d67a1-b0de-47b3-8200-8b56aeb25ca9",
+      "name":"Emma",
+      "mail":"emma@example.com",
+      "tel":"06 66 99 11 22",
+      "age":50,
+      "adress":"3 rue des Écoles",
+      "orders": [],
+      "groupId":1
+    },
+    {
+      "id": "d5e5b20e-65f7-4a15-8a8b-23b049c1007e",
+      "name": "Jack",
+      "mail": "jack@example.com",
+      "tel": "06 44 55 66 77",
+      "age": 39,
+      "adress": "6 rue de la Fontaine",
+      "orders": [],
+      "groupId": 4
     }
   ],
   "mealsList":[
     {
       "name":"Manakish Zaatar",
-      "img_url":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
+      "imgUrl":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
       "price":"5.5f",
       "nbOrder":23,
       "desc":"Pain plat au thym et au sumac",
       "marge":"2.5f",
       "ingredients":[
         {
+          "id": 1,
+          "price": 10,
+          "name": "Tomates"
 
+        },
+        {
+          "id": 2,
+          "price": 20,
+          "name": "Fromage"
+
+        }
+      ]
+    },
+    {
+      "name": "Chich Taouk",
+      "imgUrl": "https://assets.afcdn.com/recipe/20160405/32958_w1024h576c1cx1500cy1002.jpg",
+      "price": 12.5,
+      "nbOrder": 35,
+      "desc": "Brochettes de poulet mariné aux épices libanaises, servies avec du riz",
+      "marge": 3.0,
+      "ingredients": [
+        {
+          "id": 2,
+          "price": 20,
+          "name": "Poulet"
+        },
+        {
+          "id": 3,
+          "price": 5,
+          "name": "Poivrons"
+        }
+      ]
+    },
+    {
+      "name": "Moussaka libanaise",
+      "imgUrl": "https://res.cloudinary.com/hv9ssmzrz/image/fetch/c_fill,f_auto,h_488,q_auto,w_650/https://s3-eu-west-1.amazonaws.com/images-ca-1-0-1-eu/recipe_photos/original/133618/21-final-e1476354254531.jpg",
+      "price": 14.5,
+      "nbOrder": 20,
+      "desc": "Gratin d'aubergines, de tomates et de pois chiches, gratiné au fromage",
+      "marge": 3.5,
+      "ingredients": [
+        {
+          "id": 4,
+          "price": 15,
+          "name": "Aubergines"
+        },
+        {
+          "id": 5,
+          "price": 10,
+          "name": "Tomates"
+        }
+      ]
+    },
+    {
+      "name": "Houmous",
+      "imgUrl": "https://img.cuisineaz.com/660x660/2017/06/20/i128397-.jpeg",
+      "price": 7.5,
+      "nbOrder": 25,
+      "desc": "Purée de pois chiches, de tahini, d'ail et de jus de citron, servie avec du pain pita",
+      "marge": 3.0,
+      "ingredients": [
+        {
+          "id": 6,
+          "price": 10,
+          "name": "Pois chiches"
+        },
+        {
+          "id": 7,
+          "price": 15,
+          "name": "Sésame"
+        }
+      ]
+    },
+    {
+      "name":"Shawarma",
+      "imgUrl":"https://content-images.weber.com/emea-recipes/FR/Shawarma-de-poulet.jpg?auto=compress,format&w=750",
+      "price":"10.5f",
+      "nbOrder":40,
+      "desc":"Viande d'agneau marinée, rôtie sur une broche et servie avec des légumes grillés et de l'ail",
+      "marge":"4.0f",
+      "ingredients":[
+        {
+          "id": 8,
+          "price": 20,
+          "name": "Agneau"
+        },
+        {
+          "id": 9,
+          "price": 30,
+          "name": "Ail"
+        }
+      ]
+    },
+    {
+      "name":"Makdous",
+      "imgUrl":"https://www.196flavors.com/wp-content/uploads/2021/01/makdous-4-FP.jpg",
+      "price":"12.5f",
+      "nbOrder":35,
+      "desc":"Aubergines farcies à l'ail, aux noix et aux poivrons",
+      "marge":"3.0f",
+      "ingredients":[
+        {
+          "id": 10,
+          "price": 15,
+          "name": "Poivrons"
+        },
+        {
+          "id": 11,
+          "price": 5,
+          "name": "Pignons de pin"
+        }
+      ]
+    },
+    {
+      "name":"Kebbeh",
+      "imgUrl":"https://www.auxdelicesdupalais.net/wp-content/uploads/2022/06/kebbe-libanaise-4.jpg",
+      "price":"14.5f",
+      "nbOrder":20,
+      "desc":"Croquettes de viande hachée et de blé concassé farcies de viande hachée et de tomate",
+      "marge":"3.5f",
+      "ingredients":[
+        {
+          "id": 12,
+          "price": 20,
+          "name": "Viande hachée"
+        },
+        {
+          "id": 13,
+          "price": 10,
+          "name": "Tomates"
+        }
+      ]
+    },
+    {
+      "name": "Dolma",
+      "imgUrl": "https://fac.img.pmdstatic.net/fit/https.3A.2F.2Fi.2Epmdstatic.2Enet.2Ffac.2F2021.2F09.2F02.2F82c21deb-049c-4cee-b7f0-e1a1ed7fb308.2Ejpeg/750x562/quality/80/crop-from/center/cr/wqkgSVNUT0NLL0dFVFRZIElNQUdFUyAvIEZlbW1lIEFjdHVlbGxl/dolma.jpeg",
+      "price": 15.0,
+      "nbOrder": 40,
+      "desc": "Feuilles de vigne farcies au riz, aux herbes et aux épices, arrosées de jus de citron et d'huile d'olive",
+      "marge": 4.5,
+      "ingredients": [
+        {
+          "id": 16,
+          "price": 10,
+          "name": "Feuilles de vigne"
+        },
+        {
+          "id": 17,
+          "price": 2,
+          "name": "Tomates"
+        },
+        {
+          "id": 18,
+          "price": 1,
+          "name": "Oignon"
+        },
+        {
+          "id": 19,
+          "price": 1,
+          "name": "Citron"
+        },
+        {
+          "id": 20,
+          "price": 100,
+          "name": "Riz"
+        },
+        {
+          "id": 21,
+          "price": 50,
+          "name": "Persil frais"
+        },
+        {
+          "id": 22,
+          "price": 50,
+          "name": "Menthe fraîche"
+        },
+        {
+          "id": 23,
+          "price": 50,
+          "name": "Coriandre fraîche"
+        },
+        {
+          "id": 24,
+          "price": 5,
+          "name": "Huile d'olive"
+        }
+      ]
+    },
+    {
+      "name": "Baba Ghanouj",
+      "imgUrl": "https://www.simplyleb.com/wp-content/uploads/Baba-Ghanouj-15.jpg",
+      "price": "16.5f",
+      "nbOrder": 40,
+      "desc": "Purée d'aubergines grillées, d'ail, de tahini, de jus de citron et d'huile d'olive",
+      "marge": "4.0f",
+      "ingredients": [
+        {
+          "id": 16,
+          "price": 20,
+          "name": "Ail"
+        },
+        {
+          "id": 17,
+          "price": 30,
+          "name": "Aubergines"
         }
       ]
     }
   ],
   "tablesList":[
     {
-      "number":1,
-      "capacity":4
+      "tableNumber":1,
+      "size":4,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":2,
+      "size":4,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":3,
+      "size":6,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":4,
+      "size":8,
+      "place": "Salle",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":5,
+      "size":6,
+      "place": "Salle",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":6,
+      "size":2,
+      "place": "Bar",
+      "isFree": true,
+      "customers":[]
     }
   ],
-  "capital":50000,
+  "capital":25000,
   "service":{
-    "name":"nom_service",
-    "description":"description_service"
+    "serviceStart": "12:00",
+    "serviceEnd":"12:25",
+    "isRunning":false,
+    "seconds": "00:00"
   }
 }

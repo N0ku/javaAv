@@ -126,6 +126,9 @@ public class CreateOrderViewController implements Initializable {
             // Récupérer le client sélectionné dans le ComboBox
             Customers selectedCustomer = comboBoxClient.getSelectionModel().getSelectedItem();
             if (selectedCustomer != null) {
+                comboBoxTable.setValue(null);
+                comboBoxClient.getItems().clear();
+                comboBoxClient.setValue(null);
                 // Récupérer l'utiliser pour configurer la table
                 custom = selectedCustomer;
                 containerListMeal.setVisible(true);
@@ -200,7 +203,7 @@ public class CreateOrderViewController implements Initializable {
 
                 // Create the order
                 ArrayList<Meals> mealsDto = new ArrayList<>(orderedMeals);
-                Orders order = new Orders(mealsDto, totalPrice);
+                Orders order = new Orders(mealsDto, totalPrice,new Date());
                 custom.getOrders().add(order);
                 List<Customers> matchingCustomers = HelloApplication.restaurant.getCustomersList().stream()
                         .filter(c -> c== custom)

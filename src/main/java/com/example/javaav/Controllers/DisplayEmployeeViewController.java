@@ -2,6 +2,7 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.Employees;
+import com.example.javaav.Model.Restaurant;
 import com.example.javaav.Utils.PdfUtils;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -37,6 +38,9 @@ public class DisplayEmployeeViewController implements Initializable {
     private Button buttonDelete;
 
     @FXML
+    private Button generatePdf;
+
+    @FXML
     private TableColumn<Employees, Integer> columnIdEmploye;
 
     @FXML
@@ -60,29 +64,25 @@ public class DisplayEmployeeViewController implements Initializable {
     @FXML
     private Button backButton;
 
-    Employees empoTest = new Employees("eee", "ffef", "0987654", 12, "dzdfzf", "ffefef", 12, 2000);
-
     ObservableList<Employees> personData = FXCollections.observableArrayList();
 
     String dataJson = "[]";
 
+    Restaurant restaurant = HelloApplication.restaurant;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            this.dataJson = new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/employee.json")));
-            System.out.println(dataJson);
-            handleEmployeeFromJson(dataJson);
-        } catch (IOException e) {
+            personData.addAll(restaurant.getEmployeesList());
+        } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning Dialog");
             alert.setHeaderText("Error");
             alert.setContentText("Data not Found");
             alert.show();
-
         }
-        personData.add(empoTest);
+
         columnIdEmploye.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
         columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String>("jobName"));
         columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
@@ -103,7 +103,8 @@ public class DisplayEmployeeViewController implements Initializable {
 
         backButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Parent root = FXMLLoader.load((Objects
+                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
                 Scene currentScene = backButton.getScene();
                 currentScene.setRoot(root);
 
@@ -112,76 +113,45 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
 
+        /*
+         * buttonDelete.setOnAction(e -> {
+         * List<String> r = List.of("id","name","tel","mail");
+         * List<HashMap<String,String>> er = new ArrayList<>();
+         * personData.stream().forEach(person ->{
+         * HashMap<String, String> map = new HashMap<>();
+         * map.put("id", String.valueOf(person.getId()));
+         * map.put("name", person.getName());
+         * map.put("tel", person.getTel());
+         * map.put("mail", person.getMail());
+         * er.add(map);
+         * });
+         * PdfGenerateController controllerEmplo = new PdfGenerateController(r,er,
+         * "Employee");
+         * try {
+         * FXMLLoader loader = new
+         * FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+         * loader.setController(controllerEmplo);
+         * Scene newScene = new Scene(loader.load());
+         * 
+         * Stage currentStage = (Stage) this.buttonDelete.getScene().getWindow();
+         * currentStage.setScene(newScene);
+         * } catch (IOException error) {
+         * error.printStackTrace();
+         * }
+         * });
+         * 
+         */
         buttonDelete.setOnAction(e -> {
-           /* int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
-            if (selectedIndex >= 0) {
-               personData.remove(selectedIndex);
-
-            } else {
-                System.out.println("No row selected");
-            }*/
-
-
-            List<String> r = List.of("id", "name", "tel", "mail");
-            List<HashMap<String, String>> er = new ArrayList<>();
-            personData.stream().forEach(person -> {
-                HashMap<String, String> map = new HashMap<>();
-                map.put("id", String.valueOf(person.getId()));
-                map.put("name", person.getName());
-                map.put("tel", person.getTel());
-                map.put("mail", person.getMail());
-                er.add(map);
-            });
-
-            PdfGenerateController controllerEmplo = new PdfGenerateController(r, er, "Employee");
-
-            try {
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
-                loader.setController(controllerEmplo);
-                Scene newScene = new Scene(loader.load());
-
-                Stage currentStage = (Stage) this.buttonDelete.getScene().getWindow();
-                currentStage.setScene(newScene);
-            } catch (IOException error) {
-                error.printStackTrace();
-            }
-
-
-
-
-            /*FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            PdfGenerateController controller = loader.getController();
-            controller.setNameAttribut(r);
-            Scene scene = new Scene(root);
-
-            Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setTitle("Generate PDf Employé " );
-            dialog.setScene(scene);*/
-
-// Récupérer le contrôleur de la vue FXML
-
-
-// Afficher la boîte de dialogue
-
-
+            deleteEmployee();
         });
     }
-
 
     private void rewriteJsonEmployee() {
         JSONArray jsonArray = new JSONArray(dataJson);
         personData.stream().forEach(person -> {
-            Optional<JSONObject> matchingObject = IntStream.range(0, jsonArray.length()).mapToObj(jsonArray::getJSONObject)
-                    .filter(e ->
-                            e.getInt("id") == person.getId().hashCode()
-                    )
+            Optional<JSONObject> matchingObject = IntStream.range(0, jsonArray.length())
+                    .mapToObj(jsonArray::getJSONObject)
+                    .filter(e -> e.getInt("id") == person.getId().hashCode())
                     .findFirst();
             if (matchingObject.isEmpty()) {
                 JSONObject jsonObject = new JSONObject();
@@ -198,16 +168,32 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
         try {
-            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/employee.json"), jsonArray.toString());
+            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/employee.json"),
+                    jsonArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+    }
 
+    private void deleteEmployee() {
+        int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            personData.remove(selectedIndex);
+            restaurant.getEmployeesList().remove(selectedIndex);
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("Error");
+            alert.setContentText("Pas de ligne séléctionner");
+            alert.show();
+        }
     }
 
     private void handleEmployeeFromJson(String json) {
         JSONArray arrayEmployee = new JSONArray(json);
+        List<Employees> employees = new ArrayList<>();
         IntStream
                 .range(0, arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e -> {
                     personData.add(new Employees(e.getString("name"), e.getString("mail"),
