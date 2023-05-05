@@ -44,8 +44,8 @@ public class OrderDisplayViewController implements Initializable {
 
         // Customize the display of each element in the list
         orderListView.setCellFactory(lv -> new ListCell<>() {
-            private final Button cancelBtn = new Button("canceled");
-            private final Button deliverBtn = new Button("delivered");
+            private final Button cancelBtn = new Button("Annulé");
+            private final Button deliverBtn = new Button("Livré");
 
             @Override
             public void updateItem(Orders order, boolean empty) {
