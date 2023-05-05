@@ -11,7 +11,7 @@ The application has the following features:
 - **Menu Management**: The user can add, edit, and delete menu items. Each menu item has a name, description, price, and category.
 - **Employee Management**: The user can manage employee information, such as name, position, and contact details. 
 - **Order Management**: The user can view and manage orders. Each order includes the customer's name, the items ordered, and the total amount.
-- **User Authentication**: The application requires the user to log in to access its features. Each user has a unique username and password.
+- **Customers Management**: The user can place customers on free tables and also can takes customer's orders
 
 ## Requirements
 
