@@ -25,6 +25,7 @@
                         <Insets bottom="10.0" />
                      </HBox.margin>
                   </Label>
+                  <Button fx:id="generatePdf" mnemonicParsing="false" prefHeight="44.0" prefWidth="142.0" text="Générer un pdf " />
                </children>
             </HBox>
             <HBox>

@@ -99,8 +99,7 @@ public class DisplayEmployeeViewController implements Initializable {
                 error.printStackTrace();
             }
         });
-
-        /*buttonDelete.setOnAction(e -> {
+        generatePdf.setOnAction(e -> {
             List<String> r = List.of("id","name","tel","mail");
             List<HashMap<String,String>> er = new ArrayList<>();
             personData.stream().forEach(person ->{
@@ -124,7 +123,7 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
 
-         */
+
         buttonDelete.setOnAction(e ->{
             deleteEmployee();
         });
