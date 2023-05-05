@@ -4,7 +4,9 @@ import com.example.javaav.HelloApplication;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RestaurantToJsonConverter {
 
@@ -109,13 +111,15 @@ Restaurant restaurant = HelloApplication.restaurant;
 
         // Ajouter la liste des tables
         JSONArray jsonTables = new JSONArray();
+        ArrayList<String> list = new ArrayList<>();
+
         restaurant.getTablesList().stream().forEach(table -> {
             JSONObject jsonTable = new JSONObject();
             jsonTable.put("tableNumber", table.getTableNumber());
             jsonTable.put("size", table.getSize());
             jsonTable.put("place", table.getPlace());
             jsonTable.put("isFree", true);
-            jsonTable.put("customer",new ArrayList<>());
+            jsonTable.put("customer",list);
             jsonTables.put(jsonTable);
         });
         jsonRestaurant.put("tablesList", jsonTables);

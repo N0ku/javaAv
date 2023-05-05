@@ -52,9 +52,14 @@ public class HelloApplication extends Application {
         ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
         ArrayList<Customers> customersFree = handleCustomersFromJson(jsonData.getJSONArray("customersList"));
         ArrayList<Tables> tables = handleTablesFromJson(jsonData.getJSONArray("tablesList"));
-        Service service = handleServiceFromJson(jsonData.getJSONObject("service"));
+//        Service service = handleServiceFromJson(jsonData.getJSONObject("service"));
         ArrayList<Meals> meals=handleMealsFromJson(jsonData.getJSONArray("mealsList"));
-        restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("adress"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
+        DateFormat format = new SimpleDateFormat("HH:mm");
+        Date serviceStart = format.parse("12:00");
+        Date serviceEnd = format.parse("12:25");
+
+        Service service = new Service(serviceStart, serviceEnd, true,"00:00");
+        restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
     }
 
 
@@ -127,7 +132,7 @@ public class HelloApplication extends Application {
                     int size = t.getInt("size");
                     String place = t.getString("place");
                     boolean isFree = t.getBoolean("isFree");
-                    JSONArray customersJson = t.getJSONArray("customers");
+                    JSONArray customersJson = t.getJSONArray("customer");
                     ArrayList<Customers> customers = new ArrayList<>();
                     if (customersJson.length() > 0) {
                        customers= handleCustomersFromJson(customersJson);
@@ -147,8 +152,8 @@ public class HelloApplication extends Application {
         return meals;
     }
     private static Service handleServiceFromJson(JSONObject json) throws ParseException {
-        Date serviceStart = HOUR_FORMAT.parse(json.getString("serviceStart"));
-        Date serviceEnd = HOUR_FORMAT.parse(json.getString("serviceEnd"));
+        Date serviceStart = HOUR_FORMAT.parse(json.getString("startTime"));
+        Date serviceEnd = HOUR_FORMAT.parse(json.getString("startEnd"));
 
         boolean isRunning = true;
         String seconds = json.getString("seconds");
@@ -199,14 +204,14 @@ public class HelloApplication extends Application {
         launch();
     }
     public static void quitter() {
-        /*RestaurantToJsonConverter restaurantToJsonConverter = new RestaurantToJsonConverter();
+        RestaurantToJsonConverter restaurantToJsonConverter = new RestaurantToJsonConverter();
         JSONObject jsonRestaurant = restaurantToJsonConverter.toJson();
         try {
             Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/data.json"),
                     jsonRestaurant.toString());
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
         System.out.println("Merci d'avoir utilisé notre programme !");
         System.exit(0);
     }
