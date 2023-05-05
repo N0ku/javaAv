@@ -86,11 +86,11 @@ public class DisplayEmployeeViewController implements Initializable {
         columnIdEmploye.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
         columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String>("jobName"));
         columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
+        columnLastName.setCellValueFactory(new PropertyValueFactory<Employees, String>("salary"));
         columnMail.setCellValueFactory(new PropertyValueFactory<Employees, String>("mail"));
         globalTab.setItems(personData);
 
         buttonAdd.setOnAction(e -> {
-            rewriteJsonEmployee();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreationEmployeeView.fxml"));
                 Scene newScene = new Scene(fxmlLoader.load());
@@ -114,7 +114,7 @@ public class DisplayEmployeeViewController implements Initializable {
         });
 
         generatePdf.setOnAction(e -> {
-            List<String> r = List.of("id","name","tel","mail");
+            List<String> r = List.of("id","name","tel","mail","salary");
             List<HashMap<String,String>> er = new ArrayList<>();
             personData.stream().forEach(person ->{
                 HashMap<String, String> map = new HashMap<>();
@@ -122,6 +122,7 @@ public class DisplayEmployeeViewController implements Initializable {
                 map.put("name", person.getName());
                 map.put("tel", person.getTel());
                 map.put("mail", person.getMail());
+                map.put("salary", String.valueOf(person.getSalary()));
                 er.add(map);
             });
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
@@ -144,35 +145,6 @@ public class DisplayEmployeeViewController implements Initializable {
         });
     }
 
-    private void rewriteJsonEmployee() {
-        JSONArray jsonArray = new JSONArray(dataJson);
-        personData.stream().forEach(person -> {
-            Optional<JSONObject> matchingObject = IntStream.range(0, jsonArray.length())
-                    .mapToObj(jsonArray::getJSONObject)
-                    .filter(e -> e.getInt("id") == person.getId().hashCode())
-                    .findFirst();
-            if (matchingObject.isEmpty()) {
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("id", person.getId());
-                jsonObject.put("name", person.getName());
-                jsonObject.put("mail", person.getMail());
-                jsonObject.put("tel", person.getTel());
-                jsonObject.put("age", person.getAge());
-                jsonObject.put("adress", person.getAdress());
-                jsonObject.put("jobName", person.getJobName());
-                jsonObject.put("workHours", person.getWorkHours());
-                jsonObject.put("salary", person.getSalary());
-                jsonArray.put(jsonObject);
-            }
-        });
-        try {
-            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/employee.json"),
-                    jsonArray.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     private void deleteEmployee() {
         int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
@@ -189,15 +161,5 @@ public class DisplayEmployeeViewController implements Initializable {
         }
     }
 
-    private void handleEmployeeFromJson(String json) {
-        JSONArray arrayEmployee = new JSONArray(json);
-        List<Employees> employees = new ArrayList<>();
-        IntStream
-                .range(0, arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e -> {
-                    personData.add(new Employees(e.getString("name"), e.getString("mail"),
-                            e.getString("tel"), e.getInt("age"), e.getString("adress"), e.getString("jobName"),
-                            e.getInt("workHours"), e.getFloat("salary")));
-                });
-    }
 
 }
