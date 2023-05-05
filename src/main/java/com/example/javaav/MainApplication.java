@@ -16,6 +16,8 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.text.DateFormat;
 import java.util.stream.Collectors;
@@ -24,8 +26,6 @@ import java.util.stream.IntStream;
 
 public class MainApplication extends Application {
     public static Restaurant restaurant;
-    private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private static  DateFormat HOUR_FORMAT = new SimpleDateFormat("HH:mm");
 
     @Override
     public void start(Stage stage) throws IOException, ParseException {
@@ -38,6 +38,9 @@ public class MainApplication extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Le Beyrouth");
         stage.setScene(scene);
+
+        stage.sizeToScene();
+
         stage.show();
     }
 
@@ -53,12 +56,10 @@ public class MainApplication extends Application {
         ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
         ArrayList<Customers> customersFree = handleCustomersFromJson(jsonData.getJSONArray("customersList"));
         ArrayList<Tables> tables = handleTablesFromJson(jsonData.getJSONArray("tablesList"));
-//        Service service = handleServiceFromJson(jsonData.getJSONObject("service"));
         ArrayList<Meals> meals=handleMealsFromJson(jsonData.getJSONArray("mealsList"));
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
         Date serviceEnd = format.parse("12:25");
-
         Service service = new Service(serviceStart, serviceEnd, true,"00:00");
         restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
     }
@@ -98,8 +99,11 @@ public class MainApplication extends Application {
 
                                             .collect(Collectors.toCollection(ArrayList::new));
                                     try {
-                                        return new Orders(meals, o.getDouble("totalPrice"), DATE_FORMAT.parse(o.getString("hour")));
-                                    } catch (ParseException e) {
+                                        LocalDateTime dateTime = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm:ss");
+                                        String formattedDateTime = dateTime.format(formatter);
+                                        return new Orders(meals, o.getDouble("totalPrice"), new Date());
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                         // Handle the exception appropriately
                                         return null;
@@ -155,14 +159,7 @@ public class MainApplication extends Application {
                 .collect(Collectors.toCollection(ArrayList::new));
         return meals;
     }
-    private static Service handleServiceFromJson(JSONObject json) throws ParseException {
-        Date serviceStart = HOUR_FORMAT.parse(json.getString("startTime"));
-        Date serviceEnd = HOUR_FORMAT.parse(json.getString("startEnd"));
 
-        boolean isRunning = true;
-        String seconds = json.getString("seconds");
-        return new Service(serviceStart, serviceEnd, isRunning, seconds);
-    }
     static void initChrono() {
 
         Date serviceEnd = restaurant.getService().getServiceEnd();
@@ -216,7 +213,6 @@ public class MainApplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Merci d'avoir utilisé notre programme !");
         System.exit(0);
     }
 

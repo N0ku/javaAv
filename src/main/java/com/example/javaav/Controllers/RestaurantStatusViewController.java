@@ -41,13 +41,9 @@ public class RestaurantStatusViewController implements Initializable {
 
     @FXML
     private Button dashboardButton;
-    @FXML
-    private Button orderStatutButton;
-    @FXML
-    private Button employeeListButton;
 
     @FXML
-    private Button menuListButton;
+    private Button employeeListButton;
 
     @FXML
     private Button ordersListButton;
@@ -230,17 +226,6 @@ public class RestaurantStatusViewController implements Initializable {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuCreationView.fxml"))));
                 Scene currentScene = createMenuButton.getScene();
-                currentScene.setRoot(root);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
-        menuListButton.setOnMouseClicked(event -> {
-            try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuDisplayView.fxml"))));
-                Scene currentScene = menuListButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
