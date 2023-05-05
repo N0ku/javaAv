@@ -9,10 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -20,10 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,20 +28,59 @@ public class RestaurantStatusViewController implements Initializable {
     private Button backButton;
 
     @FXML
+    private Label chronoLabel;
+
+    @FXML
+    private Button createEmployeeButton;
+
+    @FXML
+    private Button createMenuButton;
+
+    @FXML
+    private Button createOrderButton;
+
+    @FXML
     private ListView<Customers> customersList;
+
+    @FXML
+    private Button dashboardButton;
+    @FXML
+    private Button orderStatutButton;
+    @FXML
+    private Button employeeListButton;
+
+    @FXML
+    private Button menuListButton;
+
+    @FXML
+    private Button ordersListButton;
+
+    @FXML
+    private AnchorPane root;
 
     @FXML
     private ListView<Tables> tablesList;
 
     @FXML
-    private Label chronoLabel;
+    private Button pdfButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         backButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/HomeView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        createOrderButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/CreateOrderView.fxml"))));
                 Scene currentScene = backButton.getScene();
                 currentScene.setRoot(root);
 
@@ -57,16 +91,17 @@ public class RestaurantStatusViewController implements Initializable {
 
         Restaurant restaurant = HelloApplication.restaurant;
 
-        ArrayList<Customers> customers = restaurant.getCustomersList();
-        ArrayList<Tables> tables = restaurant.getTablesList();
+        ChronoThread chrono = new ChronoThread(chronoLabel, restaurant);
+        chrono.start();
 
-        customers.forEach(customer -> {
-            customersList.getItems().add(customer);
-        });
+        final ArrayList<Customers>[] customers = new ArrayList[]{restaurant.getCustomersList().stream().filter(c -> c.getNumberTable() == 0).collect(Collectors.toCollection(ArrayList::new))};
+        final ArrayList<Tables>[] tables = new ArrayList[]{restaurant.getTablesList()};
+
+        customersList.getItems().addAll(customers[0]);
 
         customersList.setCellFactory(customer -> new CellCustomers());
 
-        tables.forEach(
+        tables[0].forEach(
                 table -> {
                     tablesList.getItems().add(table);
                 }
@@ -74,70 +109,49 @@ public class RestaurantStatusViewController implements Initializable {
 
         tablesList.setCellFactory(table -> new CellTables());
 
-        Date serviceStartHour = restaurant.getService().getServiceStart();
-        Date serviceEndHour = restaurant.getService().getServiceEnd();
-
-        long diffMillis = Math.abs(serviceEndHour.getTime() - serviceStartHour.getTime());
-        Duration duration = Duration.ofMillis(diffMillis);
-        final int[] seconds = {(int) duration.toSeconds()};
-        Task<Void> task = new Task<Void>() {
-            @Override
-            protected Void call() throws Exception {
-                while (seconds[0] > 0) {
-                    String value = computeChronoValue();
-                    Platform.runLater(() -> chronoLabel.setText(value));
-                    Thread.sleep(1000);
-                }
-                return null;
-            }
-
-            private String computeChronoValue() {
-                int remainingSeconds = seconds[0];
-                seconds[0] = remainingSeconds - 1;
-
-                // 15mins into seconds
-                if (seconds[0] < 900){
-                    restaurant.getService().setRunning(false);
-                }
-                int minutes = remainingSeconds / 60;
-                int seconds = remainingSeconds % 60;
-                String value = String.format("%02d:%02d", minutes, seconds);
-                if (remainingSeconds <= 0) {
-                    value = "00:00";
-                    cancel();
-                }
-                return value;
-            }
-        };
-
-
-        new Thread(task).start();
-
         customersList.setOnMouseClicked(event -> {
-            if(!restaurant.getService().isRunning()){return;}
+            if (!restaurant.getService().isRunning()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Erreur !");
+                alert.setHeaderText("Le restaurant va bientôt fermer !");
+                alert.setContentText("Désolé mais le restaurant ne prend plus les clients lorsqu'il reste moins de 15 minutes de service");
+                alert.show();
+                return;
+            }
             Customers customer = customersList.getSelectionModel().getSelectedItem();
 
-            ArrayList<Customers> customersToAdd = customers.stream()
+            ArrayList<Customers> customersToAdd = customers[0].stream()
                     .filter(c -> c.getGroupId() == customer.getGroupId())
                     .collect(Collectors.toCollection(ArrayList::new));
 
             // find the first free table and where all the customers can sit
-            Tables table = tables.stream().filter(t -> t.isFree() && t.getSize() > customersToAdd.size()).findFirst().orElse(null);
+            Tables table = tables[0].stream().filter(t -> t.isFree() && t.getSize() >= customersToAdd.size()).findFirst().orElse(null);
 
             if (table != null) {
                 table.setCustomers(customersToAdd);
 
                 customersToAdd.forEach(c -> {
                     customersList.getItems().remove(c);
+                    c.setNumberTable(table.getTableNumber());
+                    int indexCustomer = restaurant.getCustomersList().indexOf(c);
+                    ArrayList<Customers> customersToUpdate = restaurant.getCustomersList();
+                    customersToUpdate.set(indexCustomer, c);
+                    restaurant.setCustomersList(customersToUpdate);
+                    customers[0] = restaurant.getCustomersList();
                 });
 
                 int indexToUpdate = tablesList.getItems().indexOf(table);
-
                 table.setCustomers(customersToAdd);
                 table.setFree(false);
                 tablesList.getItems().set(indexToUpdate, table);
+                tables[0] = restaurant.getTablesList();
+
             } else {
-                System.out.println("Aucune table de dispo !!");
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Complet !");
+                alert.setHeaderText("Aucune table n'est disponible actuellement");
+                alert.setContentText("Il n'y a pas asser de place sur toutes les tables et/ou toutes les tables sont déjà prises");
+                alert.show();
             }
         });
 
@@ -146,17 +160,120 @@ public class RestaurantStatusViewController implements Initializable {
 
             ArrayList<Customers> customersTable = new ArrayList<>(table.getCustomers());
 
-            System.out.println(customersTable.size());
-
             if (customersTable.size() >= 1) {
                 customersTable.forEach(c -> {
+                    c.setNumberTable(0);
+                    //ArrayList<Orders> o = new ArrayList<>();
+                   // c.setOrders(o);
+                    int indexCustomer = restaurant.getCustomersList().indexOf(c);
+                    ArrayList<Customers> customersToUpdate = restaurant.getCustomersList();
+                    customersToUpdate.set(indexCustomer, c);
+                    restaurant.setCustomersList(customersToUpdate);
                     customersList.getItems().add(c);
                 });
                 customersTable.clear();
+                customers[0] = restaurant.getCustomersList();
                 int indexToUpdate = tablesList.getItems().indexOf(table);
                 table.setCustomers(customersTable);
                 table.setFree(true);
                 tablesList.getItems().set(indexToUpdate, table);
+                tables[0] = restaurant.getTablesList();
+            }
+        });
+
+        dashboardButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
+                Scene currentScene = dashboardButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        ordersListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/OrderDisplayView.fxml"))));
+                Scene currentScene = ordersListButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        employeeListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DisplayEmployeeView.fxml"))));
+                Scene currentScene = employeeListButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        createEmployeeButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/CreationEmployeeView.fxml"))));
+                Scene currentScene = createEmployeeButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        createMenuButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuCreationView.fxml"))));
+                Scene currentScene = createMenuButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        menuListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuDisplayView.fxml"))));
+                Scene currentScene = menuListButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        pdfButton.setOnAction(e -> {
+            List<String> r = List.of("id","prix","cout","marge");
+
+            PdfGenerateController controllerEmplo = new PdfGenerateController(r,null, "Finance");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                loader.setController(controllerEmplo);
+                Scene newScene = new Scene(loader.load());
+
+                Stage currentStage = (Stage) pdfButton.getScene().getWindow();
+                currentStage.setScene(newScene);
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+
+        });
+
+
+
+        // clear listview selection
+        root.setOnMouseClicked(event -> {
+            if (!customersList.getBoundsInParent().contains(event.getX(), event.getY())) {
+                customersList.getSelectionModel().clearSelection();
+            }
+            if (!tablesList.getBoundsInParent().contains(event.getX(), event.getY())) {
+                tablesList.getSelectionModel().clearSelection();
             }
         });
 

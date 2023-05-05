@@ -2,103 +2,215 @@ package com.example.javaav;
 
 import com.example.javaav.Model.*;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import org.json.JSONArray;
+import org.json.JSONObject;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
+import java.time.Duration;
+import java.util.*;
 import java.text.DateFormat;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 public class HelloApplication extends Application {
     public static Restaurant restaurant;
+    private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private static  DateFormat HOUR_FORMAT = new SimpleDateFormat("HH:mm");
 
     @Override
     public void start(Stage stage) throws IOException, ParseException {
 
         InitRestaurant();
+        initChrono();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("RestaurantStatusView.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 720, 500);
-        stage.setTitle("Restaurant");
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
+        stage.setTitle("Le Beyrouth");
         stage.setScene(scene);
         stage.show();
     }
+
+
     static void InitRestaurant() throws ParseException {
-        Employees employe1 = new Employees(0, "Emma", "emma@mail.com", "06 72 34 56 78", 20, "Rue des Lilas", "Cuisinier", 20, 1245.67f);
-        Employees employe2 = new Employees(1, "Oscar", "oscar@mail.com", "06 72 34 56 78", 23, "Rue des Lilas", "Chef", 30, 1405.11f);
-        Employees employe3 = new Employees(2, "Sophie", "sophie@mail.com", "06 72 34 56 78", 40, "Rue des Lilas", "Serveur", 22, 1100.02f);
-        Employees employe4 = new Employees(3, "Leo", "leo@mail.com", "06 72 34 56 78", 19, "Rue des Lilas", "Serveur", 23, 1381.93f);
-        Employees employe5 = new Employees(4, "Hugo", "hugo@mail.com", "06 72 34 56 78", 30, "Rue des Lilas", "Commis", 10, 400.23f);
+        String dataJson = "[]";
+        try {
+            dataJson= new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/data.json")));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        JSONObject jsonData = new JSONObject(dataJson);
+        ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
+        ArrayList<Customers> customersFree = handleCustomersFromJson(jsonData.getJSONArray("customersList"));
+        ArrayList<Tables> tables = handleTablesFromJson(jsonData.getJSONArray("tablesList"));
+        Service service = handleServiceFromJson(jsonData.getJSONObject("service"));
+        ArrayList<Meals> meals=handleMealsFromJson(jsonData.getJSONArray("mealsList"));
+        restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("adress"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
+    }
 
-        ArrayList<Employees> employees = new ArrayList<>(Arrays.asList(employe1, employe2, employe3, employe4, employe5));
 
-        Customers customers1 = new Customers(0, "Alice", "alice@example.com", "06 12 34 56 78", 28, "1 rue de la Liberté", null, null,0);
-        Customers customers2 = new Customers(1, "Bob", "bob@example.com", "06 98 76 54 32", 35, "10 avenue des Fleurs", null, null,2);
-        Customers customers3 = new Customers(2, "Charlie", "charlie@example.com", "06 44 88 12 16", 42, "22 rue du Château", null, null,2);
-        Customers customers4 = new Customers(3, "David", "david@example.com", "06 55 33 77 99", 20, "5 boulevard du Parc", null, null,0);
-        Customers customers5 = new Customers(4, "Emma", "emma@example.com", "06 66 99 11 22", 50, "3 rue des Écoles", null, null,1);
 
-        ArrayList<Customers> customersFree = new ArrayList<>(Arrays.asList(customers1, customers2, customers3, customers4, customers5));
+    private static ArrayList<Employees> handleEmployeeFromJson(JSONArray json){
+        ArrayList<Employees> employees = new ArrayList<>();
+        IntStream
+                .range(0,json.length()).mapToObj(json::getJSONObject).forEach(e ->{
+                    employees.add(new Employees(e.getString("name"),e.getString("mail"),
+                            e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
+                            e.getInt("workHours"),e.getFloat("salary")));
+                });
+        return employees;
 
+    }
+    private static ArrayList<Customers> handleCustomersFromJson(JSONArray json) {
         ArrayList<Customers> customers = new ArrayList<>();
+        IntStream.range(0, json.length())
+                .mapToObj(json::getJSONObject)
+                .forEach(c -> {
+                    JSONArray ordersJson = c.getJSONArray("orders");
+                    ArrayList<Orders> orders = new ArrayList<>();
+                    if (ordersJson.length() > 0) {
+                        orders = IntStream.range(0, ordersJson.length())
+                                .mapToObj(i -> ordersJson.getJSONObject(i))
+                                .map(o -> {
+                                    JSONArray mealsJson = o.getJSONArray("mealList");
+                                    ArrayList<Meals> meals = IntStream.range(0, mealsJson.length())
+                                            .mapToObj(i -> mealsJson.getJSONObject(i))
+                                            .map(m -> new Meals(m.getString("name"), m.getString("imgUrl"),
+                                                    m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
+                                                    m.getFloat("marge"), handleIngredientsFromJson(m.getJSONArray("ingredients"))))
+                                            .collect(Collectors.toCollection(ArrayList::new));
+                                    try {
+                                        return new Orders(meals, o.getDouble("totalPrice"), DATE_FORMAT.parse(o.getString("hour")));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                        // Handle the exception appropriately
+                                        return null;
+                                    }
+                                })
+                                .filter(Objects::nonNull)
+                                .collect(Collectors.toCollection(ArrayList::new));
+                    }
+                    int groupId = c.getInt("groupId");
 
-        Tables table1 = new Tables(0, 5, "Terrasse", true, customers);
-        Tables table2 = new Tables(1, 8, "Terrasse", true, customers);
-        Tables table3 = new Tables(2, 2, "Terrasse", true, customers);
-        Tables table4 = new Tables(3, 1, "Terrasse", true, customers);
-        Tables table5 = new Tables(4, 6, "Terrasse", true, customers);
+                    Customers customer = new Customers(c.getString("name"), c.getString("mail"), c.getString("tel"),
+                            c.getInt("age"), c.getString("adress"),  groupId);
 
-        ArrayList<Tables> tables = new ArrayList<>(Arrays.asList(table1, table2, table3, table4, table5));
+                    customer.getOrders().addAll(orders);
+                    customers.add(customer);
+                });
+        return customers;
+    }
+    private static ArrayList<Ingredients> handleIngredientsFromJson(JSONArray json) {
+        return IntStream.range(0, json.length())
+                .mapToObj(i -> json.getJSONObject(i))
+                .map(j -> {
+                    return new Ingredients(j.getInt("id"), j.getInt("price"), j.getString("name"));
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 
-        DateFormat format = new SimpleDateFormat("HH:mm");
-        Date serviceStart = format.parse("12:00");
-        Date serviceEnd = format.parse("12:25");
+    private static ArrayList<Tables> handleTablesFromJson(JSONArray json) {
+        ArrayList<Tables> tables = new ArrayList<>();
+        IntStream.range(0, json.length())
+                .mapToObj(json::getJSONObject)
+                .forEach(t -> {
+                    int tableNumber = t.getInt("tableNumber");
+                    int size = t.getInt("size");
+                    String place = t.getString("place");
+                    boolean isFree = t.getBoolean("isFree");
+                    JSONArray customersJson = t.getJSONArray("customers");
+                    ArrayList<Customers> customers = new ArrayList<>();
+                    if (customersJson.length() > 0) {
+                       customers= handleCustomersFromJson(customersJson);
+                    }
+                    tables.add(new Tables(tableNumber, size, place, isFree, customers));
+                });
+        return tables;
+    }
+    
+    private static ArrayList<Meals> handleMealsFromJson(JSONArray mealsJson) {
+        ArrayList<Meals> meals = IntStream.range(0, mealsJson.length())
+                .mapToObj(i -> mealsJson.getJSONObject(i))
+                .map(m -> new Meals(m.getString("name"), m.getString("imgUrl"),
+                        m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
+                        m.getFloat("marge"), handleIngredientsFromJson(m.getJSONArray("ingredients"))))
+                .collect(Collectors.toCollection(ArrayList::new));
+        return meals;
+    }
+    private static Service handleServiceFromJson(JSONObject json) throws ParseException {
+        Date serviceStart = HOUR_FORMAT.parse(json.getString("serviceStart"));
+        Date serviceEnd = HOUR_FORMAT.parse(json.getString("serviceEnd"));
 
-        Service service = new Service(serviceStart, serviceEnd, true);
+        boolean isRunning = true;
+        String seconds = json.getString("seconds");
+        return new Service(serviceStart, serviceEnd, isRunning, seconds);
+    }
+    static void initChrono() {
 
-        ArrayList<String> allergies = new ArrayList<>();
+        Date serviceEnd = restaurant.getService().getServiceEnd();
+        Date serviceStart = restaurant.getService().getServiceStart();
+        long diffMillis = Math.abs(serviceEnd.getTime() - serviceStart.getTime());
+        Duration duration = Duration.ofMillis(diffMillis);
+        final int[] seconds = new int[]{(int) duration.toSeconds()};
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                while (seconds[0] > 0) {
+                    String value = computeChronoValue();
+                    Platform.runLater(() -> restaurant.getService().setSeconds(value));
+                    Thread.sleep(1000);
+                }
+                return null;
+            }
 
-// Object 1
-        ArrayList<Ingredients> ingredients1 = new ArrayList<>();
-        ingredients1.add(new Ingredients(0, 10, "Tomatoes", allergies));
-        ingredients1.add(new Ingredients(1, 20, "Cheese", allergies));
-        Meals meal1 = new Meals("Margherita", "https://imgurl1.com", 10.5f, 50, "Classic tomato and cheese pizza", false, 2.5f, ingredients1);
+            private String computeChronoValue() {
+                int remainingSeconds = seconds[0];
+                seconds[0] = remainingSeconds - 1;
 
-// Object 2
-        ArrayList<Ingredients> ingredients2 = new ArrayList<>();
-        ingredients2.add(new Ingredients(2, 20, "Pepperoni", allergies));
-        ingredients2.add(new Ingredients(3, 5, "Onions", allergies));
-        Meals meal2 = new Meals("Pepperoni", "https://imgurl2.com", 12.5f, 35, "Pizza with pepperoni and onions", false, 3.0f, ingredients2);
+                // 15mins into seconds
+                if (seconds[0] < 900) {
+                    restaurant.getService().setRunning(false);
+                }
+                int minutes = remainingSeconds / 60;
+                int secondsA = remainingSeconds % 60;
+                String value = String.format("%02d:%02d", minutes, secondsA);
+                if (remainingSeconds <= 0) {
+                    value = "00:00";
+                    cancel();
+                }
+                return value;
+            }
+        };
 
-// Object 3
-        ArrayList<Ingredients> ingredients3 = new ArrayList<>();
-        ingredients3.add(new Ingredients(4, 15, "Chicken", allergies));
-        ingredients3.add(new Ingredients(5, 10, "Mushrooms", allergies));
-        Meals meal3 = new Meals("Chicken Mushroom", "https://imgurl3.com", 14.5f, 20, "Pizza with chicken and mushrooms", false, 3.5f, ingredients3);
 
-// Object 4
-        ArrayList<Ingredients> ingredients4 = new ArrayList<>();
-        ingredients4.add(new Ingredients(6, 10, "Ham", allergies));
-        ingredients4.add(new Ingredients(7, 15, "Pineapple", allergies));
-        Meals meal4 = new Meals("Hawaiian", "https://imgurl4.com", 13.5f, 25, "Pizza with ham and pineapple", false, 3.0f, ingredients4);
-
-// Object 5
-        ArrayList<Ingredients> ingredients5 = new ArrayList<>();
-        ingredients5.add(new Ingredients(8, 20, "Bacon", allergies));
-        ingredients5.add(new Ingredients(9, 30, "Beef", allergies));
-        Meals meal5 = new Meals("Meat Lovers", "https://imgurl5.com", 16.5f, 40, "Pizza with bacon and beef", false, 4.0f, ingredients5);
-        ArrayList<Meals> meals = new ArrayList<>(Arrays.asList(meal1, meal2, meal3, meal4, meal5));
-
-        restaurant = new Restaurant("El Resto", 0, "12 rue des Pigeons, 75002 Paris", employees, customersFree, meals, tables, 1000, service);
+        new Thread(task).start();
     }
 
     public static void main(String[] args) {
         launch();
     }
+    public static void quitter() {
+        /*RestaurantToJsonConverter restaurantToJsonConverter = new RestaurantToJsonConverter();
+        JSONObject jsonRestaurant = restaurantToJsonConverter.toJson();
+        try {
+            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/data.json"),
+                    jsonRestaurant.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        System.out.println("Merci d'avoir utilisé notre programme !");
+        System.exit(0);
+    }
+
+
+
 }

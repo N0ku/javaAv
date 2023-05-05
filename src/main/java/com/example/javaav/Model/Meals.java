@@ -8,8 +8,8 @@ public class Meals {
     float price;
     int nbOrder;
     String desc;
-    boolean isCancel;
     float marge;
+    int quantity;
     ArrayList<Ingredients> ingredients;
 
     public Meals(String name, String imgUrl, float price, int nbOrder, String desc, boolean isCancel, float marge,
@@ -19,9 +19,9 @@ public class Meals {
         this.price = price;
         this.nbOrder = nbOrder;
         this.desc = desc;
-        this.isCancel = isCancel;
         this.marge = marge;
         this.ingredients = ingredients;
+        this.quantity=0;
     }
     public String toString() {
         return "Meal{name='" + name + "', price=" + price + "ingredients'"+ingredients;
@@ -67,13 +67,6 @@ public class Meals {
         this.desc = desc;
     }
 
-    public boolean isCancel() {
-        return isCancel;
-    }
-
-    public void setCancel(boolean isCancel) {
-        this.isCancel = isCancel;
-    }
 
     public float getMarge() {
         return marge;
@@ -91,6 +84,13 @@ public class Meals {
         this.ingredients = ingredients;
     }
 
-    
-    
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+
 }

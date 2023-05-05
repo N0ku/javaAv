@@ -32,7 +32,6 @@ public class Ingredients {
 
 
 
-
     public  int getId() {
         return id;
     }

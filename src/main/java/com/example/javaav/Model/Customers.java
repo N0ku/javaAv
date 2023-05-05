@@ -1,41 +1,44 @@
 package com.example.javaav.Model;
 
+import java.util.ArrayList;
+
 public class Customers extends Person{
 
-    Tables table;
-    Orders orders;
+    ArrayList<Orders> orders;
 
     int groupId;
+    int numberTable;
 
-    public Customers(int id,String name, String mail, String tel, int age, String adress, Tables table, Orders orders,int groupId) {
-        super(id,name, mail, tel, age, adress);
-        this.table = table;
-        this.orders = orders;
+    public Customers(String name, String mail, String tel, int age, String adress,int groupId) {
+        super(name, mail, tel, age, adress);
+        this.orders =new ArrayList<>() ;
         this.groupId = groupId;
+        this.numberTable = 0;
+    }
+
+    public int getNumberTable() {
+        return numberTable;
+    }
+
+    public void setNumberTable(int numberTable) {
+        this.numberTable = numberTable;
     }
 
     public int getGroupId(){ return  groupId;}
 
-    public Tables getTable() {
-        return table;
-    }
-
-    public void setTable(Tables table) {
-        this.table = table;
-    }
-
-    public Orders getOrders() {
+    public ArrayList<Orders> getOrders() {
         return orders;
     }
 
-    public void setOrders(Orders orders) {
+    public void setOrders(ArrayList<Orders> orders){
         this.orders = orders;
     }
 
     @Override
     public String toString() {
-        return "Customers [" + "name=" + getName() + "table=" + table + ", orders=" + orders + "]";
+        return "Customers{"+"id="+getId()+", name="+ getName()+", tel="+getTel()+", age="+getAge()+ ", adress="+getAdress()+
+                ", orders=" + orders +
+                ", groupId=" + groupId +
+                '}';
     }
-    
-    
 }
