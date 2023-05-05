@@ -36,7 +36,7 @@
             </HBox>
          </children>
       </HBox>
-      <Label layoutX="41.0" layoutY="66.0" text="Dernières commandes">
+      <Label layoutX="41.0" layoutY="66.0" text="Dernières commandes délivrées">
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font></Label>

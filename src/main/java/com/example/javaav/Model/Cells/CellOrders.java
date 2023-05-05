@@ -1,5 +1,6 @@
-package com.example.javaav.Model;
+package com.example.javaav.Model.Cells;
 
+import com.example.javaav.Model.Orders;
 import javafx.scene.control.ListCell;
 
 public class CellOrders extends ListCell<Orders> {

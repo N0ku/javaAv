@@ -1,5 +1,7 @@
-package com.example.javaav.Model;
+package com.example.javaav.Model.Cells;
 
+import com.example.javaav.Model.Ingredients;
+import com.example.javaav.Model.Meals;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
