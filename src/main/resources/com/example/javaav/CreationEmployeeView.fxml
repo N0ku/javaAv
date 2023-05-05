@@ -1,14 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.javaav.Controllers.CreationEmployeeViewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.CreationEmployeeViewController">
+   <children>
+      <VBox layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="600.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="100.0" prefWidth="599.0" style="-fx-background-color: #07034d;" text="Créer un nouvel employé" textFill="WHITE" underline="true">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="American Typewriter" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="180.0" prefWidth="600.0">
+               <children>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="301.0">
+                     <children>
+                        <HBox prefHeight="22.0" prefWidth="284.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="111.0" text="Nom ">
+                                 <font>
+                                    <Font name="American Typewriter" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textName" prefHeight="26.0" prefWidth="180.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="5.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="22.0" prefWidth="284.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="111.0" text="Prenom">
+                                 <font>
+                                    <Font name="American Typewriter" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textLastName" prefHeight="26.0" prefWidth="180.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="22.0" prefWidth="284.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="111.0" text="Mail">
+                                 <font>
+                                    <Font name="American Typewriter" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textMail" prefHeight="26.0" prefWidth="180.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="26.0" prefWidth="286.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="111.0" text="Téléphone">
+                                 <font>
+                                    <Font name="American Typewriter" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textPhone" prefHeight="26.0" prefWidth="180.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox prefHeight="22.0" prefWidth="284.0">
+                           <children>
+                              <Label prefHeight="43.0" prefWidth="111.0" text="Age">
+                                 <font>
+                                    <Font name="American Typewriter" size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textYears" prefHeight="26.0" prefWidth="180.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="289.0">
+                     <children>
+                        <ComboBox fx:id="boxJobName" prefHeight="27.0" prefWidth="323.0" styleClass="button-style">
+                           <VBox.margin>
+                              <Insets left="20.0" right="20.0" top="30.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <HBox prefHeight="22.0" prefWidth="284.0">
+                           <children>
+                              <Label prefHeight="26.0" prefWidth="184.0" text="Salaire net mensuel">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="textSalary" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="119.0" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox prefHeight="24.0" prefWidth="314.0">
+                           <children>
+                              <Label fx:id="warningText" alignment="CENTER" prefHeight="25.0" prefWidth="312.0" text="Certains champs n'ont pas été remplis" textFill="#c90c0c" visible="false" />
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets top="150.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="41.0" prefWidth="212.0">
+                     <children>
+                        <Button fx:id="buttonCreate" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="41.0" prefWidth="184.0" styleClass="button-style" text="Créer l'employé">
+                           <font>
+                              <Font size="21.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets right="10.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false" styleClass="button-style" text="Retour">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

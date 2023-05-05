@@ -1,52 +1,73 @@
 package com.example.javaav.Model;
 
-import java.util.ArrayList;
-
 public class Ingredients {
     int id;
     int price;
     String name;
-    ArrayList<String> allergies;
 
-    public Ingredients(int id, int price, String name, ArrayList<String> allergies) {
+    public Ingredients(int id, int price, String name) {
         this.id = id;
         this.price = price;
         this.name = name;
-        this.allergies = allergies;
     }
 
+    
+    /** 
+     * @return String
+     */
+    public String toString() {
+        return "intgredients{id='" + id + "', price=" + price + " ingredients '"+name+"'}";
+    }
+    
+    /** 
+     * @return int
+     */
     public int getPrice() {
         return price;
     }
 
+    
+    /** 
+     * @param price
+     */
     public void setPrice(int price) {
         this.price = price;
     }
 
-    public String getName() {
+    
+    /** 
+     * @return String
+     */
+    public  String getName() {
         return name;
     }
 
+    
+    /** 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public ArrayList<String> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(ArrayList<String> allergies) {
-        this.allergies = allergies;
-    }
 
 
-    public int getId() {
+    
+    /** 
+     * @return int
+     */
+    public  int getId() {
         return id;
     }
 
 
+    
+    /** 
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
+
 
 }
