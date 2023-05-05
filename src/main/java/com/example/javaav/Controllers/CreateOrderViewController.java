@@ -234,6 +234,7 @@ public class CreateOrderViewController implements Initializable {
                 containerListMeal.setVisible(false);
                 containerSelectOrder.setVisible(false);
                 containerResult.setVisible(false);
+                containerResult.getChildren().clear();
                 comboBoxClient.setDisable(true);
                 btnValidConfig.setDisable(true);
                 labelTotalPrice.setText("");
