@@ -1,17 +1,16 @@
-package com.example.javaav.Model;
+package com.example.javaav.Utils;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
+import com.example.javaav.Model.Restaurant;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class RestaurantToJsonConverter {
 
     public static JSONObject toJson() {
-Restaurant restaurant = HelloApplication.restaurant;
+Restaurant restaurant = MainApplication.restaurant;
         JSONObject jsonRestaurant = new JSONObject();
 
         jsonRestaurant.put("name", restaurant.getName());

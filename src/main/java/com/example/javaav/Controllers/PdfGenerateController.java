@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Customers;
 import com.example.javaav.Model.Meals;
 import com.example.javaav.Model.Orders;
@@ -19,18 +19,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PdfGenerateController implements Initializable {
 
+    public static final String WARNING_DIALOG = "Warning Dialog";
+    public static final String ERROR = "Error";
     public List<String> nameAttribut= new ArrayList<>();
 
     public List<String> nameCol = new ArrayList<>();
@@ -76,7 +75,7 @@ public class PdfGenerateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
 
         if(classname.equals("Finance")){
             data = getDataOrders();
@@ -92,8 +91,8 @@ public class PdfGenerateController implements Initializable {
             String attribut = boxItems.getValue();
             if(attribut.isBlank()){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
-                alert.setHeaderText("Error");
+                alert.setTitle(WARNING_DIALOG);
+                alert.setHeaderText(ERROR);
                 alert.setContentText("Data not Found");
                 alert.show();
                 return;
@@ -105,7 +104,7 @@ public class PdfGenerateController implements Initializable {
         buttonGenerate.setOnAction(e -> {
             if (nameCol.isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Pas d'attribut selectionner");
                 alert.show();
@@ -121,7 +120,7 @@ public class PdfGenerateController implements Initializable {
                 pdf.document.add(new Paragraph(("                                    ")));
             } catch (DocumentException ex) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();
@@ -135,7 +134,7 @@ public class PdfGenerateController implements Initializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();
@@ -153,7 +152,7 @@ public class PdfGenerateController implements Initializable {
 
                 } catch (DocumentException ex) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning Dialog");
+                    alert.setTitle(WARNING_DIALOG);
                     alert.setHeaderText("Error");
                     alert.setContentText("Erreur de cfreation");
                     alert.show();
@@ -168,7 +167,7 @@ public class PdfGenerateController implements Initializable {
                 alert.show();
             }catch (Exception err){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();
@@ -178,7 +177,7 @@ public class PdfGenerateController implements Initializable {
 
         buttonBack.setOnAction(e ->{
               try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("RestaurantStatusView.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("RestaurantStatusView.fxml"));
                 Scene newScene = new Scene(fxmlLoader.load());
                 Stage currentStage = (Stage) buttonBack.getScene().getWindow();
                 currentStage.setScene(newScene);
@@ -192,7 +191,7 @@ public class PdfGenerateController implements Initializable {
 
 
     private List<HashMap<String,String>> getDataOrders(){
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
         ArrayList<Customers> custu = restaurant.getCustomersList();
         List<HashMap<String,String>> data = new ArrayList<>();
 

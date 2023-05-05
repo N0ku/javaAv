@@ -1,11 +1,8 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Employees;
 import com.example.javaav.Model.Restaurant;
-import com.example.javaav.Utils.PdfUtils;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfPTable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,19 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.IntStream;
-
-import org.json.*;
 
 public class DisplayEmployeeViewController implements Initializable {
 
@@ -68,7 +57,7 @@ public class DisplayEmployeeViewController implements Initializable {
 
     String dataJson = "[]";
 
-    Restaurant restaurant = HelloApplication.restaurant;
+    Restaurant restaurant = MainApplication.restaurant;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,7 +81,7 @@ public class DisplayEmployeeViewController implements Initializable {
 
         buttonAdd.setOnAction(e -> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreationEmployeeView.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("CreationEmployeeView.fxml"));
                 Scene newScene = new Scene(fxmlLoader.load());
                 Stage currentStage = (Stage) buttonAdd.getScene().getWindow();
                 currentStage.setScene(newScene);
@@ -128,7 +117,7 @@ public class DisplayEmployeeViewController implements Initializable {
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
 
             try {
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("PdfGenerateView.fxml"));
                 loader.setController(controllerEmplo);
                 Scene newScene = new Scene(loader.load());
 

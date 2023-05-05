@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.*;
 import com.example.javaav.Model.Cells.CellCustomers;
 import com.example.javaav.Model.Cells.CellTables;
@@ -41,13 +41,9 @@ public class RestaurantStatusViewController implements Initializable {
 
     @FXML
     private Button dashboardButton;
-    @FXML
-    private Button orderStatutButton;
-    @FXML
-    private Button employeeListButton;
 
     @FXML
-    private Button menuListButton;
+    private Button employeeListButton;
 
     @FXML
     private Button ordersListButton;
@@ -86,7 +82,7 @@ public class RestaurantStatusViewController implements Initializable {
             }
         });
 
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
 
         ChronoThread chrono = new ChronoThread(chronoLabel, restaurant);
         chrono.start();
@@ -237,24 +233,13 @@ public class RestaurantStatusViewController implements Initializable {
             }
         });
 
-        menuListButton.setOnMouseClicked(event -> {
-            try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuDisplayView.fxml"))));
-                Scene currentScene = menuListButton.getScene();
-                currentScene.setRoot(root);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-
         pdfButton.setOnAction(e -> {
             List<String> r = List.of("id","prix","cout","marge");
 
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,null, "Finance");
 
             try {
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource("PdfGenerateView.fxml"));
                 loader.setController(controllerEmplo);
                 Scene newScene = new Scene(loader.load());
 

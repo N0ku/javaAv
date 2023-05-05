@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.*;
 import com.example.javaav.Model.Cells.MealListCell;
 import javafx.collections.FXCollections;
@@ -75,7 +75,7 @@ public class CreateOrderViewController implements Initializable {
         containerResult.setVisible(false);
         comboBoxClient.setDisable(true);
         btnValidConfig.setDisable(true);
-        labelTotalPrice.setText("");List<String> tableNumbers = HelloApplication.restaurant.getTablesList()
+        labelTotalPrice.setText("");List<String> tableNumbers = MainApplication.restaurant.getTablesList()
                 .stream()
                 .filter(t -> !t.isFree())
                 .map(t -> String.valueOf(t.getTableNumber()))
@@ -87,7 +87,7 @@ public class CreateOrderViewController implements Initializable {
             comboBoxClient.setDisable(false);
             btnValidConfig.setDisable(false);
             // Filtrer les tables en fonction du numéro de table sélectionné
-            List<Tables> selectedTables = HelloApplication.restaurant.getTablesList()
+            List<Tables> selectedTables = MainApplication.restaurant.getTablesList()
                     .stream()
                     .filter(t -> String.valueOf(t.getTableNumber()).equals(selectedTableNumber))
                     .collect(Collectors.toList());
@@ -149,7 +149,7 @@ public class CreateOrderViewController implements Initializable {
         });
 
 
-        meals = HelloApplication.restaurant.getMealsList();
+        meals = MainApplication.restaurant.getMealsList();
 
 
         // ListView Flat List Configuration
@@ -204,7 +204,7 @@ public class CreateOrderViewController implements Initializable {
                 ArrayList<Meals> mealsDto = new ArrayList<>(orderedMeals);
                 Orders order = new Orders(mealsDto, totalPrice,new Date());
                 custom.getOrders().add(order);
-                List<Customers> matchingCustomers = HelloApplication.restaurant.getCustomersList().stream()
+                List<Customers> matchingCustomers = MainApplication.restaurant.getCustomersList().stream()
                         .filter(c -> c== custom)
                         .collect(Collectors.toList());
                 System.out.println(matchingCustomers);

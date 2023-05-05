@@ -1,8 +1,7 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Customers;
-import com.example.javaav.Model.Meals;
 import com.example.javaav.Model.Orders;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +20,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class OrderDisplayViewController implements Initializable {
 
@@ -44,8 +42,8 @@ public class OrderDisplayViewController implements Initializable {
 
         // Customize the display of each element in the list
         orderListView.setCellFactory(lv -> new ListCell<>() {
-            private final Button cancelBtn = new Button("canceled");
-            private final Button deliverBtn = new Button("delivered");
+            private final Button cancelBtn = new Button("Annulé");
+            private final Button deliverBtn = new Button("Livré");
 
             @Override
             public void updateItem(Orders order, boolean empty) {
@@ -92,7 +90,7 @@ public class OrderDisplayViewController implements Initializable {
      * Refresh the list of pending orders from the list of customers stored in HelloApplication.
      */
     private void refreshOrderList() {
-        List<Customers> customers = HelloApplication.restaurant.getCustomersList();
+        List<Customers> customers = MainApplication.restaurant.getCustomersList();
         List<Orders> pendingOrders = customers.stream()
                 .flatMap(customer -> customer.getOrders().stream())
                 .filter(order -> order.getStatus().equals("pending")).toList();
