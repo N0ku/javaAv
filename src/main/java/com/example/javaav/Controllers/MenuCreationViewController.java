@@ -147,9 +147,12 @@ public class MenuCreationViewController {
 
 // Add the ingredient to the list
         ingredients.add(ingredient);
+        Float marge = ingredientsList.stream()
+                .map(e -> price - e.getPrice())
+                .reduce(0f, Float::sum);
 
         // récupérez les ingrédients sélectionnés dans votre combobox et ajoutez-les à la liste ingredients
-        Meals newMeal = new Meals(name, imgUrl, price, 0, desc,  0, (ArrayList<Ingredients>) ingredientsList);
+        Meals newMeal = new Meals(name, imgUrl, price, 0, desc,  marge, (ArrayList<Ingredients>) ingredientsList);
         HelloApplication.restaurant.getMealsList().add(newMeal);
 
         // ajoutez le nouveau plat créé à votre liste de plats existants

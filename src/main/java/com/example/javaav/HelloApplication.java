@@ -87,11 +87,14 @@ public class HelloApplication extends Application {
                                 .mapToObj(i -> ordersJson.getJSONObject(i))
                                 .map(o -> {
                                     JSONArray mealsJson = o.getJSONArray("mealList");
+                                    ArrayList<Ingredients> ingredients = new ArrayList<>();
                                     ArrayList<Meals> meals = IntStream.range(0, mealsJson.length())
                                             .mapToObj(i -> mealsJson.getJSONObject(i))
-                                            .map(m -> new Meals(m.getString("name"), m.getString("imgUrl"),
-                                                    m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
-                                                    m.getFloat("marge"), handleIngredientsFromJson(m.getJSONArray("ingredients"))))
+                                            .map(m ->
+                                                new Meals(m.getString("name"), m.getString("imgUrl"),
+                                                        m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
+                                                        m.getFloat("marge"), ingredients))
+
                                             .collect(Collectors.toCollection(ArrayList::new));
                                     try {
                                         return new Orders(meals, o.getDouble("totalPrice"), DATE_FORMAT.parse(o.getString("hour")));
