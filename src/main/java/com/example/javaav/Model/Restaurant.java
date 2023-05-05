@@ -1,6 +1,7 @@
 package com.example.javaav.Model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Restaurant {
     String name;
@@ -99,5 +100,6 @@ public class Restaurant {
         this.service = service;
     }
 
-    
+
+
 }

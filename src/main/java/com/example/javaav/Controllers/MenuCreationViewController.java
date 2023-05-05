@@ -2,17 +2,24 @@ package com.example.javaav.Controllers;
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.Ingredients;
 import com.example.javaav.Model.Meals;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 
 
-
-
+import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Objects;
+
 
 public class MenuCreationViewController {
     @FXML
@@ -39,7 +46,10 @@ public class MenuCreationViewController {
     @FXML
     private Label errorLabel;
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
+
+
     public void initialize() {
+    //initialize the combobox to display the list of ingredients
         ArrayList<Meals> meals = HelloApplication.restaurant.getMealsList();
         System.out.println(meals);
          priceSpinner.setValueFactory(svf);
@@ -52,10 +62,10 @@ public class MenuCreationViewController {
 
         ingredientsComboBox.getItems().addAll(ingredients);
         ingredientsComboBox.getSelectionModel().selectFirst();
+        String selectedIngredientName = ingredientsComboBox.getValue();
+        System.out.println(selectedIngredientName);
 
-
-
-
+//---------------------------------------------------------------------------------------------------------------------
         /* List<String> ingredients = Arrays.asList("Ingredient 1", "Ingredient 2", "Ingredient 3");
         ingredientsComboBox.getItems().addAll(ingredients.stream().sorted().collect(Collectors.toList()));
          ingredientsComboBox.getSelectionModel().selectFirst();
@@ -69,42 +79,71 @@ public class MenuCreationViewController {
         //for (String item : selectedItems) {
         //    System.out.println("Ingrédient sélectionné : " + item);
        // }*/
-
-
+//---------------------------------------------------------------------------------------------------------------------
     }
     @FXML
     private void createMealButtonAction(){
+    // get the variable from the form
         String name = foodNameField.getText();
         String imgUrl = foodImgUrl.getText();
         float price = (float) priceSpinner.getValue();
         String desc = foodDescriptionfield.getText();
         ArrayList<Ingredients> ingredients = new ArrayList<>();
 
+//---------------------------------------------------------------------------------------------------------------------
+      //  Meals selectedMeal = ingredientsComboBox.getSelectionModel().getSelectedItem();
+       // String name = selectedMeal.getName();
+        //String ingredients = selectedMeal.getIngredients();
+      //  double price = selectedMeal.getPrice();
+//---------------------------------------------------------------------------------------------------------------------
 
-        List<Ingredients> filteredIngredients = ingredients.stream()
-                .filter(ingredient -> ingredient.getName().toLowerCase().contains(name.toLowerCase()))
-                .collect(Collectors.toList());
-        System.out.println(filteredIngredients);
+    //get the value of selected ingredient and put it to the list of ingredients
+        String selectedItem = ingredientsComboBox.getSelectionModel().getSelectedItem();
+        System.out.println(selectedItem);
+        ArrayList<String> selectedItems = new ArrayList<>();
+        selectedItems.add(selectedItem);
+        List<Ingredients> ingredientsList = new ArrayList<>();
+        ArrayList<Meals> meals = HelloApplication.restaurant.getMealsList();
+        System.out.println(meals);
+
+        selectedItems.stream()
+                .map(ingredientName -> meals.stream()
+                        .flatMap(meal -> meal.getIngredients().stream())
+                        .filter(ingredient -> ingredient.getName().equals(ingredientName))
+                        .findFirst()
+                        .orElse(null))
+                .filter(Objects::nonNull)
+                .forEach(ingredientsList::add);
+//---------------------------------------------------------------------------------------------------------------------
+      //  List<Ingredients> filteredIngredients = ingredients.stream()
+       //         .filter(ingredient -> ingredient.getName().toLowerCase().contains(name.toLowerCase()))
+       //         .collect(Collectors.toList());
+      //  System.out.println(filteredIngredients);
+//---------------------------------------------------------------------------------------------------------------------
+
 
 // Get selected ingredient from the combo box
         String selectedIngredient =  ingredientsComboBox.getSelectionModel().toString();
 
 // Create a new Ingredients object with the selected ingredient
-        Ingredients ingredient = new Ingredients(1,1,selectedIngredient,new ArrayList<String>());
+        Ingredients ingredient = new Ingredients(1,1,selectedIngredient);
 
 // Add the ingredient to the list
         ingredients.add(ingredient);
 
         // récupérez les ingrédients sélectionnés dans votre combobox et ajoutez-les à la liste ingredients
-        Meals newMeal = new Meals(name, imgUrl, price, 0, desc, false, 0, ingredients);
+        Meals newMeal = new Meals(name, imgUrl, price, 0, desc, false, 0, (ArrayList<Ingredients>) ingredientsList);
         HelloApplication.restaurant.getMealsList().add(newMeal);
 
         // ajoutez le nouveau plat créé à votre liste de plats existants
         System.out.println(HelloApplication.restaurant.getMealsList());
+        System.out.println(ingredientsList.size());
+        System.out.println(ingredientsList.size());
         foodNameField.clear();
         foodImgUrl.clear();
         priceSpinner.getValueFactory().setValue(0);
         foodDescriptionfield.clear();
         ingredientsComboBox.getSelectionModel().clearSelection();
     }
+
 }

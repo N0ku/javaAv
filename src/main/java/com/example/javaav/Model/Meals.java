@@ -13,7 +13,7 @@ public class Meals {
     ArrayList<Ingredients> ingredients;
 
     public Meals(String name, String imgUrl, float price, int nbOrder, String desc, boolean isCancel, float marge,
-            ArrayList<Ingredients> ingredients) {
+                 ArrayList<Ingredients> ingredients) {
         this.name = name;
         this.imgUrl = imgUrl;
         this.price = price;
@@ -22,6 +22,9 @@ public class Meals {
         this.isCancel = isCancel;
         this.marge = marge;
         this.ingredients = ingredients;
+    }
+    public String toString() {
+        return "Meal{name='" + name + "', price=" + price + "ingredients'"+ingredients;
     }
 
     public String getName() {

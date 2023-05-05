@@ -1,20 +1,19 @@
 package com.example.javaav.Model;
 
-import java.util.ArrayList;
-
 public class Ingredients {
     int id;
     int price;
     String name;
-    ArrayList<String> allergies;
 
-    public Ingredients(int id, int price, String name, ArrayList<String> allergies) {
+    public Ingredients(int id, int price, String name) {
         this.id = id;
         this.price = price;
         this.name = name;
-        this.allergies = allergies;
     }
 
+    public String toString() {
+        return "intgredients{id='" + id + "', price=" + price + " ingredients '"+name+"'}";
+    }
     public int getPrice() {
         return price;
     }
@@ -23,7 +22,7 @@ public class Ingredients {
         this.price = price;
     }
 
-    public String getName() {
+    public  String getName() {
         return name;
     }
 
@@ -31,16 +30,10 @@ public class Ingredients {
         this.name = name;
     }
 
-    public ArrayList<String> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(ArrayList<String> allergies) {
-        this.allergies = allergies;
-    }
 
 
-    public int getId() {
+
+    public  int getId() {
         return id;
     }
 
@@ -48,5 +41,6 @@ public class Ingredients {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }
