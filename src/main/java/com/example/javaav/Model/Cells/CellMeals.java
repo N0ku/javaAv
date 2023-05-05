@@ -1,5 +1,6 @@
-package com.example.javaav.Model;
+package com.example.javaav.Model.Cells;
 
+import com.example.javaav.Model.Meals;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
