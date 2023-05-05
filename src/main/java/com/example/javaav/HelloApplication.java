@@ -25,8 +25,6 @@ import java.util.stream.IntStream;
 
 public class HelloApplication extends Application {
     public static Restaurant restaurant;
-    private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-    private static  DateFormat HOUR_FORMAT = new SimpleDateFormat("HH:mm");
 
     @Override
     public void start(Stage stage) throws IOException, ParseException {
@@ -54,7 +52,6 @@ public class HelloApplication extends Application {
         ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
         ArrayList<Customers> customersFree = handleCustomersFromJson(jsonData.getJSONArray("customersList"));
         ArrayList<Tables> tables = handleTablesFromJson(jsonData.getJSONArray("tablesList"));
-//        Service service = handleServiceFromJson(jsonData.getJSONObject("service"));
         ArrayList<Meals> meals=handleMealsFromJson(jsonData.getJSONArray("mealsList"));
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
@@ -158,14 +155,7 @@ public class HelloApplication extends Application {
                 .collect(Collectors.toCollection(ArrayList::new));
         return meals;
     }
-    private static Service handleServiceFromJson(JSONObject json) throws ParseException {
-        Date serviceStart = HOUR_FORMAT.parse(json.getString("startTime"));
-        Date serviceEnd = HOUR_FORMAT.parse(json.getString("startEnd"));
 
-        boolean isRunning = true;
-        String seconds = json.getString("seconds");
-        return new Service(serviceStart, serviceEnd, isRunning, seconds);
-    }
     static void initChrono() {
 
         Date serviceEnd = restaurant.getService().getServiceEnd();
@@ -219,7 +209,6 @@ public class HelloApplication extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Merci d'avoir utilisé notre programme !");
         System.exit(0);
     }
 
