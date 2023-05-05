@@ -5,6 +5,9 @@ import com.example.javaav.Model.Meals;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +17,7 @@ import javafx.scene.control.TextField;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -44,6 +48,8 @@ public class MenuCreationViewController {
     private ListView<String> listIngredients;
 
     @FXML
+    private Button backButton;
+    @FXML
     private Label errorLabel;
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
 
@@ -64,6 +70,17 @@ public class MenuCreationViewController {
         ingredientsComboBox.getSelectionModel().selectFirst();
         String selectedIngredientName = ingredientsComboBox.getValue();
         System.out.println(selectedIngredientName);
+
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
 //---------------------------------------------------------------------------------------------------------------------
         /* List<String> ingredients = Arrays.asList("Ingredient 1", "Ingredient 2", "Ingredient 3");
@@ -132,7 +149,7 @@ public class MenuCreationViewController {
         ingredients.add(ingredient);
 
         // récupérez les ingrédients sélectionnés dans votre combobox et ajoutez-les à la liste ingredients
-        Meals newMeal = new Meals(name, imgUrl, price, 0, desc, false, 0, (ArrayList<Ingredients>) ingredientsList);
+        Meals newMeal = new Meals(name, imgUrl, price, 0, desc,  0, (ArrayList<Ingredients>) ingredientsList);
         HelloApplication.restaurant.getMealsList().add(newMeal);
 
         // ajoutez le nouveau plat créé à votre liste de plats existants

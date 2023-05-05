@@ -30,6 +30,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="price" GridPane.rowIndex="2" />
@@ -44,6 +45,7 @@
                   <TextField fx:id="foodImgUrl" GridPane.columnIndex="1" />
                   <Spinner fx:id="priceSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ComboBox fx:id="ingredientsComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <Button fx:id="backButton" mnemonicParsing="false" text="Retour" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                </children>
             </GridPane>
          </children>

@@ -12,7 +12,7 @@ public class Meals {
     int quantity;
     ArrayList<Ingredients> ingredients;
 
-    public Meals(String name, String imgUrl, float price, int nbOrder, String desc, boolean isCancel, float marge,
+    public Meals(String name, String imgUrl, float price, int nbOrder, String desc,float marge,
                  ArrayList<Ingredients> ingredients) {
         this.name = name;
         this.imgUrl = imgUrl;

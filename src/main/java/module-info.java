@@ -3,6 +3,7 @@ module com.example.javaav {
     requires javafx.fxml;
     requires org.json;
     requires itextpdf;
+    requires java.desktop;
 
 
     opens com.example.javaav to javafx.fxml;
