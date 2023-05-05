@@ -108,7 +108,7 @@ public class RestaurantStatusViewController implements Initializable {
         tablesList.setCellFactory(table -> new CellTables());
 
         if (!restaurant.getService().isRunning()) {
-            chronoLabel.setTextFill(Color.color(107,107,107,1));
+            chronoLabel.setTextFill(Color.RED);
         }
 
         customersList.setOnMouseClicked(event -> {
