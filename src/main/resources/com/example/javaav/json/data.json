@@ -1,7 +1,7 @@
 {
   "name":"Le Beyrouth",
   "recipe":10000,
-  "address":"12 rue des Pigeons, 75002 Paris",
+  "adress":"12 rue des Pigeons, 75002 Paris",
   "employees":[
     {
       "jobName": "Manager",
@@ -10,7 +10,7 @@
       "name": "John Doe",
       "tel": "555-1234",
       "adress": "123 Main Street",
-      "id": 1,
+      "id": "f81d4fae-7dec-11d0-a765-00a0c91e6bf6",
       "salary": 5000,
       "age": 30
     },
@@ -21,7 +21,7 @@
       "name": "John Doe",
       "tel": "555-1234",
       "adress": "123 Main Street",
-      "id": 2,
+      "id": "5b5c2709-6a1a-41f8-bb03-6ea2395b0fc5",
       "salary": 5000,
       "age": 30
     },
@@ -32,7 +32,7 @@
       "name": "John Doe",
       "tel": "555-1234",
       "adress": "123 Main Street",
-      "id": 3,
+      "id": "c28e2b1c-5201-43fd-a0e5-d68232f29c6a",
       "salary": 5000,
       "age": 30
     },
@@ -43,7 +43,7 @@
       "name": "John Doe",
       "tel": "555-1234",
       "adress": "123 Main Street",
-      "id": 4,
+      "id": "43c49e62-29a3-4679-a2e1-47dc44af0a09",
       "salary": 5000,
       "age": 30
     },
@@ -54,7 +54,7 @@
       "name": "eee",
       "tel": "0987654",
       "adress": "dzdfzf",
-      "id": 8,
+      "id": "e7e2d831-8f16-49e4-a4c9-4d3a8c7c58b3",
       "salary": 2000,
       "age": 12
     },
@@ -65,37 +65,69 @@
       "name": "KJ",
       "tel": "987",
       "adress": "dezzf",
-      "id": 10,
+      "id": "1f72d8c7-ec23-4c89-9f70-9c8af7a2a1c1",
       "salary": 87987,
       "age": 34
     }
   ],
   "customersList":[
     {
-      "id":1,
-      "name":"Emma",
-      "mail":"emma@mail.com",
-      "tel":"0987654345678",
-      "age":25,
-      "adress":"Rue des Lilas",
-      "table":[
-        {
+      "id":"8e3d4f9e-2797-4d57-8c20-5615d55a5c5a",
+      "name":"Alice",
+      "mail":"alice@example.com",
+      "tel":"06 12 34 56 78",
+      "age":28,
+      "adress":"1 rue de la Liberté",
+      "orders": [{
+        "id": "a2975c45-b9f5-4986-a03b-8d1c2e1c996c",
+        "mealList": [ {
+          "name":"Manakish Zaatar",
+          "imgUrl":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
+          "price":"5.5f",
+          "nbOrder":23,
+          "desc":"Pain plat au thym et au sumac",
+          "marge":"2.5f",
+          "ingredients":[
+            {
+              "id": 1,
+              "price": 10,
+              "name": "Tomates"
 
-        }
-      ],
-      "groupId":20
+            },
+            {
+              "id": 2,
+              "price": 20,
+              "name": "Fromage"
+
+            }
+          ]
+        }],
+        "totalPrice": 123.99,
+        "hour": "12:05:00",
+        "status": "pending"
+      }],
+      "groupId":0
     }
   ],
   "mealsList":[
     {
       "name":"Manakish Zaatar",
-      "img_url":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
+      "imgUrl":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
       "price":"5.5f",
       "nbOrder":23,
       "desc":"Pain plat au thym et au sumac",
       "marge":"2.5f",
       "ingredients":[
         {
+          "id": 1,
+          "price": 10,
+          "name": "Tomates"
+
+        },
+        {
+          "id": 2,
+          "price": 20,
+          "name": "Fromage"
 
         }
       ]
@@ -103,13 +135,53 @@
   ],
   "tablesList":[
     {
-      "number":1,
-      "capacity":4
+      "tableNumber":1,
+      "size":4,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":2,
+      "size":4,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":3,
+      "size":6,
+      "place": "Terrasse",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":4,
+      "size":8,
+      "place": "Salle",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":5,
+      "size":6,
+      "place": "Salle",
+      "isFree": true,
+      "customers":[]
+    },
+    {
+      "tableNumber":1,
+      "size":2,
+      "place": "Bar",
+      "isFree": true,
+      "customers":[]
     }
   ],
   "capital":50000,
   "service":{
-    "name":"nom_service",
-    "description":"description_service"
+    "serviceStart": "12:00",
+    "serviceEnd":"12:25",
+    "isRunning":false,
+    "seconds": "00:00"
   }
 }

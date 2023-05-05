@@ -6,13 +6,11 @@ public class Ingredients {
     int id;
     int price;
     String name;
-    ArrayList<String> allergies;
 
-    public Ingredients(int id, int price, String name, ArrayList<String> allergies) {
+    public Ingredients(int id, int price, String name) {
         this.id = id;
         this.price = price;
         this.name = name;
-        this.allergies = allergies;
     }
 
     public int getPrice() {
@@ -29,14 +27,6 @@ public class Ingredients {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public ArrayList<String> getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(ArrayList<String> allergies) {
-        this.allergies = allergies;
     }
 
 

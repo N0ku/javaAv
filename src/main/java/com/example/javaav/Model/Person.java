@@ -4,7 +4,7 @@ import java.util.UUID;
 
 abstract class Person {
 
-    private final UUID id;
+    private  UUID id;
     private String name;
     private String mail;
     private String tel;
@@ -20,6 +20,9 @@ abstract class Person {
         this.adress = adress;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public UUID getId() {
         return id;

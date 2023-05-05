@@ -4,27 +4,17 @@ import java.util.ArrayList;
 
 public class Customers extends Person{
 
-    Tables table;
     ArrayList<Orders> orders;
 
     int groupId;
 
-    public Customers(String name, String mail, String tel, int age, String adress, Tables table,int groupId) {
+    public Customers(String name, String mail, String tel, int age, String adress,int groupId) {
         super(name, mail, tel, age, adress);
-        this.table = table;
         this.orders =new ArrayList<>() ;
         this.groupId = groupId;
     }
 
     public int getGroupId(){ return  groupId;}
-
-    public Tables getTable() {
-        return table;
-    }
-
-    public void setTable(Tables table) {
-        this.table = table;
-    }
 
     public ArrayList<Orders> getOrders() {
         return orders;
@@ -32,8 +22,9 @@ public class Customers extends Person{
 
     @Override
     public String toString() {
-        return "Customers [" + "name=" + getName() + "table=" + table + ", orders=" + orders + "]";
+        return "Customers{"+"id="+getId()+", name="+ getName()+", tel="+getTel()+", age="+getAge()+ ", adress="+getAdress()+
+                ", orders=" + orders +
+                ", groupId=" + groupId +
+                '}';
     }
-    
-    
 }

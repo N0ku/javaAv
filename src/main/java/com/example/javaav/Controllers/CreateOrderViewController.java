@@ -183,7 +183,7 @@ public class CreateOrderViewController implements Initializable {
 
                 // Create the order
                 ArrayList<Meals> mealsDto = new ArrayList<>(orderedMeals);
-                Orders order = new Orders(mealsDto, totalPrice);
+                Orders order = new Orders(mealsDto, totalPrice,new Date());
                 custom.getOrders().add(order);
                 List<Customers> matchingCustomers = HelloApplication.restaurant.getCustomersList().stream()
                         .filter(c -> c== custom)
