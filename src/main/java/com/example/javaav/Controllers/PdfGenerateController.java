@@ -28,6 +28,8 @@ import java.util.ResourceBundle;
 
 public class PdfGenerateController implements Initializable {
 
+    public static final String WARNING_DIALOG = "Warning Dialog";
+    public static final String ERROR = "Error";
     public List<String> nameAttribut= new ArrayList<>();
 
     public List<String> nameCol = new ArrayList<>();
@@ -89,8 +91,8 @@ public class PdfGenerateController implements Initializable {
             String attribut = boxItems.getValue();
             if(attribut.isBlank()){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
-                alert.setHeaderText("Error");
+                alert.setTitle(WARNING_DIALOG);
+                alert.setHeaderText(ERROR);
                 alert.setContentText("Data not Found");
                 alert.show();
                 return;
@@ -102,7 +104,7 @@ public class PdfGenerateController implements Initializable {
         buttonGenerate.setOnAction(e -> {
             if (nameCol.isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Pas d'attribut selectionner");
                 alert.show();
@@ -118,7 +120,7 @@ public class PdfGenerateController implements Initializable {
                 pdf.document.add(new Paragraph(("                                    ")));
             } catch (DocumentException ex) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();
@@ -132,7 +134,7 @@ public class PdfGenerateController implements Initializable {
             } catch (Exception ex) {
                 ex.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();
@@ -150,7 +152,7 @@ public class PdfGenerateController implements Initializable {
 
                 } catch (DocumentException ex) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Warning Dialog");
+                    alert.setTitle(WARNING_DIALOG);
                     alert.setHeaderText("Error");
                     alert.setContentText("Erreur de cfreation");
                     alert.show();
@@ -165,7 +167,7 @@ public class PdfGenerateController implements Initializable {
                 alert.show();
             }catch (Exception err){
                 Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
+                alert.setTitle(WARNING_DIALOG);
                 alert.setHeaderText("Error");
                 alert.setContentText("Erreur de cfreation");
                 alert.show();

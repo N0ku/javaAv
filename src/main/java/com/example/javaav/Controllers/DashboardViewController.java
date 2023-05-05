@@ -168,7 +168,6 @@ public class DashboardViewController implements Initializable {
 
         lastOrdersList.getItems().addAll(ordersDelivred);
         lastOrdersList.setCellFactory(o -> new CellOrders());
-        System.out.println(ordersDelivred);
 
         int totalMoneyCP = restaurant.getCustomersList().stream()
                 .filter(c -> c.getGroupId() != 0)

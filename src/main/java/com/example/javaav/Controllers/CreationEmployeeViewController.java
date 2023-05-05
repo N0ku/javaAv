@@ -46,7 +46,6 @@ public class CreationEmployeeViewController implements Initializable {
     @FXML
     private Button backButton;
 
-    private ObservableList<Employees> employeesData = FXCollections.observableArrayList();
 
 
 
