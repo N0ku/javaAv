@@ -61,13 +61,14 @@ public class DisplayEmployeeViewController implements Initializable {
     @FXML
     private TextField textSearch;
 
+    @FXML
+    private Button backButton;
 
     ObservableList<Employees> personData = FXCollections.observableArrayList();
 
     String dataJson = "[]";
 
     Restaurant restaurant = HelloApplication.restaurant;
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,12 +84,12 @@ public class DisplayEmployeeViewController implements Initializable {
         }
 
         columnIdEmploye.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
-        columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String >("jobName"));
+        columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String>("jobName"));
         columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
-        columnMail.setCellValueFactory(new PropertyValueFactory<Employees, String >("mail"));
+        columnMail.setCellValueFactory(new PropertyValueFactory<Employees, String>("mail"));
         globalTab.setItems(personData);
 
-        buttonAdd.setOnAction(e ->{
+        buttonAdd.setOnAction(e -> {
             rewriteJsonEmployee();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreationEmployeeView.fxml"));
@@ -99,6 +100,19 @@ public class DisplayEmployeeViewController implements Initializable {
                 error.printStackTrace();
             }
         });
+        
+           backButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects
+                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         generatePdf.setOnAction(e -> {
             List<String> r = List.of("id","name","tel","mail");
             List<HashMap<String,String>> er = new ArrayList<>();
@@ -112,14 +126,13 @@ public class DisplayEmployeeViewController implements Initializable {
             });
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
             try {
-                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
-                loader.setController(controllerEmplo);
-                Scene newScene = new Scene(loader.load());
+                Parent root = FXMLLoader.load((Objects
+                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
 
-                Stage currentStage = (Stage) this.buttonDelete.getScene().getWindow();
-                currentStage.setScene(newScene);
-            } catch (IOException error) {
-                error.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
@@ -129,14 +142,12 @@ public class DisplayEmployeeViewController implements Initializable {
         });
     }
 
-
-    private void rewriteJsonEmployee(){
+    private void rewriteJsonEmployee() {
         JSONArray jsonArray = new JSONArray(dataJson);
-        personData.stream().forEach(person ->{
-            Optional<JSONObject> matchingObject = IntStream.range(0,jsonArray.length()).mapToObj(jsonArray::getJSONObject)
-                    .filter(e ->
-                            e.getInt("id") == person.getId().hashCode()
-                    )
+        personData.stream().forEach(person -> {
+            Optional<JSONObject> matchingObject = IntStream.range(0, jsonArray.length())
+                    .mapToObj(jsonArray::getJSONObject)
+                    .filter(e -> e.getInt("id") == person.getId().hashCode())
                     .findFirst();
             if (matchingObject.isEmpty()) {
                 JSONObject jsonObject = new JSONObject();
@@ -153,38 +164,37 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
         try {
-            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/employee.json"), jsonArray.toString());
+            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/employee.json"),
+                    jsonArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-      
-
     }
 
-  private void deleteEmployee(){
-         int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
-            if (selectedIndex >= 0) {
-               personData.remove(selectedIndex);
-               restaurant.getEmployeesList().remove(selectedIndex);
+    private void deleteEmployee() {
+        int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            personData.remove(selectedIndex);
+            restaurant.getEmployeesList().remove(selectedIndex);
 
-            } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Warning Dialog");
-                alert.setHeaderText("Error");
-                alert.setContentText("Pas de ligne séléctionner");
-                alert.show();
-            }
-  }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning Dialog");
+            alert.setHeaderText("Error");
+            alert.setContentText("Pas de ligne séléctionner");
+            alert.show();
+        }
+    }
 
-    private void handleEmployeeFromJson(String json){
+    private void handleEmployeeFromJson(String json) {
         JSONArray arrayEmployee = new JSONArray(json);
         List<Employees> employees = new ArrayList<>();
-         IntStream
-                .range(0,arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e ->{
-                    personData.add(new Employees(e.getString("name"),e.getString("mail"),
-                    e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
-                    e.getInt("workHours"),e.getFloat("salary")));
+        IntStream
+                .range(0, arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e -> {
+                    personData.add(new Employees(e.getString("name"), e.getString("mail"),
+                            e.getString("tel"), e.getInt("age"), e.getString("adress"), e.getString("jobName"),
+                            e.getInt("workHours"), e.getFloat("salary")));
                 });
     }
 

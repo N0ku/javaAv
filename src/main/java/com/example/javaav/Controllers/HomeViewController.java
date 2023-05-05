@@ -39,7 +39,7 @@ public class HomeViewController implements Initializable {
 
         startButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
                 Scene currentScene = startButton.getScene();
                 currentScene.setRoot(root);
 

@@ -1,5 +1,5 @@
 .button-style {
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
     -fx-background-color: #504ab5;
     -fx-text-fill: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10, 0, 0, 0);
@@ -41,12 +41,18 @@
 }
 
 .list-view {
-    -fx-border-color: blue;
     -fx-border-width: 1px;
 }
 
 .list-cell {
     -fx-border-color: #d9d8d8;
+    -fx-border-width: 1px;
+    -fx-font-family: "American Typewriter";
+    -fx-background-color: white;
+}
+
+.list-cell:hover{
+    -fx-background-color: #e0e0e0;
 }
 
 .free{
@@ -68,4 +74,24 @@
     -fx-fit-width: 10px;
     -fx-fit-height: 10px;
     -fx-padding: 0 10px 0 0;
+}
+
+.free:hover{
+    -fx-background-color: #88a488;
+}
+
+.busy:hover{
+    -fx-background-color: #773f3f;
+}
+
+.nav-buttons{
+    -fx-background-color: white;
+    -fx-border-color: #33146b;
+    -fx-font-family: "Sinhala MN";
+    -fx-padding: 4pt;
+    -fx-text-fill: black;
+}
+
+.nav-buttons:hover{
+    -fx-background-color: #c4c4c4;
 }

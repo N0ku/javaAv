@@ -158,6 +158,7 @@ public class CreateOrderViewController implements Initializable {
         mealListView.setItems(observableList);
         mealListView.setCellFactory(param ->new MealListCell());
 
+
         mealListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedMeal = newValue;
             showMealSelected();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -15,14 +16,17 @@
          <children>
             <VBox prefHeight="400.0" prefWidth="585.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #07034d;">
                      <children>
-                        <Label text="Liste de commande en attente">
+                        <Label text="Liste de commande en attente" textFill="WHITE">
                            <font>
                               <Font name="Academy Engraved LET Plain:1.0" size="22.0" />
                            </font>
                         </Label>
-                        <Button fx:id="buttonReturn" mnemonicParsing="false" text="Retour" />
+                        <Button fx:id="buttonReturn" mnemonicParsing="false" styleClass="nav-buttons" text="Retour">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin></Button>
                      </children>
                   </HBox>
                   <ListView fx:id="orderListView" prefHeight="400.0" prefWidth="305.0" />
