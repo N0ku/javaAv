@@ -11,4 +11,5 @@ module com.example.javaav {
     exports com.example.javaav.Controllers;
     opens com.example.javaav.Controllers to javafx.fxml;
     opens com.example.javaav.Model to javafx.base;
+    opens com.example.javaav.Model.Cells to javafx.base;
 }

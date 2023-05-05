@@ -1,5 +1,6 @@
-package com.example.javaav.Model;
+package com.example.javaav.Model.Cells;
 
+import com.example.javaav.Model.Tables;
 import javafx.scene.control.ListCell;
 
 import java.util.ArrayList;

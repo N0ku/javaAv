@@ -2,8 +2,8 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.*;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
+import com.example.javaav.Model.Cells.CellCustomers;
+import com.example.javaav.Model.Cells.CellTables;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,16 +11,13 @@ import javafx.scene.Scene;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class RestaurantStatusViewController implements Initializable {
 
@@ -108,6 +105,10 @@ public class RestaurantStatusViewController implements Initializable {
         );
 
         tablesList.setCellFactory(table -> new CellTables());
+
+        if (!restaurant.getService().isRunning()) {
+            chronoLabel.setTextFill(Color.color(107,107,107,1));
+        }
 
         customersList.setOnMouseClicked(event -> {
             if (!restaurant.getService().isRunning()) {

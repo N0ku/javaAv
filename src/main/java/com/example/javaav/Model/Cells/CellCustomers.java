@@ -1,10 +1,12 @@
-package com.example.javaav.Model;
+package com.example.javaav.Model.Cells;
 
+import com.example.javaav.Model.Customers;
 import javafx.scene.control.ListCell;
 
-public class CellEmployees extends ListCell<Employees> {
+public class CellCustomers extends ListCell<Customers> {
+
     @Override
-    protected void updateItem(Employees item, boolean empty) {
+    protected void updateItem(Customers item, boolean empty) {
         super.updateItem(item, empty);
         setText(null);
         if (!empty && item != null) {
