@@ -4,8 +4,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,10 +11,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="414.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.MenuCreationViewController">
    <children>
-      <VBox layoutY="-5.0" prefHeight="404.0" prefWidth="330.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="270.0" AnchorPane.topAnchor="-5.0">
+      <VBox alignment="CENTER_RIGHT" layoutY="-5.0" prefHeight="418.0" prefWidth="753.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-5.0">
          <children>
             <GridPane alignment="CENTER" prefHeight="334.0" prefWidth="417.0">
               <columnConstraints>
@@ -33,19 +32,33 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="price" GridPane.rowIndex="2" />
-                  <Label text="description" GridPane.rowIndex="3" />
-                  <Label text="ingredients" GridPane.rowIndex="4" />
-                  <Label text="validation" GridPane.rowIndex="5" />
+                  <Label text="PRIX" textFill="#16268d" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Andale Mono" size="19.0" />
+                     </font></Label>
+                  <Label text="Description" textFill="#21158a" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Andale Mono" size="20.0" />
+                     </font></Label>
+                  <Label text="Ingredients" textFill="#1f249e" GridPane.rowIndex="4">
+                     <font>
+                        <Font size="19.0" />
+                     </font></Label>
                   <TextArea fx:id="foodDescriptionfield" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="foodNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Button fx:id="createFoodValidationButton" mnemonicParsing="false" onAction="#createMealButtonAction" text="Validation" textFill="#2a7905" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <Label text="name" GridPane.rowIndex="1" />
-                  <Label text="img(url)" />
+                  <Label text="NOM" textFill="#442f8a" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Andale Mono" size="19.0" />
+                     </font></Label>
+                  <Label text="URL DE L'IMAGE" textFill="#203a83">
+                     <font>
+                        <Font name="Andale Mono" size="16.0" />
+                     </font></Label>
                   <TextField fx:id="foodImgUrl" GridPane.columnIndex="1" />
                   <Spinner fx:id="priceSpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <ComboBox fx:id="ingredientsComboBox" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Button fx:id="backButton" mnemonicParsing="false" text="Retour" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Button fx:id="backButton" mnemonicParsing="false" text="Retour" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>
@@ -53,12 +66,6 @@
       <VBox alignment="CENTER" layoutX="456.0" layoutY="-9.0" prefHeight="412.0" prefWidth="297.0">
          <children>
             <Label fx:id="ingredientsListSetUp" />
-            <TableView fx:id="mealTableView" prefHeight="200.0" prefWidth="200.0">
-              <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
-              </columns>
-            </TableView>
          </children>
       </VBox>
    </children>
