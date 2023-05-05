@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Customers;
 import com.example.javaav.Model.Meals;
 import com.example.javaav.Model.Orders;
@@ -19,15 +19,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 public class PdfGenerateController implements Initializable {
 
@@ -76,7 +73,7 @@ public class PdfGenerateController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
 
         if(classname.equals("Finance")){
             data = getDataOrders();
@@ -178,7 +175,7 @@ public class PdfGenerateController implements Initializable {
 
         buttonBack.setOnAction(e ->{
               try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("RestaurantStatusView.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("RestaurantStatusView.fxml"));
                 Scene newScene = new Scene(fxmlLoader.load());
                 Stage currentStage = (Stage) buttonBack.getScene().getWindow();
                 currentStage.setScene(newScene);
@@ -192,7 +189,7 @@ public class PdfGenerateController implements Initializable {
 
 
     private List<HashMap<String,String>> getDataOrders(){
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
         ArrayList<Customers> custu = restaurant.getCustomersList();
         List<HashMap<String,String>> data = new ArrayList<>();
 

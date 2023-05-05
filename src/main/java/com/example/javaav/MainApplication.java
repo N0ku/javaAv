@@ -1,6 +1,7 @@
 package com.example.javaav;
 
 import com.example.javaav.Model.*;
+import com.example.javaav.Utils.RestaurantToJsonConverter;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class HelloApplication extends Application {
+public class MainApplication extends Application {
     public static Restaurant restaurant;
     private static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     private static  DateFormat HOUR_FORMAT = new SimpleDateFormat("HH:mm");
@@ -32,7 +33,7 @@ public class HelloApplication extends Application {
         InitRestaurant();
         initChrono();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomeView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("HomeView.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Le Beyrouth");

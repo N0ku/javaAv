@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.*;
 import com.example.javaav.Model.Cells.CellEmployees;
 import com.example.javaav.Model.Cells.CellMeals;
@@ -78,7 +78,7 @@ public class DashboardViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
 
         backButton.setOnMouseClicked(event -> {
             try {

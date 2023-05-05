@@ -1,9 +1,7 @@
 package com.example.javaav.Controllers;
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Ingredients;
 import com.example.javaav.Model.Meals;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,11 +13,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Objects;
@@ -56,7 +51,7 @@ public class MenuCreationViewController {
 
     public void initialize() {
     //initialize the combobox to display the list of ingredients
-        ArrayList<Meals> meals = HelloApplication.restaurant.getMealsList();
+        ArrayList<Meals> meals = MainApplication.restaurant.getMealsList();
         System.out.println(meals);
          priceSpinner.setValueFactory(svf);
         List<String> ingredients = meals.stream()
@@ -120,7 +115,7 @@ public class MenuCreationViewController {
         ArrayList<String> selectedItems = new ArrayList<>();
         selectedItems.add(selectedItem);
         List<Ingredients> ingredientsList = new ArrayList<>();
-        ArrayList<Meals> meals = HelloApplication.restaurant.getMealsList();
+        ArrayList<Meals> meals = MainApplication.restaurant.getMealsList();
         System.out.println(meals);
 
         selectedItems.stream()
@@ -153,10 +148,10 @@ public class MenuCreationViewController {
 
         // récupérez les ingrédients sélectionnés dans votre combobox et ajoutez-les à la liste ingredients
         Meals newMeal = new Meals(name, imgUrl, price, 0, desc,  marge, (ArrayList<Ingredients>) ingredientsList);
-        HelloApplication.restaurant.getMealsList().add(newMeal);
+        MainApplication.restaurant.getMealsList().add(newMeal);
 
         // ajoutez le nouveau plat créé à votre liste de plats existants
-        System.out.println(HelloApplication.restaurant.getMealsList());
+        System.out.println(MainApplication.restaurant.getMealsList());
         System.out.println(ingredientsList.size());
         System.out.println(ingredientsList.size());
         foodNameField.clear();

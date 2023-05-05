@@ -1,6 +1,6 @@
 package com.example.javaav.Controllers;
 
-import com.example.javaav.HelloApplication;
+import com.example.javaav.MainApplication;
 import com.example.javaav.Model.Employees;
 import com.example.javaav.Model.Restaurant;
 import javafx.collections.FXCollections;
@@ -53,7 +53,7 @@ public class CreationEmployeeViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Restaurant restaurant = HelloApplication.restaurant;
+        Restaurant restaurant = MainApplication.restaurant;
         List<TextField> inputs = Arrays.asList(textLastName,textName,textPhone,textSalary,textYears,textMail);
         buttonCreate.setOnAction(e -> {
             AtomicBoolean valid = new AtomicBoolean(true);
@@ -102,7 +102,7 @@ public class CreationEmployeeViewController implements Initializable {
     public void nextScene(){
 
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DisplayEmployeeView.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("DisplayEmployeeView.fxml"));
             Scene newScene = new Scene(fxmlLoader.load());
 
 
