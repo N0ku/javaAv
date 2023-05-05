@@ -41,16 +41,25 @@ public class DashboardViewController implements Initializable {
     private Button backButton;
 
     @FXML
-    private ListView<Orders> lastOrdersList;
+    private Label chronoLabel;
+
+    @FXML
+    private Label factl;
+
+    @FXML
+    private Label factp;
+
+    @FXML
+    private Button gestionButton;
 
     @FXML
     private Label lowPrice;
 
     @FXML
-    private Label chronoLabel;
+    private ListView<Orders> ordersWaitingList;
 
     @FXML
-    private ListView<Orders> ordersWaitingList;
+    private ListView<Orders> lastOrdersList;
 
     @FXML
     private Button searchButton;
@@ -64,15 +73,6 @@ public class DashboardViewController implements Initializable {
     @FXML
     private Label totalPrice;
 
-    @FXML
-    private Button gestionButton;
-
-    @FXML
-    private Label factl;
-
-    @FXML
-    private Label factp;
-
 
 
     @Override
@@ -81,7 +81,7 @@ public class DashboardViewController implements Initializable {
 
         backButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/HomeView.fxml"))));
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
                 Scene currentScene = backButton.getScene();
                 currentScene.setRoot(root);
 
@@ -138,9 +138,10 @@ public class DashboardViewController implements Initializable {
                 .sorted(Comparator.comparing(Orders::getHour).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
 
+
         ArrayList<Orders> ordersDelivred = restaurant.getCustomersList().stream()
                 .flatMap(customer -> customer.getOrders().stream())
-                .filter(order -> order.getStatus().equals("delivred")).limit(5)
+                .filter(order -> order.getStatus().equals("delivered")).limit(5)
                 .sorted(Comparator.comparing(Orders::getHour).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
 
@@ -161,11 +162,12 @@ public class DashboardViewController implements Initializable {
         EmployeesListm45.setCellFactory(e -> new CellEmployees());
 
 
-        ordersWaitingList.getItems().addAll(ordersWaiting);
+       ordersWaitingList.getItems().addAll(ordersWaiting);
         ordersWaitingList.setCellFactory(o -> new CellOrders());
 
         lastOrdersList.getItems().addAll(ordersDelivred);
         lastOrdersList.setCellFactory(o -> new CellOrders());
+        System.out.println(ordersDelivred);
 
         int totalMoneyCP = restaurant.getCustomersList().stream()
                 .filter(c -> c.getGroupId() != 0)

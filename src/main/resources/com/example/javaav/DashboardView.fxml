@@ -36,7 +36,6 @@
             </HBox>
          </children>
       </HBox>
-      <ListView fx:id="lastOrdersList" layoutX="331.0" layoutY="93.0" prefHeight="122.0" prefWidth="247.0" />
       <Label layoutX="41.0" layoutY="66.0" text="Dernières commandes">
          <font>
             <Font name="Times New Roman" size="18.0" />
@@ -140,6 +139,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <ListView fx:id="ordersWaitingList" layoutX="42.0" layoutY="93.0" prefHeight="122.0" prefWidth="243.0" />
+      <ListView fx:id="lastOrdersList" layoutX="42.0" layoutY="93.0" prefHeight="122.0" prefWidth="243.0" />
+      <ListView fx:id="ordersWaitingList" layoutX="333.0" layoutY="99.0" prefHeight="122.0" prefWidth="243.0" />
    </children>
 </AnchorPane>

@@ -184,7 +184,7 @@ public class RestaurantStatusViewController implements Initializable {
         dashboardButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = dashboardButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
@@ -195,7 +195,7 @@ public class RestaurantStatusViewController implements Initializable {
         ordersListButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/OrderDisplayView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = ordersListButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
@@ -206,7 +206,7 @@ public class RestaurantStatusViewController implements Initializable {
         employeeListButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DisplayEmployeeView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = employeeListButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
@@ -217,7 +217,7 @@ public class RestaurantStatusViewController implements Initializable {
         createEmployeeButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/CreationEmployeeView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = createEmployeeButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
@@ -228,7 +228,7 @@ public class RestaurantStatusViewController implements Initializable {
         createMenuButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuCreationView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = createMenuButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
@@ -239,7 +239,7 @@ public class RestaurantStatusViewController implements Initializable {
         menuListButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuDisplayView.fxml"))));
-                Scene currentScene = backButton.getScene();
+                Scene currentScene = menuListButton.getScene();
                 currentScene.setRoot(root);
 
             } catch (IOException e) {
