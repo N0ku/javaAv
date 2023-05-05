@@ -4,6 +4,8 @@ import com.example.javaav.HelloApplication;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class RestaurantToJsonConverter {
 
     public static JSONObject toJson() {
@@ -31,7 +33,7 @@ Restaurant restaurant = HelloApplication.restaurant;
 
             jsonEmployees.put(jsonEmployee);
         });
-        jsonRestaurant.put("employeesList", jsonEmployees);
+        jsonRestaurant.put("employees", jsonEmployees);
 
         // Ajouter la liste des clients
         JSONArray jsonCustomers = new JSONArray();
@@ -57,15 +59,15 @@ Restaurant restaurant = HelloApplication.restaurant;
                     jsonMeal.put("desc", meal.getDesc());
                     jsonMeal.put("marge", meal.getMarge());
                     jsonMeal.put("quantity", meal.getQuantity());
-                    JSONArray jsonIngredients = new JSONArray();
+                    JSONArray jsonIngredientsMeals = new JSONArray();
                     meal.getIngredients().stream().forEach(ingredient -> {
                         JSONObject jsonIngredient = new JSONObject();
                         jsonIngredient.put("id", ingredient.getId());
                         jsonIngredient.put("price", ingredient.getPrice());
                         jsonIngredient.put("name", ingredient.getName());
-                        jsonIngredients.put(jsonIngredient);
+                        jsonIngredientsMeals.put(jsonIngredient);
                     });
-                    jsonMeal.put("ingregients",jsonIngredients);
+                    jsonMeal.put("ingregients",jsonIngredientsMeals);
                     jsonMeals.put(jsonMeal);
                 });
                 jsonOrder.put("mealList", jsonMeals);
@@ -76,6 +78,7 @@ Restaurant restaurant = HelloApplication.restaurant;
             });
             jsonCustomer.put("orders", jsonOrders);
             jsonCustomer.put("groupId", customer.getGroupId());
+            jsonCustomer.put("numberTable", customer.getNumberTable());
             jsonCustomers.put(jsonCustomer);
         });
         jsonRestaurant.put("customersList", jsonCustomers);
@@ -99,8 +102,7 @@ Restaurant restaurant = HelloApplication.restaurant;
                 jsonIngredient.put("name", ingredient.getName());
                 jsonIngredients.put(jsonIngredient);
             });
-            jsonRestaurant.put("ingredientsList", jsonIngredients);
-            jsonMeal.put("ingregients",jsonIngredients);
+            jsonMeal.put("ingredients",jsonIngredients);
             jsonMeals.put(jsonMeal);
         });
         jsonRestaurant.put("mealsList", jsonMeals);
@@ -112,7 +114,8 @@ Restaurant restaurant = HelloApplication.restaurant;
             jsonTable.put("tableNumber", table.getTableNumber());
             jsonTable.put("size", table.getSize());
             jsonTable.put("place", table.getPlace());
-            jsonTable.put("isFree", table.isFree());
+            jsonTable.put("isFree", true);
+            jsonTable.put("customer",new ArrayList<>());
             jsonTables.put(jsonTable);
         });
         jsonRestaurant.put("tablesList", jsonTables);

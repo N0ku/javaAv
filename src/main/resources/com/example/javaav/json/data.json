@@ -78,34 +78,7 @@
       "tel":"06 12 34 56 78",
       "age":28,
       "adress":"1 rue de la Liberté",
-      "orders": [{
-        "id": "a2975c45-b9f5-4986-a03b-8d1c2e1c996c",
-        "mealList": [ {
-          "name":"Manakish Zaatar",
-          "imgUrl":"https://frenchbakery.cafe/wp-content/uploads/2021/08/RARE0108.jpg",
-          "price":"5.5f",
-          "nbOrder":23,
-          "desc":"Pain plat au thym et au sumac",
-          "marge":"2.5f",
-          "ingredients":[
-            {
-              "id": 1,
-              "price": 10,
-              "name": "Tomates"
-
-            },
-            {
-              "id": 2,
-              "price": 20,
-              "name": "Fromage"
-
-            }
-          ]
-        }],
-        "totalPrice": 123.99,
-        "hour": "12:05:00",
-        "status": "pending"
-      }],
+      "orders": [],
       "groupId":1
     },
     {
