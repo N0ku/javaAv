@@ -20,6 +20,10 @@ public class Customers extends Person{
         return orders;
     }
 
+    public void setOrders(ArrayList<Orders> orders){
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "Customers{"+"id="+getId()+", name="+ getName()+", tel="+getTel()+", age="+getAge()+ ", adress="+getAdress()+
