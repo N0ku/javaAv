@@ -46,7 +46,7 @@ public class MenuCreationViewController  {
     @FXML
     private Button backButton;
     @FXML
-    private Label errorLabel;
+    private Label ingredientsListSetUp;
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
     public  static List<Ingredients> ingredientsList = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class MenuCreationViewController  {
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
-
+        ingredients.add(0, "");
         ingredientsComboBox.getItems().addAll(ingredients);
         ingredientsComboBox.getSelectionModel().selectFirst();
         String selectedIngredientName = ingredientsComboBox.getValue();
@@ -83,7 +83,8 @@ public class MenuCreationViewController  {
                             .orElse(null))
                     .filter(Objects::nonNull)
                     .forEach(ingredientsList::add);
-            System.out.println(ingredientsList);
+            ingredientsListSetUp.setText(ingredientsList.stream().map(Ingredients :: getName).collect(Collectors.toList()).toString());
+            System.out.println();
 
 //---------------------------------------------
         });
