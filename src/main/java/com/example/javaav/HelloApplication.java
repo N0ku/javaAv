@@ -15,6 +15,8 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.text.DateFormat;
 import java.util.stream.Collectors;
@@ -57,7 +59,8 @@ public class HelloApplication extends Application {
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
         Date serviceEnd = format.parse("12:25");
-
+        System.out.println(customersFree.get(0));
+        System.out.println(customersFree.get(0).getOrders());
         Service service = new Service(serviceStart, serviceEnd, true,"00:00");
         restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
     }
@@ -97,8 +100,11 @@ public class HelloApplication extends Application {
 
                                             .collect(Collectors.toCollection(ArrayList::new));
                                     try {
-                                        return new Orders(meals, o.getDouble("totalPrice"), DATE_FORMAT.parse(o.getString("hour")));
-                                    } catch (ParseException e) {
+                                        LocalDateTime dateTime = LocalDateTime.now();
+                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm:ss");
+                                        String formattedDateTime = dateTime.format(formatter);
+                                        return new Orders(meals, o.getDouble("totalPrice"), new Date());
+                                    } catch (Exception e) {
                                         e.printStackTrace();
                                         // Handle the exception appropriately
                                         return null;
