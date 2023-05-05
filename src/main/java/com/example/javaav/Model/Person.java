@@ -1,5 +1,7 @@
 package com.example.javaav.Model;
 
+import org.json.JSONObject;
+
 import java.util.UUID;
 
 abstract class Person {
@@ -56,6 +58,16 @@ abstract class Person {
     }
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", this.getId());
+        jsonObject.put("name", this.getName());
+        jsonObject.put("mail", this.getMail());
+        jsonObject.put("tel", this.getTel());
+        jsonObject.put("age", this.getAge());
+        jsonObject.put("adress", this.getAdress());
+        return jsonObject;
     }
     
 }

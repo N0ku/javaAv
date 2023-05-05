@@ -2,6 +2,7 @@ package com.example.javaav.Controllers;
 
 import com.example.javaav.HelloApplication;
 import com.example.javaav.Model.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -66,6 +67,8 @@ public class DashboardViewController implements Initializable {
 
     @FXML
     private Button gestionButton;
+
+
 
     @FXML
     private Label factl;

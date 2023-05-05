@@ -8,7 +8,6 @@ public class Meals {
     float price;
     int nbOrder;
     String desc;
-    boolean isCancel;
     float marge;
     int quantity;
     ArrayList<Ingredients> ingredients;
@@ -20,7 +19,6 @@ public class Meals {
         this.price = price;
         this.nbOrder = nbOrder;
         this.desc = desc;
-        this.isCancel = false;
         this.marge = marge;
         this.ingredients = ingredients;
         this.quantity=0;
@@ -66,13 +64,6 @@ public class Meals {
         this.desc = desc;
     }
 
-    public boolean isCancel() {
-        return isCancel;
-    }
-
-    public void setCancel(boolean isCancel) {
-        this.isCancel = isCancel;
-    }
 
     public float getMarge() {
         return marge;

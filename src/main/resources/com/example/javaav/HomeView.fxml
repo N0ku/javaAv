@@ -36,6 +36,7 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="quitButton" mnemonicParsing="false" text="Quitter" />
                </children>
             </VBox>
          </children>
