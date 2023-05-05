@@ -125,15 +125,6 @@ public class DisplayEmployeeViewController implements Initializable {
                 er.add(map);
             });
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
-            try {
-                Parent root = FXMLLoader.load((Objects
-                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
-                Scene currentScene = backButton.getScene();
-                currentScene.setRoot(root);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         });
 
 
