@@ -100,8 +100,8 @@ public class DisplayEmployeeViewController implements Initializable {
                 error.printStackTrace();
             }
         });
-
-        backButton.setOnMouseClicked(event -> {
+        
+           backButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects
                         .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
@@ -113,35 +113,31 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
 
-        /*
-         * buttonDelete.setOnAction(e -> {
-         * List<String> r = List.of("id","name","tel","mail");
-         * List<HashMap<String,String>> er = new ArrayList<>();
-         * personData.stream().forEach(person ->{
-         * HashMap<String, String> map = new HashMap<>();
-         * map.put("id", String.valueOf(person.getId()));
-         * map.put("name", person.getName());
-         * map.put("tel", person.getTel());
-         * map.put("mail", person.getMail());
-         * er.add(map);
-         * });
-         * PdfGenerateController controllerEmplo = new PdfGenerateController(r,er,
-         * "Employee");
-         * try {
-         * FXMLLoader loader = new
-         * FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
-         * loader.setController(controllerEmplo);
-         * Scene newScene = new Scene(loader.load());
-         * 
-         * Stage currentStage = (Stage) this.buttonDelete.getScene().getWindow();
-         * currentStage.setScene(newScene);
-         * } catch (IOException error) {
-         * error.printStackTrace();
-         * }
-         * });
-         * 
-         */
-        buttonDelete.setOnAction(e -> {
+        generatePdf.setOnAction(e -> {
+            List<String> r = List.of("id","name","tel","mail");
+            List<HashMap<String,String>> er = new ArrayList<>();
+            personData.stream().forEach(person ->{
+                HashMap<String, String> map = new HashMap<>();
+                map.put("id", String.valueOf(person.getId()));
+                map.put("name", person.getName());
+                map.put("tel", person.getTel());
+                map.put("mail", person.getMail());
+                er.add(map);
+            });
+            PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
+            try {
+                Parent root = FXMLLoader.load((Objects
+                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+        buttonDelete.setOnAction(e ->{
             deleteEmployee();
         });
     }
