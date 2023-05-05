@@ -38,6 +38,9 @@ public class DisplayEmployeeViewController implements Initializable {
     private Button buttonDelete;
 
     @FXML
+    private Button generatePdf;
+
+    @FXML
     private TableColumn<Employees, Integer> columnIdEmploye;
 
     @FXML
@@ -63,12 +66,12 @@ public class DisplayEmployeeViewController implements Initializable {
 
     String dataJson = "[]";
 
+    Restaurant restaurant = HelloApplication.restaurant;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            Restaurant restaurant = HelloApplication.restaurant;
             personData.addAll(restaurant.getEmployeesList());
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,16 +100,7 @@ public class DisplayEmployeeViewController implements Initializable {
             }
         });
 
-        buttonDelete.setOnAction(e -> {
-           /* int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
-            if (selectedIndex >= 0) {
-               personData.remove(selectedIndex);
-
-            } else {
-                System.out.println("No row selected");
-            }*/
-
-
+        /*buttonDelete.setOnAction(e -> {
             List<String> r = List.of("id","name","tel","mail");
             List<HashMap<String,String>> er = new ArrayList<>();
             personData.stream().forEach(person ->{
@@ -117,9 +111,7 @@ public class DisplayEmployeeViewController implements Initializable {
                 map.put("mail", person.getMail());
                 er.add(map);
             });
-
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
-
             try {
                 FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
                 loader.setController(controllerEmplo);
@@ -130,9 +122,11 @@ public class DisplayEmployeeViewController implements Initializable {
             } catch (IOException error) {
                 error.printStackTrace();
             }
+        });
 
-
-
+         */
+        buttonDelete.setOnAction(e ->{
+            deleteEmployee();
         });
     }
 
@@ -168,6 +162,21 @@ public class DisplayEmployeeViewController implements Initializable {
       
 
     }
+
+  private void deleteEmployee(){
+         int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
+            if (selectedIndex >= 0) {
+               personData.remove(selectedIndex);
+               restaurant.getEmployeesList().remove(selectedIndex);
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Error");
+                alert.setContentText("Pas de ligne séléctionner");
+                alert.show();
+            }
+  }
 
     private void handleEmployeeFromJson(String json){
         JSONArray arrayEmployee = new JSONArray(json);
