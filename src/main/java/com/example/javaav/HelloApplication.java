@@ -37,6 +37,9 @@ public class HelloApplication extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("style.css")).toExternalForm());
         stage.setTitle("Le Beyrouth");
         stage.setScene(scene);
+
+        stage.sizeToScene();
+
         stage.show();
     }
 

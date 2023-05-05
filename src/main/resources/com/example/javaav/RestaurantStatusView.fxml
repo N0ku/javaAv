@@ -60,11 +60,6 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="menuListButton" mnemonicParsing="false" styleClass="button-style" text="Liste des Menus">
-                     <VBox.margin>
-                        <Insets top="20.0" />
-                     </VBox.margin>
-                  </Button>
                   <Button fx:id="pdfButton" mnemonicParsing="false" styleClass="button-style" text="Generer pdf finance">
                      <VBox.margin>
                         <Insets top="20.0" />
