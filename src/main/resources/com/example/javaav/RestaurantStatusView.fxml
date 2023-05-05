@@ -13,7 +13,7 @@
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="600.0" style="-fx-background-color: #07034d;">
          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" text="Back">
+            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="84.0" styleClass="nav-buttons" text="Accueil">
                <HBox.margin>
                   <Insets left="30.0" />
                </HBox.margin>
@@ -33,14 +33,38 @@
          <children>
             <ListView fx:id="tablesList" prefHeight="365.0" prefWidth="249.0" />
             <ListView fx:id="customersList" prefHeight="363.0" prefWidth="206.0" />
-            <VBox alignment="CENTER" prefHeight="363.0" prefWidth="151.0">
+            <VBox alignment="CENTER" prefHeight="363.0" prefWidth="151.0" style="-fx-background-color: #a5bae8;">
                <children>
-                  <Button fx:id="dashboardButton" mnemonicParsing="false" text="Dashboard">
+                  <Button fx:id="dashboardButton" mnemonicParsing="false" styleClass="button-style" text="Dashboard">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="createOrderButton" mnemonicParsing="false" text="Ajouter une commande" />
+                  <Button fx:id="createOrderButton" mnemonicParsing="false" styleClass="button-style" text="Ajouter une commande">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></Button>
+                  <Button fx:id="ordersListButton" mnemonicParsing="false" styleClass="button-style" text="Liste des Commandes">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="employeeListButton" mnemonicParsing="false" styleClass="button-style" text="Liste des Employés" />
+                  <Button fx:id="createEmployeeButton" mnemonicParsing="false" styleClass="button-style" text="Créer un Employé">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="createMenuButton" mnemonicParsing="false" styleClass="button-style" text="Créer un Menu">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="menuListButton" mnemonicParsing="false" styleClass="button-style" text="Liste des Menus">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </children>

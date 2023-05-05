@@ -57,18 +57,20 @@ public class DisplayEmployeeViewController implements Initializable {
     @FXML
     private TextField textSearch;
 
-    Employees empoTest = new Employees("eee","ffef","0987654",12,"dzdfzf","ffefef",12,2000);
+    @FXML
+    private Button backButton;
+
+    Employees empoTest = new Employees("eee", "ffef", "0987654", 12, "dzdfzf", "ffefef", 12, 2000);
 
     ObservableList<Employees> personData = FXCollections.observableArrayList();
 
     String dataJson = "[]";
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            this.dataJson= new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/employee.json")));
+            this.dataJson = new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/employee.json")));
             System.out.println(dataJson);
             handleEmployeeFromJson(dataJson);
         } catch (IOException e) {
@@ -82,12 +84,12 @@ public class DisplayEmployeeViewController implements Initializable {
         }
         personData.add(empoTest);
         columnIdEmploye.setCellValueFactory(new PropertyValueFactory<Employees, Integer>("id"));
-        columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String >("jobName"));
+        columnJob.setCellValueFactory(new PropertyValueFactory<Employees, String>("jobName"));
         columnName.setCellValueFactory(new PropertyValueFactory<Employees, String>("name"));
-        columnMail.setCellValueFactory(new PropertyValueFactory<Employees, String >("mail"));
+        columnMail.setCellValueFactory(new PropertyValueFactory<Employees, String>("mail"));
         globalTab.setItems(personData);
 
-        buttonAdd.setOnAction(e ->{
+        buttonAdd.setOnAction(e -> {
             rewriteJsonEmployee();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("CreationEmployeeView.fxml"));
@@ -96,6 +98,17 @@ public class DisplayEmployeeViewController implements Initializable {
                 currentStage.setScene(newScene);
             } catch (IOException error) {
                 error.printStackTrace();
+            }
+        });
+
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
@@ -109,9 +122,9 @@ public class DisplayEmployeeViewController implements Initializable {
             }*/
 
 
-            List<String> r = List.of("id","name","tel","mail");
-            List<HashMap<String,String>> er = new ArrayList<>();
-            personData.stream().forEach(person ->{
+            List<String> r = List.of("id", "name", "tel", "mail");
+            List<HashMap<String, String>> er = new ArrayList<>();
+            personData.stream().forEach(person -> {
                 HashMap<String, String> map = new HashMap<>();
                 map.put("id", String.valueOf(person.getId()));
                 map.put("name", person.getName());
@@ -120,7 +133,7 @@ public class DisplayEmployeeViewController implements Initializable {
                 er.add(map);
             });
 
-            PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
+            PdfGenerateController controllerEmplo = new PdfGenerateController(r, er, "Employee");
 
             try {
                 FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
@@ -132,7 +145,6 @@ public class DisplayEmployeeViewController implements Initializable {
             } catch (IOException error) {
                 error.printStackTrace();
             }
-
 
 
 
@@ -156,19 +168,17 @@ public class DisplayEmployeeViewController implements Initializable {
 // Récupérer le contrôleur de la vue FXML
 
 
-
 // Afficher la boîte de dialogue
-
 
 
         });
     }
 
 
-    private void rewriteJsonEmployee(){
+    private void rewriteJsonEmployee() {
         JSONArray jsonArray = new JSONArray(dataJson);
-        personData.stream().forEach(person ->{
-            Optional<JSONObject> matchingObject = IntStream.range(0,jsonArray.length()).mapToObj(jsonArray::getJSONObject)
+        personData.stream().forEach(person -> {
+            Optional<JSONObject> matchingObject = IntStream.range(0, jsonArray.length()).mapToObj(jsonArray::getJSONObject)
                     .filter(e ->
                             e.getInt("id") == person.getId().hashCode()
                     )
@@ -193,17 +203,16 @@ public class DisplayEmployeeViewController implements Initializable {
             e.printStackTrace();
         }
 
-      
 
     }
 
-    private void handleEmployeeFromJson(String json){
+    private void handleEmployeeFromJson(String json) {
         JSONArray arrayEmployee = new JSONArray(json);
-          IntStream
-                .range(0,arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e ->{
-                    personData.add(new Employees(e.getString("name"),e.getString("mail"),
-                    e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
-                    e.getInt("workHours"),e.getFloat("salary")));
+        IntStream
+                .range(0, arrayEmployee.length()).mapToObj(arrayEmployee::getJSONObject).forEach(e -> {
+                    personData.add(new Employees(e.getString("name"), e.getString("mail"),
+                            e.getString("tel"), e.getInt("age"), e.getString("adress"), e.getString("jobName"),
+                            e.getInt("workHours"), e.getFloat("salary")));
                 });
     }
 

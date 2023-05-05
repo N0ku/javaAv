@@ -15,11 +15,16 @@
    <children>
       <VBox layoutX="1.0" layoutY="1.0">
          <children>
-            <HBox prefHeight="49.0" prefWidth="613.0">
+            <HBox alignment="CENTER" prefHeight="49.0" prefWidth="613.0" style="-fx-background-color: #07034d;">
                <children>
-                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="614.0" text="Mes Employées">
+                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" styleClass="nav-buttons" text="Retour">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label alignment="CENTER" prefHeight="50.0" prefWidth="614.0" text="Mes Employées" textFill="WHITE">
                      <font>
-                        <Font size="29.0" />
+                        <Font name="American Typewriter" size="29.0" />
                      </font>
                      <HBox.margin>
                         <Insets bottom="10.0" />
@@ -27,9 +32,9 @@
                   </Label>
                </children>
             </HBox>
-            <HBox>
+            <HBox prefWidth="669.0" style="-fx-background-color: #07034d;">
                <children>
-                  <TextField fx:id="textSearch" alignment="CENTER" prefHeight="26.0" prefWidth="160.0" promptText="Search ...">
+                  <TextField fx:id="textSearch" alignment="CENTER" prefHeight="26.0" prefWidth="160.0" promptText="Search ..." styleClass="search-style">
                      <HBox.margin>
                         <Insets left="30.0" top="10.0" />
                      </HBox.margin>
@@ -39,12 +44,12 @@
                         <Insets left="160.0" />
                      </HBox.margin>
                      <children>
-                        <Button fx:id="buttonAdd" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Ajout">
+                        <Button fx:id="buttonAdd" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" styleClass="nav-buttons" text="Ajout">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Button>
-                        <Button fx:id="buttonDelete" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" text="Delete">
+                        <Button fx:id="buttonDelete" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="42.0" prefWidth="84.0" styleClass="nav-buttons" text="Delete">
                            <HBox.margin>
                               <Insets left="40.0" />
                            </HBox.margin>
@@ -60,11 +65,11 @@
                <children>
                   <TableView fx:id="globalTab" prefHeight="368.0" prefWidth="669.0">
                     <columns>
-                      <TableColumn fx:id="columnIdEmploye" prefWidth="46.22807002067566" text="Id" />
-                      <TableColumn fx:id="columnName" prefWidth="130.44862365722656" text="Prénom" />
-                        <TableColumn fx:id="columnLastName" prefWidth="128.0513916015625" text="Nom" />
-                        <TableColumn fx:id="columnJob" prefWidth="134.05133056640625" text="Emploi" />
-                        <TableColumn fx:id="columnMail" prefWidth="227.17367553710938" text="email" />
+                      <TableColumn fx:id="columnIdEmploye" editable="false" prefWidth="46.22807002067566" text="Id" />
+                      <TableColumn fx:id="columnName" editable="false" prefWidth="130.44862365722656" text="Prénom" />
+                        <TableColumn fx:id="columnLastName" editable="false" prefWidth="128.0513916015625" text="Nom" />
+                        <TableColumn fx:id="columnJob" editable="false" prefWidth="134.05133056640625" text="Emploi" />
+                        <TableColumn fx:id="columnMail" editable="false" prefWidth="227.17367553710938" text="email" />
                     </columns>
                   </TableView>
                </children>

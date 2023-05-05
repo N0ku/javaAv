@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.CreateOrderViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javaav.Controllers.CreateOrderViewController">
    <children>
       <VBox fx:id="containerConfigOrder" layoutX="3.0" layoutY="8.0" prefHeight="394.0" prefWidth="590.0">
          <children>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label contentDisplay="RIGHT" text="Table">
+                  <Label contentDisplay="RIGHT" text="Table:">
                      <graphic>
-                        <ComboBox fx:id="comboBoxTable" prefHeight="25.0" prefWidth="216.0" promptText="Selectionne une table" />
+                        <ComboBox fx:id="comboBoxTable" prefHeight="25.0" prefWidth="216.0" promptText="Selectionne une table" styleClass="button-style" />
                      </graphic>
+                     <font>
+                        <Font name="American Typewriter" size="16.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
@@ -22,15 +32,21 @@
                <children>
                   <Label contentDisplay="RIGHT" text="Client">
                      <graphic>
-                        <ComboBox fx:id="comboBoxClient" prefWidth="150.0" promptText="Selectionne un client " />
+                        <ComboBox fx:id="comboBoxClient" prefWidth="150.0" promptText="Selectionne un client " styleClass="button-style" />
                      </graphic>
+                     <font>
+                        <Font name="American Typewriter" size="16.0" />
+                     </font>
                   </Label>
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="btnValidConfig" mnemonicParsing="false" text="Valider" />
-                  <Button fx:id="backButton" mnemonicParsing="false" text="Retour " />
+                  <Button fx:id="btnValidConfig" mnemonicParsing="false" styleClass="button-style" text="Valider">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="backButton" mnemonicParsing="false" styleClass="button-style" text="Retour " />
                </children>
             </HBox>
          </children>
@@ -39,19 +55,31 @@
          <children>
             <Label text="Liste des plats">
                <font>
-                  <Font size="18.0" />
+                  <Font name="American Typewriter" size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
             </Label>
             <ListView fx:id="mealListView" maxHeight="380.0" prefHeight="245.0" prefWidth="317.0" />
          </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
       </VBox>
       <HBox fx:id="containerSelectOrder" layoutY="280.0" prefHeight="120.0" prefWidth="600.0" visible="false">
          <children>
             <ImageView fx:id="mealImageView" fitHeight="101.0" fitWidth="107.0" />
             <VBox prefHeight="110.0" prefWidth="247.0">
                <children>
-                  <Label fx:id="nameLabel" />
-                  <Label fx:id="priceLabel" />
+                  <Label fx:id="nameLabel">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin></Label>
+                  <Label fx:id="priceLabel">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin></Label>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <Spinner fx:id="quantitySpinner" prefHeight="25.0" prefWidth="91.0" />
@@ -59,15 +87,27 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="addButton" text="Ajouter" />
-                        <Button fx:id="finalizeButton" text="Finaliser" />
+                        <Button fx:id="addButton" styleClass="button-style" text="Ajouter">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="finalizeButton" styleClass="button-style" text="Finaliser" />
                      </children>
                   </HBox>
                </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
             </VBox>
          </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
       </HBox>
       <VBox fx:id="containerResult" layoutX="349.0" layoutY="19.0" prefHeight="205.0" prefWidth="221.0" />
-      <Label fx:id="labelTotalPrice" layoutX="382.0" layoutY="245.0" prefHeight="17.0" prefWidth="168.0" />
+      <Label fx:id="labelTotalPrice" layoutX="382.0" layoutY="245.0" prefHeight="17.0" prefWidth="168.0">
+         <font>
+            <Font name="American Typewriter" size="18.0" />
+         </font></Label>
    </children>
 </AnchorPane>

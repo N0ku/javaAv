@@ -31,29 +31,44 @@ public class RestaurantStatusViewController implements Initializable {
     private Button backButton;
 
     @FXML
-    private ListView<Customers> customersList;
-
-    @FXML
-    private ListView<Tables> tablesList;
-
-    @FXML
     private Label chronoLabel;
+
+    @FXML
+    private Button createEmployeeButton;
+
+    @FXML
+    private Button createMenuButton;
 
     @FXML
     private Button createOrderButton;
 
     @FXML
+    private ListView<Customers> customersList;
+
+    @FXML
     private Button dashboardButton;
 
     @FXML
+    private Button employeeListButton;
+
+    @FXML
+    private Button menuListButton;
+
+    @FXML
+    private Button ordersListButton;
+
+    @FXML
     private AnchorPane root;
+
+    @FXML
+    private ListView<Tables> tablesList;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         backButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DashboardView.fxml"))));
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/HomeView.fxml"))));
                 Scene currentScene = backButton.getScene();
                 currentScene.setRoot(root);
 
@@ -175,6 +190,63 @@ public class RestaurantStatusViewController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        ordersListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/OrderDisplayView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        employeeListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/DisplayEmployeeView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        createEmployeeButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/CreationEmployeeView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        createMenuButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuCreationView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        menuListButton.setOnMouseClicked(event -> {
+            try {
+                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/MenuDisplayView.fxml"))));
+                Scene currentScene = backButton.getScene();
+                currentScene.setRoot(root);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
 
         // clear listview selection
         root.setOnMouseClicked(event -> {
