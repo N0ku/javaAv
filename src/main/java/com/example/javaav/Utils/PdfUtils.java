@@ -3,12 +3,16 @@ package com.example.javaav.Utils;
 import com.example.javaav.Model.Employees;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import javafx.scene.control.Alert;
 
 import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PdfUtils {
@@ -16,8 +20,13 @@ public class PdfUtils {
     public PdfUtils(String nameDoc) {
         document = new Document();
         try{
+            String name =  Arrays.stream(nameDoc.split("-")).collect(Collectors.toList()).get(0);
             String userHome = System.getProperty("user.home");
-            Path desktopPath = Paths.get(userHome, "Desktop");
+            Path desktopPath = Paths.get(userHome, "Desktop","pdfBeyrout", name);
+
+            if (!Files.exists(desktopPath)) {
+                Files.createDirectories(desktopPath);
+            }
             Path filePath = desktopPath.resolve(nameDoc);
             PdfWriter.getInstance(document, new FileOutputStream(filePath.toFile()));
             document.open();
@@ -66,7 +75,11 @@ public class PdfUtils {
                 document.add(new Phrase("\n"));
                 document.add(footer);
             } catch (DocumentException e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Error");
+                alert.setContentText("Erreur de cfreation");
+                alert.show();
             }
         }
     }
