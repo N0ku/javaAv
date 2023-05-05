@@ -37,7 +37,7 @@ public class MenuCreationViewController {
 
     @FXML
     private Spinner <Integer> priceSpinner;
-    SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,10,1);
+    SpinnerValueFactory<Integer> svf = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,100,1);
     @FXML
     private ComboBox<String> ingredientsComboBox;
 
