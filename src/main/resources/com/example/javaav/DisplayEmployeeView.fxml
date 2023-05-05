@@ -30,7 +30,6 @@
                         <Insets bottom="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="generatePdf" mnemonicParsing="false" prefHeight="44.0" prefWidth="142.0" text="Générer un pdf " />
                </children>
             </HBox>
             <HBox prefWidth="669.0" style="-fx-background-color: #07034d;">
@@ -62,6 +61,7 @@
                   </HBox>
                </children>
             </HBox>
+            <Button fx:id="generatePdf" mnemonicParsing="false" prefHeight="0.0" prefWidth="129.0" text="Générer un pdf " />
             <HBox>
                <children>
                   <TableView fx:id="globalTab" prefHeight="368.0" prefWidth="669.0">

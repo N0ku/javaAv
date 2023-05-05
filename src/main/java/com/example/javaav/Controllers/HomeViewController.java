@@ -30,6 +30,8 @@ public class HomeViewController implements Initializable {
     @FXML
     private Button startButton;
 
+    @FXML
+    private Button quitButton;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = HelloApplication.restaurant;
@@ -37,6 +39,9 @@ public class HomeViewController implements Initializable {
         ChronoThread chrono = new ChronoThread(chronoLabel,restaurant);
         chrono.start();
 
+        quitButton.setOnAction(event->{
+            HelloApplication.quitter();
+        });
         startButton.setOnMouseClicked(event -> {
             try {
                 Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
@@ -49,6 +54,6 @@ public class HomeViewController implements Initializable {
         });
 
         startButton.getStyleClass().add("button-style");
-
+        quitButton.getStyleClass().add("button-style");
     }
 }

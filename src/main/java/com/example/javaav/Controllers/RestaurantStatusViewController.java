@@ -18,10 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -63,6 +60,9 @@ public class RestaurantStatusViewController implements Initializable {
 
     @FXML
     private ListView<Tables> tablesList;
+
+    @FXML
+    private Button pdfButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -245,6 +245,24 @@ public class RestaurantStatusViewController implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        });
+
+        pdfButton.setOnAction(e -> {
+            List<String> r = List.of("id","prix","cout","marge");
+
+            PdfGenerateController controllerEmplo = new PdfGenerateController(r,null, "Finance");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                loader.setController(controllerEmplo);
+                Scene newScene = new Scene(loader.load());
+
+                Stage currentStage = (Stage) pdfButton.getScene().getWindow();
+                currentStage.setScene(newScene);
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+
         });
 
 

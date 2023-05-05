@@ -118,8 +118,13 @@ public class PdfGenerateController implements Initializable {
                 pdf.document.add(new Paragraph(("                                    ")));
 
                 pdf.document.add(new LineSeparator());
+                pdf.document.add(new Paragraph(("                                    ")));
             } catch (DocumentException ex) {
-                throw new RuntimeException(ex);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Error");
+                alert.setContentText("Erreur de cfreation");
+                alert.show();
             }
 
             PdfPTable table = new PdfPTable(nameCol.size());
@@ -129,7 +134,11 @@ public class PdfGenerateController implements Initializable {
                 pdf.saveTable(table);
             } catch (Exception ex) {
                 ex.printStackTrace();
-                throw new RuntimeException(ex);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Error");
+                alert.setContentText("Erreur de cfreation");
+                alert.show();
             }
 
             if(checkboxFinance.isSelected() && classname.equals("Finance")){
@@ -143,15 +152,33 @@ public class PdfGenerateController implements Initializable {
                     pdf.document.add(new Paragraph("Revenu: " + restaurant.getRecipe() ));
 
                 } catch (DocumentException ex) {
-                    throw new RuntimeException(ex);
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning Dialog");
+                    alert.setHeaderText("Error");
+                    alert.setContentText("Erreur de cfreation");
+                    alert.show();
                 }
             }
-            pdf.closePDf();
+            try{
+                pdf.closePDf();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success Dialog");
+                alert.setHeaderText("Succes");
+                alert.setContentText("Pdf  générer");
+                alert.show();
+            }catch (Exception err){
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning Dialog");
+                alert.setHeaderText("Error");
+                alert.setContentText("Erreur de cfreation");
+                alert.show();
+            }
+
         });
 
         buttonBack.setOnAction(e ->{
               try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("DashboardView.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("RestaurantStatusView.fxml"));
                 Scene newScene = new Scene(fxmlLoader.load());
                 Stage currentStage = (Stage) buttonBack.getScene().getWindow();
                 currentStage.setScene(newScene);

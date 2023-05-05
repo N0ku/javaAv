@@ -125,6 +125,17 @@ public class DisplayEmployeeViewController implements Initializable {
                 er.add(map);
             });
             PdfGenerateController controllerEmplo = new PdfGenerateController(r,er, "Employee");
+
+            try {
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PdfGenerateView.fxml"));
+                loader.setController(controllerEmplo);
+                Scene newScene = new Scene(loader.load());
+
+                Stage currentStage = (Stage) generatePdf.getScene().getWindow();
+                currentStage.setScene(newScene);
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
         });
 
 

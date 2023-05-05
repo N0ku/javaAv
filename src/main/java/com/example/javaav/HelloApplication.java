@@ -197,6 +197,19 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         launch();
     }
+    public static void quitter() {
+        RestaurantToJsonConverter restaurantToJsonConverter = new RestaurantToJsonConverter();
+        JSONObject jsonRestaurant = restaurantToJsonConverter.toJson();
+        try {
+            Files.writeString(Paths.get("src/main/resources/com/example/javaav/json/data.json"),
+                    jsonRestaurant.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Merci d'avoir utilisé notre programme !");
+        System.exit(0);
+    }
+
 
 
 }

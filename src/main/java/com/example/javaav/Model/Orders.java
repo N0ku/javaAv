@@ -13,7 +13,6 @@ public class Orders {
     String status ;
 
     public Orders(ArrayList<Meals> mealList,double totalPrice ,Date hour) {
-        System.out.println(hour);
         this.id = UUID.randomUUID();
         this.mealList = mealList;
         this.totalPrice = totalPrice;
