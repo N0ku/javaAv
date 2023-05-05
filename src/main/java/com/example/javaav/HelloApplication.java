@@ -59,8 +59,6 @@ public class HelloApplication extends Application {
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
         Date serviceEnd = format.parse("12:25");
-        System.out.println(customersFree.get(0));
-        System.out.println(customersFree.get(0).getOrders());
         Service service = new Service(serviceStart, serviceEnd, true,"00:00");
         restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
     }
