@@ -106,7 +106,7 @@
         "hour": "12:05:00",
         "status": "pending"
       }],
-      "groupId":0
+      "groupId":1
     },
     {
       "id":"df43f9d1-13c7-4e05-a77b-98a301e5e5d6",
@@ -116,7 +116,7 @@
       "age":35,
       "adress":"10 avenue des Fleurs",
       "orders": [],
-      "groupId":2
+      "groupId":3
     },
     {
       "id":"d1aef794-7506-4ad7-b14a-c5f2e4e4b4d5",
@@ -126,7 +126,7 @@
       "age":42,
       "adress":"22 rue du Château",
       "orders": [],
-      "groupId":2
+      "groupId":3
     },
     {
       "id":"ce56d6f1-efc3-4a2e-bda2-bb1bbf406a9a",
@@ -136,7 +136,7 @@
       "age":20,
       "adress":"5 boulevard du Parc",
       "orders": [],
-      "groupId":0
+      "groupId":1
     },
     {
       "id":"9c5d62d5-bd2d-4b5d-9c81-7a62307f64c8",
@@ -196,7 +196,7 @@
       "age": 39,
       "adress": "6 rue de la Fontaine",
       "orders": [],
-      "groupId": 3
+      "groupId": 4
     }
   ],
   "mealsList":[
@@ -455,7 +455,7 @@
       "customers":[]
     },
     {
-      "tableNumber":1,
+      "tableNumber":6,
       "size":2,
       "place": "Bar",
       "isFree": true,

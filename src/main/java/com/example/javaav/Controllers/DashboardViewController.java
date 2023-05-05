@@ -164,16 +164,17 @@ public class DashboardViewController implements Initializable {
         lastOrdersList.setCellFactory(o -> new CellOrders());
 
         int totalMoneyCP = restaurant.getCustomersList().stream()
-                .filter(c -> c.getTable() != null)
+                .filter(c -> c.getGroupId() != 0)
                 .flatMap(customer -> customer.getOrders().stream())
                 .reduce(0, (result, order) -> (int) (result + order.getTotalPrice()), Integer::sum);
         factp.setText(totalMoneyCP + " €");
 
         int totalMoneyCL = restaurant.getCustomersList().stream()
-                .filter(c -> c.getTable() == null)
+                .filter(c -> c.getGroupId() == 0)
                 .flatMap(customer -> customer.getOrders().stream())
                 .reduce(0, (result, order) -> (int) (result + order.getTotalPrice()), Integer::sum);
         factl.setText(totalMoneyCL + " €");
+
 
         int totalMealsPrice = restaurant.getMealsList().stream().reduce(0,(result,meal) -> (int) (result + meal.getPrice()),Integer::sum);
         totalPrice.setText(totalMealsPrice + " €");

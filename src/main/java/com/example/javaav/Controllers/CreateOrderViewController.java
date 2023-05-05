@@ -126,6 +126,9 @@ public class CreateOrderViewController implements Initializable {
             // Récupérer le client sélectionné dans le ComboBox
             Customers selectedCustomer = comboBoxClient.getSelectionModel().getSelectedItem();
             if (selectedCustomer != null) {
+                comboBoxTable.setValue(null);
+                comboBoxClient.getItems().clear();
+                comboBoxClient.setValue(null);
                 // Récupérer l'utiliser pour configurer la table
                 custom = selectedCustomer;
                 containerListMeal.setVisible(true);

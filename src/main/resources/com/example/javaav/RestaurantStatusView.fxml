@@ -41,6 +41,7 @@
                      </VBox.margin>
                   </Button>
                   <Button fx:id="createOrderButton" mnemonicParsing="false" text="Ajouter une commande" />
+                  <Button fx:id="orderStatutButton" alignment="TOP_LEFT" mnemonicParsing="false" text="Commandes en attente" />
                </children>
             </VBox>
          </children>
