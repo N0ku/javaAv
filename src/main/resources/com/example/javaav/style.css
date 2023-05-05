@@ -69,3 +69,11 @@
     -fx-fit-height: 10px;
     -fx-padding: 0 10px 0 0;
 }
+
+.nav-buttons{
+    -fx-background-color: white;
+    -fx-border-color: #33146b;
+    -fx-font-family: "Sinhala MN";
+    -fx-padding: 4pt;
+    -fx-text-fill: black;
+}
