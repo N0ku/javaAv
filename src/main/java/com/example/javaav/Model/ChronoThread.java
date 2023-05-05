@@ -11,11 +11,17 @@ public class ChronoThread extends Thread{
 
     private Restaurant restaurant;
 
+    /**
+     * Constructor of the Chrono Thread
+      */
     public ChronoThread(Label label, Restaurant restaurant){
         this.labelToUpdate = label;
         this.restaurant = restaurant;
     }
 
+    /** 
+     * Function to start the chrono thread
+     */
     public void run() {
         while (true) {
             String seconds = restaurant.getService().getSeconds();

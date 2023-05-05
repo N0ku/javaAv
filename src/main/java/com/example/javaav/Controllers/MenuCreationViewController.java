@@ -77,21 +77,6 @@ public class MenuCreationViewController {
             }
         });
 
-//---------------------------------------------------------------------------------------------------------------------
-        /* List<String> ingredients = Arrays.asList("Ingredient 1", "Ingredient 2", "Ingredient 3");
-        ingredientsComboBox.getItems().addAll(ingredients.stream().sorted().collect(Collectors.toList()));
-         ingredientsComboBox.getSelectionModel().selectFirst();
-       // ListView<String> listView = new ListView<>();
-        //listView.getItems().addAll("Ingrédient 1", "Ingrédient 2", "Ingrédient 3");
-        //listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-// ...
-
-// Récupère les éléments sélectionnés dans la ListView
-       // ObservableList<String> selectedItems = listView.getSelectionModel().getSelectedItems();
-        //for (String item : selectedItems) {
-        //    System.out.println("Ingrédient sélectionné : " + item);
-       // }*/
-//---------------------------------------------------------------------------------------------------------------------
     }
     @FXML
     private void createMealButtonAction(){
@@ -101,13 +86,6 @@ public class MenuCreationViewController {
         float price = (float) priceSpinner.getValue();
         String desc = foodDescriptionfield.getText();
         ArrayList<Ingredients> ingredients = new ArrayList<>();
-
-//---------------------------------------------------------------------------------------------------------------------
-      //  Meals selectedMeal = ingredientsComboBox.getSelectionModel().getSelectedItem();
-       // String name = selectedMeal.getName();
-        //String ingredients = selectedMeal.getIngredients();
-      //  double price = selectedMeal.getPrice();
-//---------------------------------------------------------------------------------------------------------------------
 
     //get the value of selected ingredient and put it to the list of ingredients
         String selectedItem = ingredientsComboBox.getSelectionModel().getSelectedItem();
@@ -126,12 +104,6 @@ public class MenuCreationViewController {
                         .orElse(null))
                 .filter(Objects::nonNull)
                 .forEach(ingredientsList::add);
-//---------------------------------------------------------------------------------------------------------------------
-      //  List<Ingredients> filteredIngredients = ingredients.stream()
-       //         .filter(ingredient -> ingredient.getName().toLowerCase().contains(name.toLowerCase()))
-       //         .collect(Collectors.toList());
-      //  System.out.println(filteredIngredients);
-//---------------------------------------------------------------------------------------------------------------------
 
 
 // Get selected ingredient from the combo box

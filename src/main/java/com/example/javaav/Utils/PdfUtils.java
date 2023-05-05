@@ -17,12 +17,16 @@ import java.util.stream.Stream;
 
 public class PdfUtils {
     public Document document;
+
+    /**
+     * @param nameDoc
+      */
     public PdfUtils(String nameDoc) {
         document = new Document();
-        try{
-            String name =  Arrays.stream(nameDoc.split("-")).collect(Collectors.toList()).get(0);
+        try {
+            String name = Arrays.stream(nameDoc.split("-")).collect(Collectors.toList()).get(0);
             String userHome = System.getProperty("user.home");
-            Path desktopPath = Paths.get(userHome, "Desktop","pdfBeyrout", name);
+            Path desktopPath = Paths.get(userHome, "Desktop", "pdfBeyrout", name);
 
             if (!Files.exists(desktopPath)) {
                 Files.createDirectories(desktopPath);
@@ -30,13 +34,17 @@ public class PdfUtils {
             Path filePath = desktopPath.resolve(nameDoc);
             PdfWriter.getInstance(document, new FileOutputStream(filePath.toFile()));
             document.open();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * @param table
+     * @param nameColum
+     */
     public void addTableHeader(PdfPTable table, List<String> nameColum) {
-       nameColum.stream()
+        nameColum.stream()
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -47,25 +55,34 @@ public class PdfUtils {
 
     }
 
-    public void addRows(PdfPTable table, List<HashMap<String,String>> dataRow, List<String> nameColum) {
-        dataRow.stream().forEach(row ->{
+    /**
+     * @param table
+     * @param dataRow
+     * @param nameColum
+     */
+    public void addRows(PdfPTable table, List<HashMap<String, String>> dataRow, List<String> nameColum) {
+        dataRow.stream().forEach(row -> {
             nameColum.stream().forEach(nameCol -> {
-               String data =  row.get(nameCol);
+                String data = row.get(nameCol);
                 table.addCell(data);
             });
         });
     }
 
+    /**
+     * @param table
+     * @throws DocumentException
+     */
     public void saveTable(PdfPTable table) throws DocumentException {
         document.add(table);
     }
 
-
-    public void closePDf(){
+    /**
+     * close the PDF
+     */
+    public void closePDf() {
         document.close();
     }
-
-
 
     static class Footer extends PdfPageEventHelper {
         public void onEndPage(PdfWriter writer, Document document) {
@@ -84,5 +101,3 @@ public class PdfUtils {
         }
     }
 }
-
-

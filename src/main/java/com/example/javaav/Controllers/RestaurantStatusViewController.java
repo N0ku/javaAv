@@ -57,6 +57,11 @@ public class RestaurantStatusViewController implements Initializable {
     @FXML
     private Button pdfButton;
 
+    
+    /** 
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

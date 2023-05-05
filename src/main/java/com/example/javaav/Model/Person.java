@@ -22,43 +22,95 @@ abstract class Person {
         this.adress = adress;
     }
 
+    
+    /** 
+     * @param id
+     */
     public void setId(UUID id) {
         this.id = id;
     }
 
+    
+    /** 
+     * @return UUID
+     */
     public UUID getId() {
         return id;
     }
+    
+    /** 
+     * @return String
+     */
     public String getName() {
         return name;
     }
+    
+    /** 
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
+    
+    /** 
+     * @return String
+     */
     public String getMail() {
         return mail;
     }
+    
+    /** 
+     * @param mail
+     */
     public void setMail(String mail) {
         this.mail = mail;
     }
+    
+    /** 
+     * @return String
+     */
     public String getTel() {
         return tel;
     }
+    
+    /** 
+     * @param tel
+     */
     public void setTel(String tel) {
         this.tel = tel;
     }
+    
+    /** 
+     * @return int
+     */
     public int getAge() {
         return age;
     }
+    
+    /** 
+     * @param age
+     */
     public void setAge(int age) {
         this.age = age;
     }
+    
+    /** 
+     * @return String
+     */
     public String getAdress() {
         return adress;
     }
+    
+    /** 
+     * @param adress
+     */
     public void setAdress(String adress) {
         this.adress = adress;
     }
+    
+    /** 
+     * @return JSONObject
+     */
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("id", this.getId());

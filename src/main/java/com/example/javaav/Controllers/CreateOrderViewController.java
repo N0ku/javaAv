@@ -18,7 +18,6 @@ import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -65,17 +64,21 @@ public class CreateOrderViewController implements Initializable {
     private Meals selectedMeal;
     public String selectedTableNumber;
 
-
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
     private final SpinnerValueFactory<Integer> valueFactory = new IntegerSpinnerValueFactory(0, 10, 0, 1);
 
+    /**
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         containerListMeal.setVisible(false);
         containerSelectOrder.setVisible(false);
         containerResult.setVisible(false);
         comboBoxClient.setDisable(true);
         btnValidConfig.setDisable(true);
-        labelTotalPrice.setText("");List<String> tableNumbers = MainApplication.restaurant.getTablesList()
+        labelTotalPrice.setText("");
+        List<String> tableNumbers = MainApplication.restaurant.getTablesList()
                 .stream()
                 .filter(t -> !t.isFree())
                 .map(t -> String.valueOf(t.getTableNumber()))
@@ -83,7 +86,7 @@ public class CreateOrderViewController implements Initializable {
         comboBoxTable.getItems().addAll(tableNumbers);
         comboBoxTable.setOnAction(event -> {
             // Récupérer le numéro de table sélectionné dans le ComboBox
-             selectedTableNumber = comboBoxTable.getSelectionModel().getSelectedItem().toString();
+            selectedTableNumber = comboBoxTable.getSelectionModel().getSelectedItem().toString();
             comboBoxClient.setDisable(false);
             btnValidConfig.setDisable(false);
             // Filtrer les tables en fonction du numéro de table sélectionné
@@ -92,7 +95,8 @@ public class CreateOrderViewController implements Initializable {
                     .filter(t -> String.valueOf(t.getTableNumber()).equals(selectedTableNumber))
                     .collect(Collectors.toList());
 
-            // Récupérer la liste de clients associée à la première table trouvée (ou null si aucune table ne correspond)
+            // Récupérer la liste de clients associée à la première table trouvée (ou null
+            // si aucune table ne correspond)
             List<Customers> customersList = selectedTables.stream()
                     .findFirst()
                     .map(t -> t.getCustomers())
@@ -139,7 +143,8 @@ public class CreateOrderViewController implements Initializable {
 
         backButton.setOnMouseClicked(event -> {
             try {
-                Parent root = FXMLLoader.load((Objects.requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
+                Parent root = FXMLLoader.load((Objects
+                        .requireNonNull(getClass().getResource("/com/example/javaav/RestaurantStatusView.fxml"))));
                 Scene currentScene = backButton.getScene();
                 currentScene.setRoot(root);
 
@@ -148,15 +153,12 @@ public class CreateOrderViewController implements Initializable {
             }
         });
 
-
         meals = MainApplication.restaurant.getMealsList();
-
 
         // ListView Flat List Configuration
         ObservableList<Meals> observableList = FXCollections.observableArrayList(meals);
         mealListView.setItems(observableList);
-        mealListView.setCellFactory(param ->new MealListCell());
-
+        mealListView.setCellFactory(param -> new MealListCell());
 
         mealListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             selectedMeal = newValue;
@@ -202,22 +204,22 @@ public class CreateOrderViewController implements Initializable {
 
                 // Create the order
                 ArrayList<Meals> mealsDto = new ArrayList<>(orderedMeals);
-                Orders order = new Orders(mealsDto, totalPrice,new Date());
+                Orders order = new Orders(mealsDto, totalPrice, new Date());
                 custom.getOrders().add(order);
                 List<Customers> matchingCustomers = MainApplication.restaurant.getCustomersList().stream()
-                        .filter(c -> c== custom)
+                        .filter(c -> c == custom)
                         .collect(Collectors.toList());
                 System.out.println(matchingCustomers);
 
                 // Display the order confirmation
-                StringBuilder sb = new StringBuilder("Commande "+order.getId() +"-"+custom.getName() );
+                StringBuilder sb = new StringBuilder("Commande " + order.getId() + "-" + custom.getName());
                 Map<String, Integer> mealQuantities = orderedMeals.stream()
                         .collect(Collectors.groupingBy(Meals::getName, Collectors.summingInt(Meals::getQuantity)));
-                mealQuantities.forEach((mealName, quantity) ->
-                        sb.append(mealName).append(" x ").append(quantity).append(" : ")
+                mealQuantities.forEach(
+                        (mealName, quantity) -> sb.append(mealName).append(" x ").append(quantity).append(" : ")
                                 .append(quantity * orderedMeals.stream().filter(meal -> meal.getName().equals(mealName))
-                                        .findFirst().get().getPrice()).append(" €\n")
-                );
+                                        .findFirst().get().getPrice())
+                                .append(" €\n"));
                 sb.append("\nTotal : ").append(totalPrice).append(" €");
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -238,8 +240,7 @@ public class CreateOrderViewController implements Initializable {
                 comboBoxClient.setDisable(true);
                 btnValidConfig.setDisable(true);
                 labelTotalPrice.setText("");
-            }
-            else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Panier vide ");
                 alert.setHeaderText(null);
@@ -250,6 +251,10 @@ public class CreateOrderViewController implements Initializable {
 
     }
 
+    /**
+     * This method show which meal is selected when we click on an item in a
+     * ListView of Meals
+     */
     private void showMealSelected() {
         if (selectedMeal != null) {
             // View details of selected meal
@@ -265,6 +270,9 @@ public class CreateOrderViewController implements Initializable {
         }
     }
 
+    /**
+     * Display ordered meals
+     */
     private void displayOrderedMeals() {
         containerResult.getChildren().clear(); // Clear the VBox
 
@@ -272,9 +280,9 @@ public class CreateOrderViewController implements Initializable {
         vbox.setSpacing(10);
 
         orderedMeals.stream().map(meal -> {
-             Label  nameLabelBill = new Label(meal.getName());
+            Label nameLabelBill = new Label(meal.getName());
             Label priceLabelBill = new Label(meal.getPrice() + " €");
-            Label quantityLabel = new Label(meal.getQuantity()+"");
+            Label quantityLabel = new Label(meal.getQuantity() + "");
 
             // Add the labels to a HBox
             HBox hbox = new HBox(nameLabelBill, quantityLabel, priceLabelBill);
@@ -298,7 +306,11 @@ public class CreateOrderViewController implements Initializable {
         containerResult.getChildren().add(scrollPane);
     }
 
-    //Method to display confirmation messages
+    /**
+     * @param mealName
+     * @param quantity
+     * Method to display confirmation messages
+     */
     private void showConfirmationAlert(String mealName, int quantity) {
         String message = String.format("Le plat %s a été ajouté %d fois à la commande.", mealName, quantity);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -307,7 +319,11 @@ public class CreateOrderViewController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
-    private void showErrorAlert( ) {
+
+    /**
+     * Show alert if we didn't take any meal
+     */
+    private void showErrorAlert() {
         String message = "Vous êtes dans l'obligations d'avoir au moins 1 plat. ";
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Attention");

@@ -16,30 +16,58 @@ public class Employees extends Person {
 
 
 
+    
+    /** 
+     * @return String
+     */
     public String getJobName() {
         return jobName;
     }
 
+    
+    /** 
+     * @param jobName
+     */
     public void setJobName(String jobName) {
         this.jobName = jobName;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getWorkHours() {
         return workHours;
     }
 
+    
+    /** 
+     * @param workHours
+     */
     public void setWorkHours(int workHours) {
         this.workHours = workHours;
     }
 
+    
+    /** 
+     * @return float
+     */
     public float getSalary() {
         return salary;
     }
 
+    
+    /** 
+     * @param salary
+     */
     public void setSalary(float salary) {
         this.salary = salary;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Employees [jobName=" + jobName + ", workHours=" + workHours + ", salary=" + salary + "]";
