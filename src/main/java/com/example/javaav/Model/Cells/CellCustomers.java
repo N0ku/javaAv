@@ -5,6 +5,11 @@ import javafx.scene.control.ListCell;
 
 public class CellCustomers extends ListCell<Customers> {
 
+    
+    /** 
+     * @param item
+     * @param empty
+     */
     @Override
     protected void updateItem(Customers item, boolean empty) {
         super.updateItem(item, empty);

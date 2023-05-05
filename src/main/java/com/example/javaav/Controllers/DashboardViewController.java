@@ -75,7 +75,10 @@ public class DashboardViewController implements Initializable {
     private Label totalPrice;
 
 
-
+    /**
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = MainApplication.restaurant;
@@ -116,12 +119,30 @@ public class DashboardViewController implements Initializable {
                 alert.setContentText("Le champs de recherche ne peut pas être vide");
                 alert.show();
             } else {
-                ArrayList<Meals> mealsFilter = restaurant.getMealsList().stream()
-                        .filter(meal -> meal.getIngredients().stream()
-                                .anyMatch(ingredient -> ingredient.getName().equals(searchContent))).
-                        collect(Collectors.toCollection(ArrayList::new));
-                MealList.getItems().removeAll(restaurant.getMealsList());
-                MealList.getItems().addAll(mealsFilter);
+                if (searchContent.contains(",")) {
+                    ArrayList<String> ingredients = getIngredientsList(searchContent);
+
+                    ArrayList<Meals> mealsFilter = restaurant.getMealsList().stream()
+                            .filter(meal -> meal.getIngredients().stream()
+                                    .anyMatch(ingredient -> {
+                                        for (String i : ingredients) {
+                                            if (ingredient.getName().equals(i)) {
+                                                return true;
+                                            }
+                                        }
+                                        return false;
+                                    }))
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    MealList.getItems().removeAll(restaurant.getMealsList());
+                    MealList.getItems().addAll(mealsFilter);
+                } else {
+                    ArrayList<Meals> mealsFilter = restaurant.getMealsList().stream()
+                            .filter(meal -> meal.getIngredients().stream()
+                                    .anyMatch(ingredient -> ingredient.getName().equals(searchContent))).
+                            collect(Collectors.toCollection(ArrayList::new));
+                    MealList.getItems().removeAll(restaurant.getMealsList());
+                    MealList.getItems().addAll(mealsFilter);
+                }
             }
         });
 
@@ -163,7 +184,7 @@ public class DashboardViewController implements Initializable {
         EmployeesListm45.setCellFactory(e -> new CellEmployees());
 
 
-       ordersWaitingList.getItems().addAll(ordersWaiting);
+        ordersWaitingList.getItems().addAll(ordersWaiting);
         ordersWaitingList.setCellFactory(o -> new CellOrders());
 
         lastOrdersList.getItems().addAll(ordersDelivred);
@@ -182,7 +203,7 @@ public class DashboardViewController implements Initializable {
         factl.setText(totalMoneyCL + " €");
 
 
-        int totalMealsPrice = restaurant.getMealsList().stream().reduce(0,(result,meal) -> (int) (result + meal.getPrice()),Integer::sum);
+        int totalMealsPrice = restaurant.getMealsList().stream().reduce(0, (result, meal) -> (int) (result + meal.getPrice()), Integer::sum);
         totalPrice.setText(totalMealsPrice + " €");
 
         Meals mealWithHighestPrice = restaurant.getMealsList().stream()
@@ -190,7 +211,7 @@ public class DashboardViewController implements Initializable {
                 .orElse(null);
 
         assert mealWithHighestPrice != null;
-        topPrice.setText("Name: " + mealWithHighestPrice.getName() + " Price: " +  mealWithHighestPrice.getPrice() +  " €");
+        topPrice.setText("Name: " + mealWithHighestPrice.getName() + " Price: " + mealWithHighestPrice.getPrice() + " €");
 
         Meals mealWithLowestPrice = restaurant.getMealsList().stream()
                 .min(Comparator.comparing(Meals::getPrice))
@@ -199,5 +220,17 @@ public class DashboardViewController implements Initializable {
         assert mealWithLowestPrice != null;
         lowPrice.setText("Name: " + mealWithLowestPrice.getName() + " Price: " + mealWithLowestPrice.getPrice() + " €");
 
+    }
+
+    private ArrayList<String> getIngredientsList(String searchContent) {
+        String[] ingredientsArray = searchContent.split(",");
+        ArrayList<String> ingredientsList = new ArrayList<>();
+
+        for (String ingredient : ingredientsArray) {
+            String ingredientWithoutSpace = ingredient.trim();
+            ingredientsList.add(ingredientWithoutSpace);
+        }
+
+        return ingredientsList;
     }
 }

@@ -12,6 +12,11 @@ public class CellMeals extends ListCell<Meals> {
     private final AnchorPane content = new AnchorPane();
 
 
+    
+    /** 
+     * @param item
+     * @param empty
+     */
     @Override
     protected void updateItem(Meals item, boolean empty) {
         super.updateItem(item, empty);

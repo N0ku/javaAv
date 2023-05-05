@@ -4,6 +4,7 @@ import com.example.javaav.Model.Ingredients;
 import com.example.javaav.Model.Meals;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.Objects;
 
 
-public class MenuCreationViewController {
+public class MenuCreationViewController  {
     @FXML
     private TextField foodNameField;
 
@@ -45,8 +46,9 @@ public class MenuCreationViewController {
     @FXML
     private Button backButton;
     @FXML
-    private Label errorLabel;
+    private Label ingredientsListSetUp;
     private final ArrayList<Meals> orderedMeals = new ArrayList<>();
+    public  static List<Ingredients> ingredientsList = new ArrayList<>();
 
 
     public void initialize() {
@@ -60,11 +62,32 @@ public class MenuCreationViewController {
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
-
+        ingredients.add(0, "");
         ingredientsComboBox.getItems().addAll(ingredients);
         ingredientsComboBox.getSelectionModel().selectFirst();
         String selectedIngredientName = ingredientsComboBox.getValue();
         System.out.println(selectedIngredientName);
+        // create an event to add ingredient to the ingredientsList
+        ingredientsComboBox.setOnMousePressed(mouseEvent -> {
+            String selectedItem = ingredientsComboBox.getSelectionModel().getSelectedItem();
+            System.out.println(selectedItem);
+            ArrayList<String> selectedItems = new ArrayList<>();
+            selectedItems.add(selectedItem);
+            System.out.println(meals);
+
+            selectedItems.stream()
+                    .map(ingredientName -> meals.stream()
+                            .flatMap(meal -> meal.getIngredients().stream())
+                            .filter(ingredient -> ingredient.getName().equals(ingredientName))
+                            .findFirst()
+                            .orElse(null))
+                    .filter(Objects::nonNull)
+                    .forEach(ingredientsList::add);
+            ingredientsListSetUp.setText(ingredientsList.stream().map(Ingredients :: getName).collect(Collectors.toList()).toString());
+            System.out.println();
+
+//---------------------------------------------
+        });
 
         backButton.setOnMouseClicked(event -> {
             try {
@@ -93,6 +116,7 @@ public class MenuCreationViewController {
        // }*/
 //---------------------------------------------------------------------------------------------------------------------
     }
+
     @FXML
     private void createMealButtonAction(){
     // get the variable from the form
@@ -110,22 +134,7 @@ public class MenuCreationViewController {
 //---------------------------------------------------------------------------------------------------------------------
 
     //get the value of selected ingredient and put it to the list of ingredients
-        String selectedItem = ingredientsComboBox.getSelectionModel().getSelectedItem();
-        System.out.println(selectedItem);
-        ArrayList<String> selectedItems = new ArrayList<>();
-        selectedItems.add(selectedItem);
-        List<Ingredients> ingredientsList = new ArrayList<>();
-        ArrayList<Meals> meals = MainApplication.restaurant.getMealsList();
-        System.out.println(meals);
 
-        selectedItems.stream()
-                .map(ingredientName -> meals.stream()
-                        .flatMap(meal -> meal.getIngredients().stream())
-                        .filter(ingredient -> ingredient.getName().equals(ingredientName))
-                        .findFirst()
-                        .orElse(null))
-                .filter(Objects::nonNull)
-                .forEach(ingredientsList::add);
 //---------------------------------------------------------------------------------------------------------------------
       //  List<Ingredients> filteredIngredients = ingredients.stream()
        //         .filter(ingredient -> ingredient.getName().toLowerCase().contains(name.toLowerCase()))
@@ -159,6 +168,7 @@ public class MenuCreationViewController {
         priceSpinner.getValueFactory().setValue(0);
         foodDescriptionfield.clear();
         ingredientsComboBox.getSelectionModel().clearSelection();
+        listIngredients.getItems().clear();
     }
 
 }

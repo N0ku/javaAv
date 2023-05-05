@@ -41,6 +41,11 @@ public class MealListCell extends ListCell<Meals> {
         });
     }
 
+    
+    /** 
+     * @param meal
+     * @param empty
+     */
     @Override
     protected void updateItem(Meals meal, boolean empty) {
         super.updateItem(meal, empty);
@@ -57,6 +62,10 @@ public class MealListCell extends ListCell<Meals> {
     }
 
 
+    
+    /** 
+     * @param meal
+     */
     private void showMealDetails(Meals meal) {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);

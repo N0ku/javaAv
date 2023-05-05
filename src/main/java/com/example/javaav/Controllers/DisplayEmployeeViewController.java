@@ -59,6 +59,11 @@ public class DisplayEmployeeViewController implements Initializable {
 
     Restaurant restaurant = MainApplication.restaurant;
 
+    
+    /** 
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -134,7 +139,9 @@ public class DisplayEmployeeViewController implements Initializable {
         });
     }
 
-
+    /**
+     * function to delete a specific employee in a listView of Employees
+      */
     private void deleteEmployee() {
         int selectedIndex = globalTab.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {

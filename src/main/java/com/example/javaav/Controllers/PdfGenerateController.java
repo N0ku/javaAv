@@ -67,12 +67,20 @@ public class PdfGenerateController implements Initializable {
     @FXML
     private CheckBox checkboxFinance;
 
+    /**
+     * Constructor of the pdf generator controller
+     */
     public PdfGenerateController(List<String> nameAttribut, List<HashMap<String, String>> data, String className) {
         this.nameAttribut = nameAttribut;
         this.data = data;
         this.classname= className;
     }
 
+    
+    /** 
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = MainApplication.restaurant;
@@ -190,6 +198,10 @@ public class PdfGenerateController implements Initializable {
     }
 
 
+    
+    /** 
+     * @return List<HashMap<String, String>>
+     */
     private List<HashMap<String,String>> getDataOrders(){
         Restaurant restaurant = MainApplication.restaurant;
         ArrayList<Customers> custu = restaurant.getCustomersList();
@@ -214,6 +226,10 @@ public class PdfGenerateController implements Initializable {
     }
 
 
+    
+    /** 
+     * @param orders
+     */
     public void calcTotalOrder(Orders orders){
 
         if (orders.getMealList().isEmpty()){
@@ -230,6 +246,12 @@ public class PdfGenerateController implements Initializable {
 
     }
 
+    
+    /** 
+     * @param orders
+     * @param mode
+     * @return String
+     */
     public String calcOrder(Orders orders, String mode){
 
         if (orders.getMealList().isEmpty()){
@@ -246,6 +268,10 @@ public class PdfGenerateController implements Initializable {
     }
 
 
+    
+    /** 
+     * @param att
+     */
     public void setNameAttribut(List<String> att) {
         this.nameAttribut.addAll(att);
     }

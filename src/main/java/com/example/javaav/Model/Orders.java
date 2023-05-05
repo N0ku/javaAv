@@ -20,26 +20,50 @@ public class Orders {
         this.status= "pending";
     }
 
+    
+    /** 
+     * @return UUID
+     */
     public UUID getId() {
         return id;
     }
 
+    
+    /** 
+     * @param id
+     */
     public void setId(UUID id) {
         this.id = id;
     }
 
+    
+    /** 
+     * @return ArrayList<Meals>
+     */
     public ArrayList<Meals> getMealList() {
         return mealList;
     }
 
+    
+    /** 
+     * @return double
+     */
     public double getTotalPrice() {
         return totalPrice;
     }
 
+    
+    /** 
+     * @return Date
+     */
     public Date getHour() {
         return hour;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Orders{" +
@@ -51,13 +75,25 @@ public class Orders {
                 '}';
     }
 
+    
+    /** 
+     * @param status
+     */
     public void setStatus(String status){
         this.status = status;
     }
+    
+    /** 
+     * @return String
+     */
     public String getStatus() {
         return  this.status;
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getMealListToString() {
         StringJoiner joiner = new StringJoiner(" ");
         this.mealList.forEach(m -> {

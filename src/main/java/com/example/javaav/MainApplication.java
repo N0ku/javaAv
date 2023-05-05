@@ -23,10 +23,14 @@ import java.text.DateFormat;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-
 public class MainApplication extends Application {
     public static Restaurant restaurant;
 
+    /**
+     * @param stage
+     * @throws IOException
+     * @throws ParseException
+     */
     @Override
     public void start(Stage stage) throws IOException, ParseException {
 
@@ -44,11 +48,14 @@ public class MainApplication extends Application {
         stage.show();
     }
 
-
+    /**
+     * @throws ParseException
+     */
     static void InitRestaurant() throws ParseException {
         String dataJson = "[]";
         try {
-            dataJson= new String(Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/data.json")));
+            dataJson = new String(
+                    Files.readAllBytes(Paths.get("src/main/resources/com/example/javaav/json/data.json")));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -56,27 +63,36 @@ public class MainApplication extends Application {
         ArrayList<Employees> employees = handleEmployeeFromJson(jsonData.getJSONArray("employees"));
         ArrayList<Customers> customersFree = handleCustomersFromJson(jsonData.getJSONArray("customersList"));
         ArrayList<Tables> tables = handleTablesFromJson(jsonData.getJSONArray("tablesList"));
-        ArrayList<Meals> meals=handleMealsFromJson(jsonData.getJSONArray("mealsList"));
+        ArrayList<Meals> meals = handleMealsFromJson(jsonData.getJSONArray("mealsList"));
         DateFormat format = new SimpleDateFormat("HH:mm");
         Date serviceStart = format.parse("12:00");
         Date serviceEnd = format.parse("12:25");
-        Service service = new Service(serviceStart, serviceEnd, true,"00:00");
-        restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"), jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"), service);
+        Service service = new Service(serviceStart, serviceEnd, true, "00:00");
+        restaurant = new Restaurant(jsonData.getString("name"), jsonData.getInt("recipe"),
+                jsonData.getString("address"), employees, customersFree, meals, tables, jsonData.getInt("capital"),
+                service);
     }
 
-
-
-    private static ArrayList<Employees> handleEmployeeFromJson(JSONArray json){
+    /**
+     * @param json
+     * @return ArrayList<Employees>
+     */
+    private static ArrayList<Employees> handleEmployeeFromJson(JSONArray json) {
         ArrayList<Employees> employees = new ArrayList<>();
         IntStream
-                .range(0,json.length()).mapToObj(json::getJSONObject).forEach(e ->{
-                    employees.add(new Employees(e.getString("name"),e.getString("mail"),
-                            e.getString("tel"),e.getInt("age"), e.getString("adress"),e.getString("jobName"),
-                            e.getInt("workHours"),e.getFloat("salary")));
+                .range(0, json.length()).mapToObj(json::getJSONObject).forEach(e -> {
+                    employees.add(new Employees(e.getString("name"), e.getString("mail"),
+                            e.getString("tel"), e.getInt("age"), e.getString("adress"), e.getString("jobName"),
+                            e.getInt("workHours"), e.getFloat("salary")));
                 });
         return employees;
 
     }
+
+    /**
+     * @param json
+     * @return ArrayList<Customers>
+     */
     private static ArrayList<Customers> handleCustomersFromJson(JSONArray json) {
         ArrayList<Customers> customers = new ArrayList<>();
         IntStream.range(0, json.length())
@@ -92,15 +108,15 @@ public class MainApplication extends Application {
                                     ArrayList<Ingredients> ingredients = new ArrayList<>();
                                     ArrayList<Meals> meals = IntStream.range(0, mealsJson.length())
                                             .mapToObj(i -> mealsJson.getJSONObject(i))
-                                            .map(m ->
-                                                new Meals(m.getString("name"), m.getString("imgUrl"),
-                                                        m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
-                                                        m.getFloat("marge"), ingredients))
+                                            .map(m -> new Meals(m.getString("name"), m.getString("imgUrl"),
+                                                    m.getFloat("price"), m.getInt("nbOrder"), m.getString("desc"),
+                                                    m.getFloat("marge"), ingredients))
 
                                             .collect(Collectors.toCollection(ArrayList::new));
                                     try {
                                         LocalDateTime dateTime = LocalDateTime.now();
-                                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH:mm:ss");
+                                        DateTimeFormatter formatter = DateTimeFormatter
+                                                .ofPattern("dd-MM-yyyy-HH:mm:ss");
                                         String formattedDateTime = dateTime.format(formatter);
                                         return new Orders(meals, o.getDouble("totalPrice"), new Date());
                                     } catch (Exception e) {
@@ -115,13 +131,18 @@ public class MainApplication extends Application {
                     int groupId = c.getInt("groupId");
 
                     Customers customer = new Customers(c.getString("name"), c.getString("mail"), c.getString("tel"),
-                            c.getInt("age"), c.getString("adress"),  groupId);
+                            c.getInt("age"), c.getString("adress"), groupId);
 
                     customer.getOrders().addAll(orders);
                     customers.add(customer);
                 });
         return customers;
     }
+
+    /**
+     * @param json
+     * @return ArrayList<Ingredients>
+     */
     private static ArrayList<Ingredients> handleIngredientsFromJson(JSONArray json) {
         return IntStream.range(0, json.length())
                 .mapToObj(i -> json.getJSONObject(i))
@@ -143,13 +164,13 @@ public class MainApplication extends Application {
                     JSONArray customersJson = t.getJSONArray("customer");
                     ArrayList<Customers> customers = new ArrayList<>();
                     if (customersJson.length() > 0) {
-                       customers= handleCustomersFromJson(customersJson);
+                        customers = handleCustomersFromJson(customersJson);
                     }
                     tables.add(new Tables(tableNumber, size, place, isFree, customers));
                 });
         return tables;
     }
-    
+
     private static ArrayList<Meals> handleMealsFromJson(JSONArray mealsJson) {
         ArrayList<Meals> meals = IntStream.range(0, mealsJson.length())
                 .mapToObj(i -> mealsJson.getJSONObject(i))
@@ -160,13 +181,16 @@ public class MainApplication extends Application {
         return meals;
     }
 
+    /**
+     * Init the thread of the chrono when we start the app
+     */
     static void initChrono() {
 
         Date serviceEnd = restaurant.getService().getServiceEnd();
         Date serviceStart = restaurant.getService().getServiceStart();
         long diffMillis = Math.abs(serviceEnd.getTime() - serviceStart.getTime());
         Duration duration = Duration.ofMillis(diffMillis);
-        final int[] seconds = new int[]{(int) duration.toSeconds()};
+        final int[] seconds = new int[] { (int) duration.toSeconds() };
         Task<Void> task = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -178,6 +202,11 @@ public class MainApplication extends Application {
                 return null;
             }
 
+            /**
+             * convert remainingSecond to a display String
+             * 
+             * @return String
+             */
             private String computeChronoValue() {
                 int remainingSeconds = seconds[0];
                 seconds[0] = remainingSeconds - 1;
@@ -197,13 +226,13 @@ public class MainApplication extends Application {
             }
         };
 
-
         new Thread(task).start();
     }
 
     public static void main(String[] args) {
         launch();
     }
+
     public static void quitter() {
         RestaurantToJsonConverter restaurantToJsonConverter = new RestaurantToJsonConverter();
         JSONObject jsonRestaurant = restaurantToJsonConverter.toJson();
@@ -215,7 +244,5 @@ public class MainApplication extends Application {
         }
         System.exit(0);
     }
-
-
 
 }

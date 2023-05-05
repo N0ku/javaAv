@@ -50,6 +50,11 @@ public class CreationEmployeeViewController implements Initializable {
 
 
 
+    
+    /** 
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Restaurant restaurant = MainApplication.restaurant;
@@ -91,6 +96,10 @@ public class CreationEmployeeViewController implements Initializable {
     }
 
 
+    
+    /** 
+     * @param e
+     */
     public void blockLetter(KeyEvent e){
         char character = e.getText().charAt(0);
         if (!Character.isDigit(character)) {
@@ -98,6 +107,9 @@ public class CreationEmployeeViewController implements Initializable {
         }
     }
 
+    /**
+     * load the next Scene to see the employee we just create
+      */
     public void nextScene(){
 
         try {

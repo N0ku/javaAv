@@ -6,6 +6,11 @@ import javafx.scene.control.ListCell;
 import java.util.ArrayList;
 
 public class CellTables extends ListCell<Tables> {
+    
+    /** 
+     * @param item
+     * @param empty
+     */
     @Override
     protected void updateItem(Tables item, boolean empty) {
         super.updateItem(item, empty);
