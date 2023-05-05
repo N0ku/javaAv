@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -40,12 +41,6 @@ public class DashboardViewController implements Initializable {
     private ListView<Orders> ordersWaitingList;
 
     @FXML
-    private ListView<?> priceCustomersLeave;
-
-    @FXML
-    private ListView<?> priceCustomersPresent;
-
-    @FXML
     private Button searchButton;
 
     @FXML
@@ -59,6 +54,12 @@ public class DashboardViewController implements Initializable {
 
     @FXML
     private Button gestionButton;
+
+    @FXML
+    private Label factl;
+
+    @FXML
+    private Label factp;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -117,10 +118,36 @@ public class DashboardViewController implements Initializable {
 
         // Let's have some fun with streams
 
-        //TODO restaurant.getCustomersList().stream().filter(customer -> customer.getOrders().getStatus() = "delivred"); // add for each after
+        ArrayList<Orders> ordersWaiting = restaurant.getCustomersList().stream()
+                .flatMap(customer -> customer.getOrders().stream())
+                .filter(order -> order.getStatus().equals("pending"))
+                .sorted(Comparator.comparing(Orders::getHour).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        //TODO ArrayList<Customers> customersWaiting =  restaurant.getCustomersList().stream().filter(customer -> customer.getOrders().getStatus() = "pending");
+        ArrayList<Orders> ordersDelivred = restaurant.getCustomersList().stream()
+                .flatMap(customer -> customer.getOrders().stream())
+                .filter(order -> order.getStatus().equals("delivred")).limit(5)
+                .sorted(Comparator.comparing(Orders::getHour).reversed())
+                .collect(Collectors.toCollection(ArrayList::new));
 
+
+        ordersWaitingList.getItems().addAll(ordersWaiting);
+        ordersWaitingList.setCellFactory(o -> new CellOrders());
+
+        lastOrdersList.getItems().addAll(ordersDelivred);
+        lastOrdersList.setCellFactory(o -> new CellOrders());
+
+        int totalMoneyCP = restaurant.getCustomersList().stream()
+                .filter(c -> c.getTable() != null)
+                .flatMap(customer -> customer.getOrders().stream())
+                .reduce(0, (result, order) -> (int) (result + order.getTotalPrice()), Integer::sum);
+        factp.setText(totalMoneyCP + " €");
+
+        int totalMoneyCL = restaurant.getCustomersList().stream()
+                .filter(c -> c.getTable() == null)
+                .flatMap(customer -> customer.getOrders().stream())
+                .reduce(0, (result, order) -> (int) (result + order.getTotalPrice()), Integer::sum);
+        factl.setText(totalMoneyCL + " €");
 
     }
 }

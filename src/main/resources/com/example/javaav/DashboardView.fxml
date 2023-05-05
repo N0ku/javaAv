@@ -58,9 +58,9 @@
       <Label fx:id="lowPrice" layoutX="141.0" layoutY="357.0" text="Label" />
       <Label fx:id="topPrice" layoutX="290.0" layoutY="357.0" text="Label" />
       <Label fx:id="totalPrice" layoutX="453.0" layoutY="357.0" text="Label" />
-      <Label layoutX="232.0" layoutY="212.0" prefHeight="17.0" prefWidth="139.0" text="Montant des factures (p)" />
-      <ListView fx:id="priceCustomersPresent" layoutX="226.0" layoutY="262.0" prefHeight="79.0" prefWidth="158.0" />
-      <Label layoutX="402.0" layoutY="212.0" prefHeight="17.0" prefWidth="139.0" text="Montant des factures (q)" />
-      <ListView fx:id="priceCustomersLeave" layoutX="399.0" layoutY="262.0" prefHeight="79.0" prefWidth="158.0" />
+      <Label layoutX="231.0" layoutY="245.0" prefHeight="56.0" prefWidth="139.0" text="Montant des factures des personnes encore présentes: " wrapText="true" />
+      <Label layoutX="414.0" layoutY="238.0" prefHeight="56.0" prefWidth="139.0" text="Montant des factures des personnes parties:" wrapText="true" />
+      <Label fx:id="factp" layoutX="280.0" layoutY="303.0" text="Label" />
+      <Label fx:id="factl" layoutX="467.0" layoutY="294.0" text="Label" />
    </children>
 </AnchorPane>
