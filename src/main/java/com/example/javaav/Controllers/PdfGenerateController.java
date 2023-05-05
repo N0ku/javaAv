@@ -216,8 +216,8 @@ public class PdfGenerateController implements Initializable {
             HashMap<String, String> map = new HashMap<>();
             map.put("id", String.valueOf(order.getId()));
             map.put("prix", String.valueOf(order.getTotalPrice()));
-            map.put("cout", calcOrder(order, "marge"));
-            map.put("marge", calcOrder(order, "cost"));
+            map.put("cout", calcOrder(order, "cost"));
+            map.put("marge", calcOrder(order, "marge"));
             calcTotalOrder(order);
             er.add(map);
         });
@@ -275,4 +275,6 @@ public class PdfGenerateController implements Initializable {
     public void setNameAttribut(List<String> att) {
         this.nameAttribut.addAll(att);
     }
+
+
 }
