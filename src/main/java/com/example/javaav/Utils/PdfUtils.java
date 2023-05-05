@@ -1,13 +1,8 @@
 package com.example.javaav.Utils;
 
 import com.example.javaav.Model.Employees;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
 
 import java.io.FileOutputStream;
 import java.nio.file.Path;
@@ -25,6 +20,7 @@ public class PdfUtils {
             Path desktopPath = Paths.get(userHome, "Desktop");
             Path filePath = desktopPath.resolve(nameDoc);
             PdfWriter.getInstance(document, new FileOutputStream(filePath.toFile()));
+            document.open();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -39,7 +35,7 @@ public class PdfUtils {
                     header.setPhrase(new Phrase(columnTitle));
                     table.addCell(header);
                 });
-        document.open();
+
     }
 
     public void addRows(PdfPTable table, List<HashMap<String,String>> dataRow, List<String> nameColum) {
@@ -55,9 +51,25 @@ public class PdfUtils {
         document.add(table);
     }
 
+
     public void closePDf(){
         document.close();
     }
 
 
+
+    static class Footer extends PdfPageEventHelper {
+        public void onEndPage(PdfWriter writer, Document document) {
+            Paragraph footer = new Paragraph("© 2023, MyCompany");
+            footer.setAlignment(Element.ALIGN_CENTER);
+            try {
+                document.add(new Phrase("\n"));
+                document.add(footer);
+            } catch (DocumentException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
+
+
