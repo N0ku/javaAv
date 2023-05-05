@@ -147,8 +147,8 @@ public class RestaurantStatusViewController implements Initializable {
             if (customersTable.size() >= 1) {
                 customersTable.forEach(c -> {
                     c.setTable(null);
-                    ArrayList<Orders> o = new ArrayList<>();
-                    c.setOrders(o);
+                    //ArrayList<Orders> o = new ArrayList<>();
+                   // c.setOrders(o);
                     int indexCustomer = restaurant.getCustomersList().indexOf(c);
                     ArrayList<Customers> customersToUpdate = restaurant.getCustomersList();
                     customersToUpdate.set(indexCustomer, c);

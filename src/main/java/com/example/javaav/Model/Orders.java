@@ -2,6 +2,7 @@ package com.example.javaav.Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.StringJoiner;
 import java.util.UUID;
 
 public class Orders {
@@ -50,5 +51,13 @@ public class Orders {
     }
     public String getStatus() {
         return  this.status;
+    }
+
+    public String getMealListToString() {
+        StringJoiner joiner = new StringJoiner(" ");
+        this.mealList.forEach(m -> {
+                joiner.add(m.getName());
+        });
+        return joiner.toString();
     }
 }
